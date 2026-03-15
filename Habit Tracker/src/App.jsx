@@ -4,16 +4,21 @@ import { Habititem } from './components/habit_item'
 import './App.css'
 
 function App() {
+    const [habit, setHabit] = useState("")
+    const [beforeSubmit, afterSubmit]=useState("")
 
-    const [habit,setHabit] = useState("")
-
-    return(
+        const Submit = () => {
+        afterSubmit(habit)
+    }
+     
+    return (
         <div>
             <Input setHabit={setHabit} />
-            <Habititem habit={habit}/>
+            <button onClick={Submit}>Submit</button>
+            <Habititem habit={beforeSubmit} />
+
         </div>
     )
-
 }
 
 export default App
