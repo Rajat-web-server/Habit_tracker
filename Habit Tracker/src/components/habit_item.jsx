@@ -1,12 +1,10 @@
-
-
-export const Habititem=({habit})=>{
-    
-
+export const Habititem =({habit})=>{
     return(
-       <>
-        <p>{habit}</p>
-    </> 
+
+        <div>
+            <p>
+                {habit}
+            </p>
+        </div>
     )
-    
 }
