@@ -5,17 +5,18 @@ import './App.css'
 
 function App() {
     const [habit, setHabit] = useState("")
-    const [beforeSubmit, afterSubmit]=useState("")
-
-        const Submit = () => {
-        afterSubmit(habit)
+    const [habitList, sethabitList] = useState([])
+    const Submit = () => {
+        sethabitList([...habitList, habit])
     }
-     
+
     return (
         <div>
             <Input setHabit={setHabit} />
             <button onClick={Submit}>Submit</button>
-            <Habititem habit={beforeSubmit} />
+            {habitList.map((h, index) => (
+                <Habititem key={index} habit={h} />
+            ))}
 
         </div>
     )
