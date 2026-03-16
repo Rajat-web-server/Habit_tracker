@@ -2,10 +2,13 @@ import { useState } from "react"
 
 export const Habititem =({habit})=>{
 
-    const [counter, setcounter]=useState(0)
+    let [Counter, setCounter]=useState(0)
 
     const click=()=>{
-        setcounter(counter+1)
+        setCounter(Counter+1)
+    }
+    const reset=()=>{
+        setCounter(0)
     }
     return(
 
@@ -13,8 +16,8 @@ export const Habititem =({habit})=>{
             <p>
                 {habit}
             </p>
-            <button onClick={click} >{counter}</button>
-
+            <button onClick={click} >{Counter}</button>
+            <button onClick={reset}>reset</button>
         </div>
     )
 }
