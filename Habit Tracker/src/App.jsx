@@ -9,6 +9,13 @@ function App() {
     const Submit = () => {
         sethabitList([...habitList, habit])
     }
+    // if(habit !="")
+    // {
+    //     return
+    // }else{
+    //     habit==""
+    //     console.log("empty")
+    // }
 
     return (
         <div>
