@@ -22,7 +22,7 @@ function App() {
             <Input setHabit={setHabit} />
             <button onClick={Submit}>Submit</button>
             {habitList.map((h, index) => (
-                <Habititem key={index} habit={h} />
+                <Habititem key={index} habit={h}/>
             ))}
 
         </div>
