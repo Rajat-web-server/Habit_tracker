@@ -9,6 +9,17 @@ function App() {
     const Submit = () => {
         sethabitList([...habitList, habit])
     }
+    
+   const updateHabit=(index, newValue)=>{
+    const updatedhabits=[...habitList]
+    updatedhabits[index]=newValue;
+    sethabitList(updatedhabits)
+   }
+//    const deleteHabit = (index) => {
+//         const updatedList = habitList.filter((_, i) => i !== index)
+//         setHabitList(updatedList)
+//     }
+
     // if(habit !="")
     // {
     //     return
@@ -19,10 +30,10 @@ function App() {
 
     return (
         <div>
-            <Input setHabit={setHabit} />
+            <Input setHabit={setHabit} habit={habit}/>
             <button onClick={Submit}>Submit</button>
             {habitList.map((h, index) => (
-                <Habititem key={index} habit={h}/>
+                <Habititem key={index} habit={h} index={index} updateHabit={updateHabit}/>
             ))}
 
         </div>

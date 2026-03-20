@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Input } from "./input"
 import "./habit_item.css"
 
-export const Habititem = ({ habit }) => {
+export const Habititem = ({ habit, index, updateHabit }) => {
 
     let [Counter, setCounter] = useState(0)
     let [isEditing, setisEditing] = useState(false)
@@ -19,7 +19,13 @@ export const Habititem = ({ habit }) => {
         setisEditing(true);
     }
     const submit = () => {
+        updateHabit(index, editHabit)
         setisEditing(false)
+    }
+    const delete_ = ()=>{
+        setCounter(0)
+        setisEditing(false)
+        habit
     }
 
     return (
@@ -31,8 +37,9 @@ export const Habititem = ({ habit }) => {
                         <input type="text" placeholder="Write  task" value={editHabit} onChange={(e) => seteditHabit(e.target.value)} />
                         <button onClick={submit}>submit</button>
                         <p className="text">
-                            {editHabit}
+                             {editHabit}
                         </p>
+
 
                     </div>
 
@@ -48,6 +55,7 @@ export const Habititem = ({ habit }) => {
                 <button onClick={click} >{Counter}</button>
                 <button onClick={reset}>reset</button>
                 <button onClick={edit}>Edit</button>
+                <button onClick={delete_}>delete</button>
             </div>
 
         </div>
