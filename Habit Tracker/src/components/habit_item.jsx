@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Input } from "./input"
 import "./habit_item.css"
 
-export const Habititem = ({ habit, index, updateHabit }) => {
+export const Habititem = ({ habit, index, updateHabit, deleteHabit }) => {
 
     let [Counter, setCounter] = useState(0)
     let [isEditing, setisEditing] = useState(false)
@@ -23,9 +23,7 @@ export const Habititem = ({ habit, index, updateHabit }) => {
         setisEditing(false)
     }
     const delete_ = ()=>{
-        setCounter(0)
-        setisEditing(false)
-        habit
+        deleteHabit(index)
     }
 
     return (
