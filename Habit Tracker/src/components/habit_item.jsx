@@ -2,9 +2,8 @@ import { useState } from "react"
 import { Input } from "./input"
 import "./habit_item.css"
 
-export const Habititem = ({ habit, index, updateHabit, deleteHabit }) => {
+export const Habititem = ({ habit, index, updateHabit, deleteHabit, Counter, setCounter }) => {
 
-    let [Counter, setCounter] = useState(0)
     let [isEditing, setisEditing] = useState(false)
     let [editHabit, seteditHabit] = useState(habit)
 
