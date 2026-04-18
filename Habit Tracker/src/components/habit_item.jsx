@@ -2,13 +2,8 @@ import { useState } from "react"
 import { Input } from "./input"
 import "./habit_item.css"
 
-<<<<<<< Updated upstream
-export const Habititem = ({ habit, index, updateHabit, deleteHabit }) => {
-=======
 export const Habititem = ({ habit, index, updateHabit, deleteHabit, Counter, setCounter, updateCounterList }) => {
->>>>>>> Stashed changes
 
-    let [Counter, setCounter] = useState(0)
     let [isEditing, setisEditing] = useState(false)
     let [editHabit, seteditHabit] = useState(habit)
 
@@ -17,6 +12,7 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, Counter, set
     }
     const reset = () => {
         setCounter(0)
+        updateCounterList(index,0)
     }
 
     const edit = () => {
@@ -58,6 +54,7 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, Counter, set
                 <button onClick={reset}>reset</button>
                 <button onClick={edit}>Edit</button>
                 <button onClick={delete_}>delete</button>
+
             </div>
 
         </div>
