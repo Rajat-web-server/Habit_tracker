@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Input } from './components/input'
 import { Habititem } from './components/habit_item'
 import './App.css'
@@ -28,6 +28,8 @@ function App() {
    const deleteHabit = (index) => {
         const updatedList = habitList.filter((_, i) => i !== index)
         sethabitList(updatedList)
+        const updatedCounter = counterList.filter((_, i) => i !== index)
+        setcounterList(updatedCounter)
     }
 
     useEffect(()=>{
@@ -48,7 +50,7 @@ function App() {
 
     return (
         <div>
-            <Input setHabit={setHabit} habit={habit}/>
+            <Input setHabit={setHabit} habit={habit} />
             <button onClick={Submit}>Submit</button>
             {habitList.map((h, index) => (
                 <Habititem key={index} habit={h} index={index} updateHabit={updateHabit} deleteHabit={deleteHabit} Counter={Counter} setCounter={setCounter}/>
