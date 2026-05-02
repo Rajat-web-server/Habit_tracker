@@ -12,16 +12,18 @@ export const Habititem = ({
   updateCounterList,
   Checkbox,
   setCheckbox,
+  state, setstate
 }) => {
   let [isEditing, setisEditing] = useState(false);
   let [editHabit, seteditHabit] = useState(habit);
 
-//   const click = () => {
-//     updateCounterList(index, Counter + 1);
-//   };
+  //   const click = () => {
+  //     updateCounterList(index, Counter + 1);
+  //   };
   const reset = () => {
     setCounter(0);
     updateCounterList(index, 0);
+    setstate(!state)
   };
 
   const edit = () => {
@@ -35,13 +37,14 @@ export const Habititem = ({
     deleteHabit(index);
   };
   const checked = () => {
-    if(!Checkbox){
-       setCheckbox(!Checkbox);
-    updateCounterList(index, Counter + 1); 
+    if (!Checkbox) {
+      setCheckbox(!Checkbox);
+      updateCounterList(index, Counter + 1);
+      setstate(!state)
+    } else {
+      setCheckbox(!Checkbox);
     }
-    else{
-        setCheckbox(!Checkbox);
-    }
+    
   };
   useEffect(() => {
     console.log(Checkbox);
@@ -64,12 +67,23 @@ export const Habititem = ({
         <p className="text">{habit}</p>
       )}
 
+
       <div className="buttons">
-        <button onClick>{Counter}</button>
+        <button>{Counter}</button>
         <button onClick={reset}>reset</button>
         <button onClick={edit}>Edit</button>
         <button onClick={delete_}>delete</button>
-        <input type="checkbox" onChange={checked} />
+        {
+
+        //  state ? (
+        //   <input type="checkbox" onChange={checked}/>
+        //  ):(
+        //   <h2>Task completed</h2>
+        //  )
+          state &&
+           <input type="checkbox" onChange={checked}/>
+        }
+        
       </div>
     </div>
   );
