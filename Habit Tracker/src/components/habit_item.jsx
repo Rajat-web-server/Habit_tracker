@@ -54,6 +54,7 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, Counter, set
                 <button onClick={reset}>reset</button>
                 <button onClick={edit}>Edit</button>
                 <button onClick={delete_}>delete</button>
+                {/* <input type="checkbox" /> */}
 
             </div>
 
