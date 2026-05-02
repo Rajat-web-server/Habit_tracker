@@ -18,6 +18,7 @@ function App() {
         return storedCounter ? JSON.parse(storedCounter): []
     })
     const[Checkbox, setCheckbox] =useState(false)
+    const[state, setstate] =useState(true)
 
 
     const Submit = () => {
@@ -59,7 +60,8 @@ function App() {
             <Input setHabit={setHabit} habit={habit} />
             <button onClick={Submit}>Submit</button>
             {habitList.map((h, index) => (
-                <Habititem key={index} habit={h} index={index} updateHabit={updateHabit} deleteHabit={deleteHabit} Counter={counterList[index]} setCounter={setCounter} updateCounterList={updateCounterList}  setCheckbox={setCheckbox} Checkbox={Checkbox}/>
+                <Habititem key={index} habit={h} index={index} updateHabit={updateHabit} deleteHabit={deleteHabit} Counter={counterList[index]} setCounter={setCounter} updateCounterList={updateCounterList}  setCheckbox={setCheckbox} Checkbox={Checkbox}
+                state={state} setstate={setstate}/>
             ))}
 
         </div>
