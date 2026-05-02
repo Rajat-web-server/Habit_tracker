@@ -17,7 +17,7 @@ function App() {
         const storedCounter = localStorage.getItem(keyNumber)
         return storedCounter ? JSON.parse(storedCounter): []
     })
-    // const[checkbox, setCheckbox] =useState(false)
+    const[checkbox, setCheckbox] =useState(false)
 
     const Submit = () => {
         sethabitList([...habitList, habit])
@@ -58,7 +58,7 @@ function App() {
             <Input setHabit={setHabit} habit={habit} />
             <button onClick={Submit}>Submit</button>
             {habitList.map((h, index) => (
-                <Habititem key={index} habit={h} index={index} updateHabit={updateHabit} deleteHabit={deleteHabit} Counter={counterList[index]} setCounter={setCounter} updateCounterList={updateCounterList}  />
+                <Habititem key={index} habit={h} index={index} updateHabit={updateHabit} deleteHabit={deleteHabit} Counter={counterList[index]} setCounter={setCounter} updateCounterList={updateCounterList}  setCheckbox={setCheckbox} checkbox={checkbox}/>
             ))}
 
         </div>
