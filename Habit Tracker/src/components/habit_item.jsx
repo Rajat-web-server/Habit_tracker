@@ -23,7 +23,9 @@ export const Habititem = ({
   const reset = () => {
     setCounter(0);
     updateCounterList(index, 0);
-    setstate(!state)
+    setstate(true);
+    setCheckbox(false)
+
   };
 
   const edit = () => {
@@ -37,18 +39,21 @@ export const Habititem = ({
     deleteHabit(index);
   };
   const checked = () => {
-    if (!Checkbox) {
-      setCheckbox(!Checkbox);
+    if (Checkbox===false) {
       updateCounterList(index, Counter + 1);
+      console.log("checkbox was false and it will be true now")
+      setCheckbox(!Checkbox);
       setstate(!state)
     } else {
       setCheckbox(!Checkbox);
+      console.log("checkbox was true and it will be false now")
     }
     
   };
   useEffect(() => {
     console.log(Checkbox);
-  }, [Checkbox]);
+    console.log("Counter :",Counter)
+  }, [Checkbox,Counter]);
 
   return (
     <div className="container">
