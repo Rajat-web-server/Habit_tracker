@@ -1,95 +1,145 @@
 import { useState, useEffect } from "react";
-import { Input } from "./input";
+
 import "./habit_item.css";
 
 export const Habititem = ({
   habit,
   index,
   updateHabit,
-  deleteHabit,
-  Counter,
-  setCounter,
-  updateCounterList,
-  Checkbox,
-  setCheckbox,
-  state, setstate
+  deleteHabit
 }) => {
-  let [isEditing, setisEditing] = useState(false);
-  let [editHabit, seteditHabit] = useState(habit);
 
-  //   const click = () => {
-  //     updateCounterList(index, Counter + 1);
-  //   };
+  const [isEditing, setIsEditing] =
+    useState(false);
+
+  const [editHabit, setEditHabit] =
+    useState(habit.title);
+
+  useEffect(() => {
+
+    setEditHabit(habit.title);
+
+  }, [habit]);
+
+  // TOGGLE CHECKBOX
+  const checked = () => {
+
+    const updatedHabit = {
+
+      ...habit,
+
+      checked: !habit.checked,
+
+      counter: !habit.checked
+        ? habit.counter + 1
+        : habit.counter
+    };
+
+    updateHabit(index, updatedHabit);
+  };
+
+  // RESET
   const reset = () => {
-    setCounter(0);
-    updateCounterList(index, 0);
-    setstate(true);
-    setCheckbox(false)
 
+    const updatedHabit = {
+
+      ...habit,
+
+      counter: 0,
+
+      checked: false
+    };
+
+    updateHabit(index, updatedHabit);
   };
 
+  // EDIT BUTTON
   const edit = () => {
-    setisEditing(true);
+
+    setIsEditing(true);
   };
+
+  // SUBMIT EDIT
   const submit = () => {
-    updateHabit(index, editHabit);
-    setisEditing(false);
+
+    const updatedHabit = {
+
+      ...habit,
+
+      title: editHabit
+    };
+
+    updateHabit(index, updatedHabit);
+
+    setIsEditing(false);
   };
+
+  // DELETE
   const delete_ = () => {
+
     deleteHabit(index);
   };
-  const checked = () => {
-    if (Checkbox===false) {
-      updateCounterList(index, Counter + 1);
-      console.log("checkbox was false and it will be true now")
-      setCheckbox(!Checkbox);
-      setstate(!state)
-    } else {
-      setCheckbox(!Checkbox);
-      console.log("checkbox was true and it will be false now")
-    }
-    
-  };
-  useEffect(() => {
-    console.log(Checkbox);
-    console.log("Counter :",Counter)
-  }, [Checkbox,Counter]);
 
   return (
+
     <div className="container">
+
       {isEditing ? (
+
         <div>
+
           <input
             type="text"
-            placeholder="Write  task"
+
             value={editHabit}
-            onChange={(e) => seteditHabit(e.target.value)}
+
+            onChange={(e) =>
+              setEditHabit(e.target.value)
+            }
           />
-          <button onClick={submit}>submit</button>
-          <p className="text">{editHabit}</p>
+
+          <button onClick={submit}>
+            Submit
+          </button>
+
         </div>
+
       ) : (
-        <p className="text">{habit}</p>
+
+        <p className="text">
+          {habit.title}
+        </p>
       )}
 
-
       <div className="buttons">
-        <button>{Counter}</button>
-        <button onClick={reset}>reset</button>
-        <button onClick={edit}>Edit</button>
-        <button onClick={delete_}>delete</button>
-        {
 
-        //  state ? (
-        //   <input type="checkbox" onChange={checked}/>
-        //  ):(
-        //   <h2>Task completed</h2>
-        //  )
-          state &&
-           <input type="checkbox" onChange={checked}/>
-        }
-        
+        <button>
+          {habit.counter}
+        </button>
+
+        <button onClick={reset}>
+          Reset
+        </button>
+
+        <button onClick={edit}>
+          Edit
+        </button>
+
+        <button onClick={delete_}>
+          Delete
+        </button>
+
+        <input
+          type="checkbox"
+
+          checked={habit.checked}
+
+          onChange={checked}
+        />
+
       </div>
+
     </div>
   );
+};
 };
