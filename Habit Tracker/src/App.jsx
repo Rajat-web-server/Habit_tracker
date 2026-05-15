@@ -5,26 +5,24 @@ import './App.css'
 
 function App() {
     const keyName = "habits"
-    const keyNumber = "Counter"
 
     const [habit, setHabit] = useState("")
     const [habitList, sethabitList] = useState(() => {
         const storedHabit = localStorage.getItem(keyName)
         return storedHabit ? JSON.parse(storedHabit) : []
     })
-    let [Counter, setCounter] = useState(0)
-    let [counterList, setcounterList] = useState(() => {
-        const storedCounter = localStorage.getItem(keyNumber)
-        return storedCounter ? JSON.parse(storedCounter): []
-    })
-    const[Checkbox, setCheckbox] =useState(false)
-    const[state, setstate] =useState(true)
-
 
     const Submit = () => {
-        sethabitList([...habitList, habit])
-        setcounterList([...counterList, Counter])
-        setHabit("")
+        if(!habit.trim()) return ;
+        const newHabit={
+            id:Date.new(),
+            title:habit,
+            counter:0,
+            checked:false,
+            completionDate:[]
+        }
+        sethabitList([...habitList,newHabit]);//immutable state updates
+        setHabit("");
     }
 
     const updateHabit = (index, newValue) => {
@@ -33,35 +31,22 @@ function App() {
         sethabitList(updatedhabits)
         
     }
-
-    const updateCounterList = (index, newValue) => {
-        const updatedCounter = [...counterList]
-        updatedCounter[index] = newValue;
-        setcounterList(updatedCounter)
-    }
     const deleteHabit = (index) => {
         const updatedList = habitList.filter((_, i) => i !== index)
         sethabitList(updatedList)
-        const updatedCounter = counterList.filter((_, i) => i !== index)
-        setcounterList(updatedCounter)
     }
 
     useEffect(() => {
         localStorage.setItem(keyName, JSON.stringify(habitList));
     }, [keyName, habitList])
 
-    useEffect(() => {
-        localStorage.setItem(keyNumber, JSON.stringify(counterList));
-    }, [keyNumber, counterList])
-
-
     return (
         <div>
             <Input setHabit={setHabit} habit={habit} />
             <button onClick={Submit}>Submit</button>
             {habitList.map((h, index) => (
-                <Habititem key={index} habit={h} index={index} updateHabit={updateHabit} deleteHabit={deleteHabit} Counter={counterList[index]} setCounter={setCounter} updateCounterList={updateCounterList}  setCheckbox={setCheckbox} Checkbox={Checkbox}
-                state={state} setstate={setstate}/>
+                <Habititem key={h.id} habit={h} index={index} updateHabit={updateHabit} deleteHabit={deleteHabit} 
+                 />
             ))}
 
         </div>
