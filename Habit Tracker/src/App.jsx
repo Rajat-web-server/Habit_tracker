@@ -11,15 +11,19 @@ function App() {
         const storedHabit = localStorage.getItem(keyName)
         return storedHabit ? JSON.parse(storedHabit) : []
     })
+    const now =new Date();
+     
 
     const Submit = () => {
         if(!habit.trim()) return ;
         const newHabit={
-            id:Date.new(),
+            id:now.getTime(),
             title:habit,
             counter:0,
             checked:false,
-            completionDate:[]
+            completionDate:[
+                now.toISOString()
+            ]
         }
         sethabitList([...habitList,newHabit]);//immutable state updates
         setHabit("");
