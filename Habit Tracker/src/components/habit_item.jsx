@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import "./habit_item.css";
 
-export const Habititem = ({ habit, index, updateHabit, deleteHabit,now }) => {
+export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const [editHabit, setEditHabit] = useState(habit.title);
@@ -12,19 +12,21 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit,now }) => {
   }, [habit]);
 
   // TOGGLE CHECKBOX
-  const checked = () => {
+  const checked = (dayIndex) => {
+    const updatedCheck=[...habit.checked]
+    updatedCheck[dayIndex]=!updatedCheck[dayIndex]
+
     const updatedHabit = {
       ...habit,
 
-      checked: !habit.checked,
-       
-      completionDate: !habit.checked? [...habit.completionDate,now.toLocaleString()]:
-      habit.completionDate,
+      checked:updatedCheck,
 
-      counter: !habit.checked ? habit.counter + 1 : habit.counter,
+      completionDate: updatedCheck[dayIndex]
+        ? [...habit.completionDate, now.toLocaleString()]
+        : habit.completionDate,
+
+      counter: updatedCheck[dayIndex] ? habit.counter + 1 : habit.counter,
     };
- 
-    
 
     updateHabit(index, updatedHabit);
   };
@@ -36,7 +38,7 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit,now }) => {
 
       counter: 0,
 
-      checked: false,
+      checked: Array(7).fill(false),
     };
 
     updateHabit(index, updatedHabit);
@@ -89,14 +91,18 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit,now }) => {
         <button onClick={edit}>Edit</button>
 
         <button onClick={delete_}>Delete</button>
-          {/* {
-      [...Array(7)].map((_, index) => {
-        date.getDate(index);
-
-        return <button key={index}>✓</button>;
-      })
-    } */}
-        <input type="checkbox" checked={habit.checked} onChange={checked} />
+        {[...Array(7)].map((_, dayIndex) => {
+          // now.getDate(index);
+          // console.log("Error");
+          return (
+            <input
+              key={dayIndex}
+              type="checkbox"
+              checked={habit.checked[dayIndex]}
+              onChange={()=>checked(dayIndex)}
+            />
+          );
+        })}
       </div>
     </div>
   );
