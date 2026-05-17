@@ -12,6 +12,7 @@ function App() {
     const storedHabit = localStorage.getItem(keyName);
     return storedHabit ? JSON.parse(storedHabit) : [];
   });
+ 
 
   const Submit = () => {
     if (!habit.trim()) return;
@@ -19,11 +20,11 @@ function App() {
       id: now.toLocaleString(),
       title: habit,
       counter: 0,
-      checked: false,
+      checked: Array(7).fill(false),
       completionDate: [],
     };
     sethabitList([...habitList, newHabit]); //immutable state updates
-    setHabit("");
+    
   };
 
   const updateHabit = (index, newValue) => {
