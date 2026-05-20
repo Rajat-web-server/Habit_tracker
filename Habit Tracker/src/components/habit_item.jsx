@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import "./habit_item.css";
+import { Input } from "./input";
 
 export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -13,17 +14,17 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
 
   // TOGGLE CHECKBOX
   const checked = (dayIndex) => {
-    const updatedCheck=[...habit.checked]
-    updatedCheck[dayIndex]=!updatedCheck[dayIndex]
+    const updatedCheck = [...habit.checked];
+    updatedCheck[dayIndex] = !updatedCheck[dayIndex];
 
     const updatedHabit = {
       ...habit,
 
-      checked:updatedCheck,
+      checked: updatedCheck,
 
       completionDate: updatedCheck[dayIndex]
         ? [...habit.completionDate, now.toLocaleString()]
-        : habit.completionDate,
+        : habit.completionDate.filter((day) => day !== habit.week[dayIndex]),
 
       counter: updatedCheck[dayIndex] ? habit.counter + 1 : habit.counter,
     };
@@ -92,15 +93,16 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
 
         <button onClick={delete_}>Delete</button>
         {[...Array(7)].map((_, dayIndex) => {
-          // now.getDate(index);
-          // console.log("Error");
           return (
-            <input
-              key={dayIndex}
-              type="checkbox"
-              checked={habit.checked[dayIndex]}
-              onChange={()=>checked(dayIndex)}
-            />
+            <div>
+              <p>{habit.week[dayIndex]}</p>
+              <input
+                key={dayIndex}
+                type="checkbox"
+                checked={habit.checked[dayIndex]}
+                onChange={() => checked(dayIndex)}
+              />
+            </div>
           );
         })}
       </div>

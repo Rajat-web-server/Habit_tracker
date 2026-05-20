@@ -6,13 +6,12 @@ import "./App.css";
 function App() {
   const keyName = "habits";
   const now = new Date();
-  
+
   const [habit, setHabit] = useState("");
   const [habitList, sethabitList] = useState(() => {
     const storedHabit = localStorage.getItem(keyName);
     return storedHabit ? JSON.parse(storedHabit) : [];
   });
- 
 
   const Submit = () => {
     if (!habit.trim()) return;
@@ -21,10 +20,11 @@ function App() {
       title: habit,
       counter: 0,
       checked: Array(7).fill(false),
+      week: ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"],
       completionDate: [],
     };
     sethabitList([...habitList, newHabit]); //immutable state updates
-    
+    setHabit("");
   };
 
   const updateHabit = (index, newValue) => {
