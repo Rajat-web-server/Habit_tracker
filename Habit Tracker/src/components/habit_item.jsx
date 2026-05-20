@@ -104,6 +104,7 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
                   }
                   {/* {console.log(!habit.checked[dayIndex])} */}
               </button>
+              /
             </div>
           );
         })}
