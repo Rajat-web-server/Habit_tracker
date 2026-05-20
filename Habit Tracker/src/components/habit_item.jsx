@@ -96,12 +96,14 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
           return (
             <div>
               <p>{habit.week[dayIndex]}</p>
-              <input
-                key={dayIndex}
-                type="checkbox"
-                checked={habit.checked[dayIndex]}
-                onChange={() => checked(dayIndex)}
-              />
+              <button key={dayIndex}
+                type="checkbox" checked={habit.checked[dayIndex]}
+                onClick={() => checked(dayIndex)}>
+                  {
+                    habit.checked[dayIndex]?"✅" : "⬜"
+                  }
+                  {/* {console.log(!habit.checked[dayIndex])} */}
+              </button>
             </div>
           );
         })}
