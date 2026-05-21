@@ -19,10 +19,15 @@ function App() {
     const weeks={}
 
     week.forEach((day,index) => {
+      const newDate = new Date();
+      newDate.setDate(now.getDate()+index)
       weeks[day] = {
-           date : now.getDate(),
+           date : newDate.getDate(),
          checked : false
+         
       };
+      {console.log("day :",day)}
+      {console.log("date :",weeks[day].date)}
     });
     return weeks;
   };
