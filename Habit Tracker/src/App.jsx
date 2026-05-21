@@ -13,6 +13,21 @@ function App() {
     return storedHabit ? JSON.parse(storedHabit) : [];
   });
 
+  const weekFunc = () => {
+    const week = ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"];
+
+    const weeks={}
+
+    week.forEach((day,index) => {
+      weeks[day] = {
+           date : now.getDate(),
+         checked : false
+      };
+    });
+    return weeks;
+  };
+  console.log(weekFunc())
+
   const Submit = () => {
     if (!habit.trim()) return;
     const newHabit = {
@@ -20,8 +35,20 @@ function App() {
       title: habit,
       counter: 0,
       checked: Array(7).fill(false),
-      week: ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"],
+      week: weekFunc(),
       completionDate: [],
+      /**
+       * so how it's gonna be like
+       * week :{
+       *  "Mon":{
+       *   date : now.toLocalString(),
+       *   checked : true,
+       *
+       *
+       *  }
+       * }
+       *
+       */
     };
     sethabitList([...habitList, newHabit]); //immutable state updates
     setHabit("");
