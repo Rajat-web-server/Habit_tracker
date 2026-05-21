@@ -15,23 +15,17 @@ function App() {
 
   const weekFunc = () => {
     const week = ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"];
-
-    const weeks={}
-
-    week.forEach((day,index) => {
+    const weekdata = {};
+    week.forEach((day, index) => {
       const newDate = new Date();
-      newDate.setDate(now.getDate()+index)
-      weeks[day] = {
-           date : newDate.getDate(),
-         checked : false
-         
+      newDate.setDate(now.getDate() + index);
+      weekdata[day] = {
+        date: newDate.getDate(),
+        checked: false,
       };
-      {console.log("day :",day)}
-      {console.log("date :",weeks[day].date)}
     });
-    return weeks;
+    return weekdata;
   };
-  console.log(weekFunc())
 
   const Submit = () => {
     if (!habit.trim()) return;
@@ -39,26 +33,16 @@ function App() {
       id: now.toLocaleString(),
       title: habit,
       counter: 0,
-      checked: Array(7).fill(false),
       week: weekFunc(),
       completionDate: [],
-      /**
-       * so how it's gonna be like
-       * week :{
-       *  "Mon":{
-       *   date : now.toLocalString(),
-       *   checked : true,
-       *
-       *
-       *  }
-       * }
-       *
-       */
     };
-    sethabitList([...habitList, newHabit]); //immutable state updates
+    setHabit(newHabit);
+    console.log("Habit :", newHabit);
+    sethabitList([...habitList, newHabit]);
+
     setHabit("");
   };
-
+  console.log("newHabit :", habit);
   const updateHabit = (index, newValue) => {
     const updatedhabits = [...habitList];
     updatedhabits[index] = newValue;
@@ -85,6 +69,7 @@ function App() {
           updateHabit={updateHabit}
           deleteHabit={deleteHabit}
           now={now}
+          habitList={habitList}
         />
       ))}
     </div>

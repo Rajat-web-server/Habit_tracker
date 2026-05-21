@@ -3,7 +3,14 @@ import { useState, useEffect } from "react";
 import "./habit_item.css";
 import { Input } from "./input";
 
-export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
+export const Habititem = ({
+  habit,
+  index,
+  updateHabit,
+  deleteHabit,
+  now,
+  habitList,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const [editHabit, setEditHabit] = useState(habit.title);
@@ -13,20 +20,24 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
   }, [habit]);
 
   // TOGGLE CHECKBOX
-  const checked = (dayIndex) => {
-    const updatedCheck = [...habit.checked];
-    updatedCheck[dayIndex] = !updatedCheck[dayIndex];
-
+  const checked = (day) => {
     const updatedHabit = {
       ...habit,
+      week: {
+        ...habit.week,
 
-      checked: updatedCheck,
+        [day]: {
+          ...habit.week[day],
 
-      completionDate: updatedCheck[dayIndex]
+          checked: !habit.week[day].checked,
+        },
+      },
+
+      completionDate: !habit.week[day].checked
         ? [...habit.completionDate, now.toLocaleString()]
-        : habit.completionDate.filter((day) => day !== habit.week[dayIndex]),
+        : habit.completionDate,
 
-      counter: updatedCheck[dayIndex] ? habit.counter + 1 : habit.counter,
+      counter: habit.week[day].checked ? habit.counter + 1 : habit.counter - 1,
     };
 
     updateHabit(index, updatedHabit);
@@ -92,20 +103,18 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
         <button onClick={edit}>Edit</button>
 
         <button onClick={delete_}>Delete</button>
-        {[...Array(7)].map((_, dayIndex) => {
-          return (
-            <div>
-              <p>{habit.week[dayIndex]}</p>
-              <button key={dayIndex}
-                type="checkbox" checked={habit.checked[dayIndex]}
-                onClick={() => checked(dayIndex)}>
-                  {
-                    habit.checked[dayIndex]?"✅" : "⬜"
-                  }
-                  {/* {console.log(!habit.checked[dayIndex])} */}
-              </button>
-            </div>
-          );
+        {habitList.map((habit) => {
+          {
+            Object.keys(habit.week).map((day) => (
+              <div key={day}>
+                <p>{day}</p>
+
+                <button onClick={() => checked(day)}>
+                  {habit.week[day].checked ? "✅" : "⬜"}
+                </button>
+              </div>
+            ));
+          }
         })}
       </div>
     </div>
