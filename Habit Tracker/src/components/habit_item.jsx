@@ -9,7 +9,6 @@ export const Habititem = ({
   updateHabit,
   deleteHabit,
   now,
-  habitList,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
 
@@ -33,11 +32,15 @@ export const Habititem = ({
         },
       },
 
-      completionDate: !habit.week[day].checked
+      completionDate: habit.week[day].checked
         ? [...habit.completionDate, now.toLocaleString()]
         : habit.completionDate,
 
-      counter: habit.week[day].checked ? habit.counter + 1 : habit.counter - 1,
+      counter: !habit.week[day].checked
+        ? habit.counter === 0
+          ? 1
+          : habit.counter + 1
+        : habit.counter - 1,
     };
 
     updateHabit(index, updatedHabit);
@@ -45,12 +48,21 @@ export const Habititem = ({
 
   // RESET
   const reset = () => {
+    const updatedWeek = {};
+
+  Object.keys(habit.week).forEach((day) => {
+    updatedWeek[day] = {
+      ...habit.week[day],
+      checked: false,
+    };
+  });
     const updatedHabit = {
       ...habit,
+      
 
       counter: 0,
 
-      checked: Array(7).fill(false),
+      week: updatedWeek,
     };
 
     updateHabit(index, updatedHabit);
@@ -103,20 +115,34 @@ export const Habititem = ({
         <button onClick={edit}>Edit</button>
 
         <button onClick={delete_}>Delete</button>
-        {habitList.map((habit) => {
-          {
-            Object.keys(habit.week).map((day) => (
+        
+          <div key={habit.id} className="box">
+            {Object.keys(habit.week).map((day) => (
               <div key={day}>
                 <p>{day}</p>
-
                 <button onClick={() => checked(day)}>
                   {habit.week[day].checked ? "✅" : "⬜"}
                 </button>
               </div>
-            ));
-          }
-        })}
+            ))}
+          </div>
+        
       </div>
     </div>
   );
 };
+
+/**
+ * {
+            [Object.keys(habit.week)].map((_, day) => {
+              return (
+                <div>
+                  <p>{day}</p>
+                  <button key={day} onClick={() => checked(day)}>
+                    {habit.week[day].checked ? "✅" : "⬜"}
+                  </button>
+                </div>
+              );
+            });
+          }
+ */
