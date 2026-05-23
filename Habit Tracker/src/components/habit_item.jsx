@@ -117,7 +117,7 @@ export const Habititem = ({
 
         <button onClick={delete_}>Delete</button>
         {habitList.map((habit) => (
-          <div key={habit.id}>
+          <div key={habit.id} className="box">
             {Object.keys(habit.week).map((day) => (
               <div key={day}>
                 <p>{day}</p>

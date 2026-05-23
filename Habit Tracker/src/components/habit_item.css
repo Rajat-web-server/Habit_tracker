@@ -18,3 +18,9 @@
     font-size: 2em;
     margin: 2px;
 }
+
+.box{
+    display: flex;
+    gap: 5px;
+    margin-bottom: 5px;
+}
