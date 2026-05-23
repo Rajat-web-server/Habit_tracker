@@ -9,7 +9,6 @@ export const Habititem = ({
   updateHabit,
   deleteHabit,
   now,
-  habitList,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
 
@@ -116,7 +115,7 @@ export const Habititem = ({
         <button onClick={edit}>Edit</button>
 
         <button onClick={delete_}>Delete</button>
-        {habitList.map((habit) => (
+        
           <div key={habit.id} className="box">
             {Object.keys(habit.week).map((day) => (
               <div key={day}>
@@ -127,7 +126,7 @@ export const Habititem = ({
               </div>
             ))}
           </div>
-        ))}
+        
       </div>
     </div>
   );
