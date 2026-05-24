@@ -119,6 +119,7 @@ export const Habititem = ({
           <div key={habit.id} className="box">
             {Object.keys(habit.week).map((day) => (
               <div key={day}>
+                <p>{habit.week[day].date}</p>
                 <p>{day}</p>
                 <button onClick={() => checked(day)}>
                   {habit.week[day].checked ? "✅" : "⬜"}
