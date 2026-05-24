@@ -14,16 +14,19 @@ function App() {
   });
 
   const weekFunc = () => {
-    const week = ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"];
+
+    const week = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
     const weekdata = {};
-    week.forEach((day, index) => {
-      const newDate = new Date();
-      newDate.setDate(now.getDate() + index);
-      weekdata[day] = {
-        date: newDate.getDate(),
+    week.forEach((_, index) => {
+      const currentDay = new Date();
+      currentDay.setDate(now.getDate() + index);
+      const dayName = week[currentDay.getDay()];
+      weekdata[dayName] = {
+        date: currentDay.getDate(),
         checked: false,
       };
     });
+    console.log(weekdata);
     return weekdata;
   };
 
