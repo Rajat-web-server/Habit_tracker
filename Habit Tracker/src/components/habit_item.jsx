@@ -3,44 +3,54 @@ import { useState, useEffect } from "react";
 import "./habit_item.css";
 import { Input } from "./input";
 
-export const Habititem = ({
-  habit,
-  index,
-  updateHabit,
-  deleteHabit,
-  now,
-}) => {
+export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const [editHabit, setEditHabit] = useState(habit.title);
-
   useEffect(() => {
     setEditHabit(habit.title);
   }, [habit]);
 
+  const weekFunc = () => {
+    const week = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+    const weekdata = [];
+    for (let index = 0; index < 7; index++) {
+      const currentDay = new Date();
+      currentDay.setDate(now.getDate() - index);
+      weekdata.push({
+        dayName : week[currentDay.getDay()],
+        date: currentDay.getDate(),
+        completetion: currentDay.toISOString()
+    .split("T")[0],
+        checked: false,
+         month:
+          currentDay.getMonth()+1,
+        year: currentDay.getFullYear(),
+      });
+    }
+    console.log(weekdata);
+    return weekdata;
+  };
+  const weekdata = weekFunc();
+
   // TOGGLE CHECKBOX
-  const checked = (day) => {
+  const checked = (completetion) => {
+    let updatedCompletion ;
+
+    if (habit.completionDate.includes(completetion)){
+     updatedCompletion= habit.completetion.filter(
+      (d)=>d !== completetion
+     )
+    }
+    else{
+     updatedCompletion=[...habit.completionDate,completetion]
+    }
     const updatedHabit = {
       ...habit,
-      week: {
-        ...habit.week,
 
-        [day]: {
-          ...habit.week[day],
+      completionDate: updatedCompletion,
 
-          checked: !habit.week[day].checked,
-        },
-      },
-
-      completionDate: habit.week[day].checked
-        ? [...habit.completionDate, now.toLocaleString()]
-        : habit.completionDate,
-
-      counter: !habit.week[day].checked
-        ? habit.counter === 0
-          ? 1
-          : habit.counter + 1
-        : habit.counter - 1,
+      counter: updatedCompletion.length,
     };
 
     updateHabit(index, updatedHabit);
@@ -48,21 +58,14 @@ export const Habititem = ({
 
   // RESET
   const reset = () => {
-    const updatedWeek = {};
+   
 
-  Object.keys(habit.week).forEach((day) => {
-    updatedWeek[day] = {
-      ...habit.week[day],
-      checked: false,
-    };
-  });
     const updatedHabit = {
       ...habit,
-      
 
       counter: 0,
 
-      week: updatedWeek,
+      completionDate:[],
     };
 
     updateHabit(index, updatedHabit);
@@ -115,19 +118,23 @@ export const Habititem = ({
         <button onClick={edit}>Edit</button>
 
         <button onClick={delete_}>Delete</button>
-        
-          <div key={habit.id} className="box">
-            {Object.keys(habit.week).map((day) => (
-              <div key={day}>
-                <p>{habit.week[day].date}</p>
-                <p>{day}</p>
-                <button onClick={() => checked(day)}>
-                  {habit.week[day].checked ? "✅" : "⬜"}
-                </button>
-              </div>
-            ))}
-          </div>
-        
+
+        <div key={habit.id} className="box">
+         {weekdata.map((day)=>{
+
+            const isChecked = habit.completionDate.includes(day.completetion);
+          return(
+
+            <div key={day.completetion}>
+              <p>{day.date}</p>
+              <p>{day.dayName}</p>
+              <button onClick={() => checked(day.completetion)}>
+                {isChecked ? "✅" : "⬜"}
+              </button>
+            </div>
+          )
+})}
+        </div>
       </div>
     </div>
   );
