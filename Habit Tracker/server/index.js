@@ -1,7 +1,7 @@
 const http = require('http');
 const fs = require('fs')
 const myServer = http.createServer((req, res)=>{
-    const log =`${Date.now()}: New Req recieved\n`;
+    const log =`${Date.now()}:${req.url} New Req recieved\n`
    fs.appendFile("log.txt",log,(error, data)=>{
        res.end("Hello from my Server");
    })
