@@ -38,7 +38,7 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
     let updatedCompletion ;
 
     if (habit.completionDate.includes(completetion)){
-     updatedCompletion= habit.completetion.filter(
+     updatedCompletion= habit.completionDate.filter(
       (d)=>d !== completetion
      )
     }
