@@ -17,11 +17,20 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
     for (let index = 0; index < 7; index++) {
       const currentDay = new Date();
       currentDay.setDate(now.getDate() - index);
+       const fullDate =
+      `${currentDay.getFullYear()}-${
+        String(
+          currentDay.getMonth() + 1
+        ).padStart(2, "0")
+      }-${
+        String(
+          currentDay.getDate()
+        ).padStart(2, "0")
+      }`;
       weekdata.push({
         dayName : week[currentDay.getDay()],
         date: currentDay.getDate(),
-        completetion: currentDay.toISOString()
-    .split("T")[0],
+        completetion: fullDate,
         checked: false,
          month:
           currentDay.getMonth()+1,
