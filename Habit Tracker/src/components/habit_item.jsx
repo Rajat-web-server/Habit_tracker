@@ -37,6 +37,7 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
         year: currentDay.getFullYear(),
       });
     }
+    
     console.log(weekdata);
     return weekdata;
   };
