@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Input } from "./components/input";
 import { Habititem } from "./components/habit_item";
+import { HabitHeatMap } from "./heatmap/habitheatmap";
 import "./App.css";
 
 function App() {
@@ -45,7 +46,6 @@ function App() {
       <Input setHabit={setHabit} habit={habit} />
       <button onClick={Submit}>Submit</button>
       {habitList.map((h, index) => (
-        
         <Habititem
           key={h.id}
           habit={h}
@@ -56,6 +56,7 @@ function App() {
           habitList={habitList}
         />
       ))}
+      <HabitHeatMap/>
     </div>
   );
 }
