@@ -11,13 +11,17 @@ export function HabitHeatMap({completionDate}) {
     
   return (
     <div>
-    
+   
       <HeatMap
         value={value}
         width={700}
         style={{ color: "#F5F5F5"}}
         weekLabels={["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]}
         startDate={new Date("2026/01/01")}
+        legendRender={(props) => <rect {...props} y={props.y + 10} rx={5} />}
+        rectProps={{
+          rx: 5
+        }}
       />
     </div>
   );
