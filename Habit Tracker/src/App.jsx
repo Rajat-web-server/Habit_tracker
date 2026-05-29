@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Input } from "./components/input";
 import { Habititem } from "./components/habit_item";
-import { HabitHeatMap } from "./heatmap/habitheatmap";
 import "./App.css";
 
 function App() {
@@ -56,7 +55,6 @@ function App() {
           habitList={habitList}
         />
       ))}
-      <HabitHeatMap/>
     </div>
   );
 }
