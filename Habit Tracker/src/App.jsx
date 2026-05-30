@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { Input } from "./components/input";
 import { Habititem } from "./components/habit_item";
+import { Routes, Route } from "react-router-dom";
+import { Dashboard } from "./Pages/Dashboard";
+import { AnalyticsPage } from "./Pages/AnalyticsPage";
+import { HabitPage } from "./Pages/HabitPage";
 import "./App.css";
 
 function App() {
@@ -41,7 +45,13 @@ function App() {
   }, [keyName, habitList]);
 
   return (
+
     <div>
+      <Routes>
+        <Route path="/" element={<Dashboard/>}/>
+        <Route path="/habits" element={<HabitPage/>}/>
+        <Route path="/Analytics" element={<AnalyticsPage/>}/>
+      </Routes>
       <Input setHabit={setHabit} habit={habit} />
       <button onClick={Submit}>Submit</button>
       {habitList.map((h, index) => (
