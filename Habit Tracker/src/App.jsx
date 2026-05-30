@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import { Dashboard } from "./Pages/Dashboard";
 import { AnalyticsPage } from "./Pages/AnalyticsPage";
 import { HabitPage } from "./Pages/HabitPage";
+import { Navbar } from "./components/navbar";
 import "./App.css";
 
 function App() {
@@ -45,12 +46,13 @@ function App() {
   }, [keyName, habitList]);
 
   return (
-
     <div>
+      
+      <Navbar />
       <Routes>
-        <Route path="/" element={<Dashboard/>}/>
-        <Route path="/habits" element={<HabitPage/>}/>
-        <Route path="/Analytics" element={<AnalyticsPage/>}/>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/habits" element={<HabitPage />} />
+        <Route path="/Analytics" element={<AnalyticsPage />} />
       </Routes>
       <Input setHabit={setHabit} habit={habit} />
       <button onClick={Submit}>Submit</button>
