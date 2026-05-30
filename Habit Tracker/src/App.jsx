@@ -67,6 +67,7 @@ function App() {
           habitList={habitList}
         />
       ))}
+      <HabitHeatMap/>
     </div>
   );
 }
