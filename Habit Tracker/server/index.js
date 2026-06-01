@@ -1,41 +1,28 @@
 const http = require('http');
 const fs = require('fs');
-const url = require('url');
+const express = require("express")
 
-const myServer = http.createServer((req, res)=>{
-    const log =`${Date.now()}:${req.url} New Req recieved\n`
-    const myURL = new URL(req.url, `http://${req.headers.host}`);
-     console.log(myURL);
-    console.log("Pathname:", myURL.pathname);
-   fs.appendFile("log.txt",log,(error, data)=>{
-    console.log("Inside appendFile");
-        if (error) {
-            console.log(error);
-            res.end("Error");
-            return;
-        }
-    switch(myURL.pathname){
-        case "/":
-            res.end("Hello from my Server");
-            break;
-        case "/dashboard":
-            res.end("This is my dashboard");
-            break;
-        case "/dashboard/under":
-            let username=myURL.searchParams.get("myname");
-            res.end(`hey, ${username} are you unmeployed`);
-            break;
-        case "/hashmap":
-            let report=myURL.searchParams.get("myreport");
-            res.end(`yoo, take your ${report} to yourself`);
-            break;
-            default:
-                res.end("Page not found");
-    }
-   })
-});
+const app = express();
 
-myServer.listen(5000,()=>{
+app.get("/", (req, res)=>{
+   return res.end("Hello from the Home Page "+ req.query.name);
+})
+app.get("/stting", (req, res)=>{
+   return res.end("You are in settings Page")
+})
+app.get("/Analytics", (req, res)=>{
+   return res.end("You are in Analytics Page")
+})
+app.get("/Dashboard", (req, res)=>{
+   return res.end("You are in Dashboard Page")
+})
+app.get("/habits", (req, res)=>{
+   return res.end("You are in habits Page")
+})
+
+// const myServer= http.createServer(app)
+
+app.listen(5000,()=>{
     console.log("Server Started");
 }) 
 
