@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import { HabitHeatMap } from "../heatmap/habitheatmap";
 import "./habit_item.css";
 import { Input } from "./input";
 
@@ -17,27 +17,19 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
     for (let index = 0; index < 7; index++) {
       const currentDay = new Date();
       currentDay.setDate(now.getDate() - index);
-       const fullDate =
-      `${currentDay.getFullYear()}-${
-        String(
-          currentDay.getMonth() + 1
-        ).padStart(2, "0")
-      }-${
-        String(
-          currentDay.getDate()
-        ).padStart(2, "0")
-      }`;
+      const fullDate = `${currentDay.getFullYear()}-${String(
+        currentDay.getMonth() + 1,
+      ).padStart(2, "0")}-${String(currentDay.getDate()).padStart(2, "0")}`;
       weekdata.push({
-        dayName : week[currentDay.getDay()],
+        dayName: week[currentDay.getDay()],
         date: currentDay.getDate(),
         completetion: fullDate,
         checked: false,
-         month:
-          currentDay.getMonth()+1,
+        month: currentDay.getMonth() + 1,
         year: currentDay.getFullYear(),
       });
     }
-    
+
     console.log(weekdata);
     return weekdata;
   };
@@ -45,15 +37,14 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
 
   // TOGGLE CHECKBOX
   const checked = (completetion) => {
-    let updatedCompletion ;
+    let updatedCompletion;
 
-    if (habit.completionDate.includes(completetion)){
-     updatedCompletion= habit.completionDate.filter(
-      (d)=>d !== completetion
-     )
-    }
-    else{
-     updatedCompletion=[...habit.completionDate,completetion]
+    if (habit.completionDate.includes(completetion)) {
+      updatedCompletion = habit.completionDate.filter(
+        (d) => d !== completetion,
+      );
+    } else {
+      updatedCompletion = [...habit.completionDate, completetion];
     }
     const updatedHabit = {
       ...habit,
@@ -68,14 +59,12 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
 
   // RESET
   const reset = () => {
-   
-
     const updatedHabit = {
       ...habit,
 
       counter: 0,
 
-      completionDate:[],
+      completionDate: [],
     };
 
     updateHabit(index, updatedHabit);
@@ -130,21 +119,22 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
         <button onClick={delete_}>Delete</button>
 
         <div key={habit.id} className="box">
-         {weekdata.map((day)=>{
-
+          {weekdata.map((day) => {
             const isChecked = habit.completionDate.includes(day.completetion);
-          return(
-
-            <div key={day.completetion}>
-              <p>{day.date}</p>
-              <p>{day.dayName}</p>
-              <button onClick={() => checked(day.completetion)}>
-                {isChecked ? "✅" : "⬜"}
-              </button>
-            </div>
-          )
-})}
+            return (
+              <div key={day.completetion}>
+                <p>{day.date}</p>
+                <p>{day.dayName}</p>
+                <button onClick={() => checked(day.completetion)}>
+                  {isChecked ? "✅" : "⬜"}
+                </button>
+              </div>
+            );
+          })}
         </div>
+      </div>
+      <div>
+        <HabitHeatMap  completionDate={habit.completionDate} />
       </div>
     </div>
   );
