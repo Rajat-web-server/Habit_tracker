@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import { Dashboard } from "./Pages/Dashboard";
 import { AnalyticsPage } from "./Pages/AnalyticsPage";
 import { HabitPage } from "./Pages/HabitPage";
-import { Navbar } from "./components/navbar";
+import { Navbar } from "./components/navbar/navbar";
 import "./App.css";
 
 function App() {
@@ -47,7 +47,6 @@ function App() {
 
   return (
     <div>
-      
       <Navbar />
       <Routes>
         <Route path="/" element={<Dashboard />} />
@@ -67,7 +66,6 @@ function App() {
           habitList={habitList}
         />
       ))}
-      <HabitHeatMap/>
     </div>
   );
 }
