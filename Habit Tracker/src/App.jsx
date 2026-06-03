@@ -59,7 +59,7 @@ function App() {
           />
           <Route path="/Analytics" element={<AnalyticsPage  habitList={habitList} />} />
         </Routes>
-      // </div>
+     </div>
     </div>
   );
 }

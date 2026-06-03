@@ -2,21 +2,22 @@
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.buttons {
+.buttons_container {
     padding: 10px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    align-items: center;
     gap: 15px;
 }
-/* .container{
-    margin: 10px; 
-     border: 2px solid white; 
+.buttons>button{
+    padding: 10px;
+    background-color:var(--text-color);
+    margin: 5px;
     border-radius: 10px;
-} */
+}
 .text{
     font-size: 2em;
     margin: 2px;
+  
 }
 
 .box{

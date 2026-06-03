@@ -2,7 +2,8 @@
   display: flex;
   justify-content:space-around;
   background-color: var(--text-color);
-  position: relative;
+  position:fixed;
+  width: 100%;
   top: 0px;
   padding : 20px
 }

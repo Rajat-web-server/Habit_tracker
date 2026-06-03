@@ -5,24 +5,31 @@ export const HabitPage = ({
   deleteHabit,
   habitList,
   now,
-  habit,setHabit,Submit
+  habit,
+  setHabit,
+  Submit,
 }) => {
   return (
     <>
-      <h2 style={{ padding: "25px" }}>This is the Habit Page</h2>
-      <Input setHabit={setHabit} habit={habit} />
-      <button onClick={Submit}>Submit</button>
-      {habitList.map((h, index) => (
-        <Habititem
-          key={h.id}
-          habit={h}
-          index={index}
-          updateHabit={updateHabit}
-          deleteHabit={deleteHabit}
-          now={now}
-          habitList={habitList}
-        />
-      ))}
+      <div style={{
+        paddingTop:"400px"
+      }
+      }>
+        <h2 style={{ padding: "25px" }}>This is the Habit Page</h2>
+        <Input setHabit={setHabit} habit={habit} />
+        <button onClick={Submit}>Submit</button>
+        {habitList.map((h, index) => (
+          <Habititem
+            key={h.id}
+            habit={h}
+            index={index}
+            updateHabit={updateHabit}
+            deleteHabit={deleteHabit}
+            now={now}
+            habitList={habitList}
+          />
+        ))}
+      </div>
     </>
   );
 };

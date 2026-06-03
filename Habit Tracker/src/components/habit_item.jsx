@@ -94,7 +94,7 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
   };
 
   return (
-    <div className="container">
+    <div className="habit_container">
       {isEditing ? (
         <div>
           <input
@@ -109,14 +109,16 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
         <p className="text">{habit.title}</p>
       )}
 
-      <div className="buttons">
-        <button>{habit.counter}</button>
+      <div className="buttons_container">
+        <div className="buttons">
+          <button>{habit.counter}</button>
 
-        <button onClick={reset}>Reset</button>
+          <button onClick={reset}>Reset</button>
 
-        <button onClick={edit}>Edit</button>
+          <button onClick={edit}>Edit</button>
 
-        <button onClick={delete_}>Delete</button>
+          <button onClick={delete_}>Delete</button>
+        </div>
 
         <div key={habit.id} className="box">
           {weekdata.map((day) => {

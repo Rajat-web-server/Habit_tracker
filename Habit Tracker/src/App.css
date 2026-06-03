@@ -6,7 +6,9 @@
 :root{
   --container-bg:#285A48;
   --container-font-size:12px;
-  --text-color:#B0E4CC
+  --text-color:#B0E4CC;
+  --button-color:#FFA02E;
+  
 }
 .container{
   background-color: var(--container-bg);
@@ -15,5 +17,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  overflow-y: scroll;
 }
 
