@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import { Input } from "./components/input";
-import { Habititem } from "./components/habit_item";
 import { Routes, Route } from "react-router-dom";
 import { Dashboard } from "./Pages/Dashboard";
 import { AnalyticsPage } from "./Pages/AnalyticsPage";
@@ -48,24 +46,20 @@ function App() {
   return (
     <div>
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/habits" element={<HabitPage />} />
-        <Route path="/Analytics" element={<AnalyticsPage />} />
-      </Routes>
-      <Input setHabit={setHabit} habit={habit} />
-      <button onClick={Submit}>Submit</button>
-      {habitList.map((h, index) => (
-        <Habititem
-          key={h.id}
-          habit={h}
-          index={index}
-          updateHabit={updateHabit}
-          deleteHabit={deleteHabit}
-          now={now}
-          habitList={habitList}
-        />
-      ))}
+      <div className="container">
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route
+            path="/habits"
+            element={
+              <HabitPage updateHabit={updateHabit} deleteHabit={deleteHabit} now={now}
+            habitList={habitList} habit={habit}
+            Submit={Submit} setHabit={setHabit}/>
+            }
+          />
+          <Route path="/Analytics" element={<AnalyticsPage  habitList={habitList} />} />
+        </Routes>
+      // </div>
     </div>
   );
 }

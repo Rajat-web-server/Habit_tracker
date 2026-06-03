@@ -10,7 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@uiw/react-heat-map": "^2.3.3",
+    "@uiw/react-heat-map": "^2.3.4",
+    "@uiw/react-tooltip": "^4.22.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.16.0"

@@ -1,18 +1,29 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./navbar.css";
 
 export const Navbar = () => {
+  const NavlinkStyles = ({isActive}) => {
+    return {
+      fontWeight: isActive ? "bold" : "normal",
+      textDecoration: isActive ? "none" : "underline",
+    };
+  };
   return (
     <div className="navbar">
       <nav>
-        <Link to="/">Dashboard</Link>
+        <NavLink style={NavlinkStyles} to="/">
+          Dashboard
+        </NavLink>
         <br />
-        <Link to="/habits">Habits</Link>
+        <NavLink style={NavlinkStyles} to="/habits">
+          Habits
+        </NavLink>
         <br />
-        <Link to="/Analytics">Analytics</Link>
+        <NavLink style={NavlinkStyles} to="/Analytics">
+          Analytics
+        </NavLink>
         <br />
       </nav>
-      
     </div>
   );
 };

@@ -1,3 +1,11 @@
-.navbar{
-    color: white;
+.navbar > nav {
+  display: flex;
+  justify-content:space-around;
+  background-color: var(--text-color);
+  position: relative;
+  top: 0px;
+  padding : 20px
+}
+nav>a{
+    color: #285A48;
 }
