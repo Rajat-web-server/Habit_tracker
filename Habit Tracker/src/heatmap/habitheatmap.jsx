@@ -1,7 +1,7 @@
 import React from "react";
 import Tooltip from "@uiw/react-tooltip";
 import HeatMap from "@uiw/react-heat-map";
-import "./heatmap.css"
+import "./heatmap.css";
 
 export function HabitHeatMap({ completionDate }) {
   const value = completionDate
@@ -38,5 +38,3 @@ export function HabitHeatMap({ completionDate }) {
     </div>
   );
 }
-
-
