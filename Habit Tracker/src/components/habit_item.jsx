@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { HabitHeatMap } from "../heatmap/habitheatmap";
 import "./habit_item.css";
-import { Input } from "./input";
 
 export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
   const [isEditing, setIsEditing] = useState(false);
