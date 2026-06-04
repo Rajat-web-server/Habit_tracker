@@ -1,10 +1,11 @@
 // import "./input.css"
+import { Input } from "./ui/input"
 
-export const Input =({setHabit, habit})=>{
+export const Input_ =({setHabit, habit})=>{
 
     return(
         <div>
-          <input type="text" placeholder="Enter habit" value={habit} id="input" onChange={(e)=>setHabit(e.target.value)} />   
+          <Input  value={habit} id="input" onChange={(e)=>setHabit(e.target.value)} />   
         </div>
         
     )

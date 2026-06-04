@@ -1,6 +1,6 @@
 
 export const Dashboard=()=>{
     return(
-        <h2 style={{padding:"25px"}}>This is the Dashboard Page</h2>
+        <h2 className="p-10">This is the Dashboard Page</h2>
     )
 }
