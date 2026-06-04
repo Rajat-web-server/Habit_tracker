@@ -1,27 +1,14 @@
+@import "tailwindcss";
 *{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.buttons_container {
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
+.btn {
+  @apply p-5 m-2 bg-[#D6FB61] border-r-2 text-blue-950 rounded;
 }
-.buttons>button{
-    padding: 10px;
-    background-color:var(--text-color);
-    margin: 5px;
-    border-radius: 10px;
+.checkbox{
+   @apply w-12 m-3 border-2 bg-emerald-100 rounded flex items-center justify-center text-2xl ;
 }
 .text{
-    font-size: 2em;
-    margin: 2px;
-  
-}
-
-.box{
-    display: flex;
-    gap: 5px;
-    margin-bottom: 5px;
+    @apply font-medium opacity-70 text-3xl m-3
 }

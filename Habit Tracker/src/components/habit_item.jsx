@@ -12,7 +12,7 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
   }, [habit]);
 
   const weekFunc = () => {
-    const week = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+    const week = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const weekdata = [];
     for (let index = 0; index < 7; index++) {
       const currentDay = new Date();
@@ -94,7 +94,7 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
   };
 
   return (
-    <div className="habit_container">
+    <div className="flex justify-center items-center border-2 rounded-2xl m-3">
       {isEditing ? (
         <div>
           <input
@@ -106,28 +106,38 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
           <button onClick={submit}>Submit</button>
         </div>
       ) : (
-        <p className="text">{habit.title}</p>
+        <p className="text-2xl font-bold flex ml-2">{habit.title}</p>
       )}
 
-      <div className="buttons_container">
-        <div className="buttons">
-          <button>{habit.counter}</button>
+      <div className="p-10 flex items-center gap-3.5">
+        <button className="btn">{habit.counter}</button>
 
-          <button onClick={reset}>Reset</button>
+        <button className="btn" onClick={reset}>
+          Reset
+        </button>
 
-          <button onClick={edit}>Edit</button>
+        <button className="btn" onClick={edit}>
+          Edit
+        </button>
 
-          <button onClick={delete_}>Delete</button>
-        </div>
+        <button className="btn" onClick={delete_}>
+          Delete
+        </button>
 
-        <div key={habit.id} className="box">
+        <div key={habit.id} className="flex justify-around gap-4 items-center">
           {weekdata.map((day) => {
             const isChecked = habit.completionDate.includes(day.completetion);
             return (
-              <div key={day.completetion}>
-                <p>{day.date}</p>
-                <p>{day.dayName}</p>
-                <button onClick={() => checked(day.completetion)}>
+              <div
+                className="border-solid border-2 border-amber-50 rounded-2xl" 
+                key={day.completetion}
+              >
+                <p className="text">{day.date}</p>
+                <p className="text">{day.dayName}</p>
+                <button
+                  className="checkbox"
+                  onClick={() => checked(day.completetion)}
+                >
                   {isChecked ? "✅" : "⬜"}
                 </button>
               </div>
