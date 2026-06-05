@@ -1,21 +1,24 @@
 import { HabitHeatMap } from "../heatmap/habitheatmap";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 export const AnalyticsPage = ({ habitList }) => {
   return (
     <>
-      <div className="h-screen flex flex-col justify-center items-center ">
-        <div className="pt-4  shrink-0">
-          <h2 className="p-3 font-bold text-4xl ">
-            This is the Analytics Page
-          </h2>
-          <div className="flex-1 overflow-y-auto">
+      <div className="mt-25  ">
+        <div>
+          <div className="text-center pb-5 font-bold text-3xl">
+            The Analytics Page
+          </div>
+          <div className="flex flex-col gap-4">
             {habitList.map((habit) => (
-              <div>
-                <p>{habit.title}</p>
+              <Card className="flex flex-row justify-center items-center">
+                <CardTitle className="p-2 ml-2 font-bold text-3xl">
+                  {habit.title}
+                </CardTitle>
                 <HabitHeatMap
                   key={habit.id}
                   completionDate={habit.completionDate}
                 />
-              </div>
+              </Card>
             ))}
           </div>
         </div>
