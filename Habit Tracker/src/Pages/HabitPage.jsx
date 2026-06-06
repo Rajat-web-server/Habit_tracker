@@ -21,8 +21,8 @@ export const HabitPage = ({
   Submit,
 }) => {
   return (
-    <div className="h-screen pt-12">
-      <Card className="h-full w-full flex flex-col">
+    <div className="h-screen pt-25">
+      <div className="h-full w-full flex flex-col">
         {/* Header */}
         <CardHeader className="border-b">
           <CardTitle className="text-4xl text-center">Habit Tracker</CardTitle>
@@ -63,7 +63,7 @@ export const HabitPage = ({
           </div>
           </ScrollArea>
         </CardContent>
-      </Card>
+      </div>
     </div>
   );
 };

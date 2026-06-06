@@ -96,7 +96,7 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
   };
 
   return (
-    <card className="flex justify-center items-center border-2 rounded-2xl m-3 hover:bg-gray-600 hover:text-white">
+    <Card className="flex justify-center items-center border-2 rounded-2xl m-3 text-w hover:bg-gray-600 hover:text-white">
       {isEditing ? (
         <div>
           <Input
@@ -108,7 +108,7 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
           <Button onClick={submit}>Submit</Button>
         </div>
       ) : (
-        <p className="text-2xl font-bold flex ml-2">{habit.title}</p>
+        <p className="text-2xl font-bold flex ml-2 text-white">{habit.title}</p>
       )}
 
       <div className="p-5 flex items-center gap-3.5 ">
@@ -126,7 +126,7 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
           Delete
         </Button>
 
-        <card key={habit.id} className="flex justify-around gap-4 items-center flex-wrap">
+        <div key={habit.id} className="flex justify-around gap-4 items-center flex-wrap text-white hover:bg-black">
           {weekdata.map((day) => {
             const isChecked = habit.completionDate.includes(day.completetion);
             return (
@@ -145,8 +145,8 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
               </div>
             );
           })}
-        </card>
+        </div>
       </div>
-    </card>
+    </Card>
   );
 }

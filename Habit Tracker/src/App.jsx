@@ -4,6 +4,7 @@ import { Dashboard } from "./Pages/Dashboard";
 import { AnalyticsPage } from "./Pages/AnalyticsPage";
 import { HabitPage } from "./Pages/HabitPage";
 import { Navbar } from "./components/navbar/navbar";
+import { Chart } from "./Pages/chart";
 import "./App.css";
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
             }
           />
           <Route path="/Analytics" element={<AnalyticsPage  habitList={habitList} />} />
+          <Route path="/chart" element={<Chart/>}/>
         </Routes>
      </div>
     </div>
