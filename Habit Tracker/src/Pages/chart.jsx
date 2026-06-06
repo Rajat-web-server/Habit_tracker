@@ -1,14 +1,17 @@
-import { Linechart } from "@/components/charts/lineChart"
-import { Piechart } from "@/components/charts/pieChart"
+import { Linechart } from "@/components/charts/lineChart";
+import { Piechart } from "@/components/charts/pieChart";
+import { Barchart } from "@/components/charts/barChart";
 
-export const Chart=()=>{
-    return(
-        <>
-        
-        <h2 className="pt-25 text-5xl text-center">This is Where Analytical Data will be projected</h2>
+export const Chart = () => {
+  return (
+    <>
+      <h2 className="pt-25 text-5xl text-center">
+        This is Where Analytical Data will be projected
+      </h2>
 
-        <Linechart/>
-        <Piechart/>
-        </>
-    )
-}
+      <Linechart />
+      <Piechart />
+      <Barchart />
+    </>
+  );
+};
