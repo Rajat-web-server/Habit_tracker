@@ -17,8 +17,8 @@ export function HabitHeatMap({ completionDate }) {
         width={700}
         style={{ color: "#F5F5F5" }}
         panelColors={{
-          0: "#FFF0E4", // inactive cells
-          1: "#306D29",
+          0: "#792CA2", // inactive cells
+          1: "#FF0000",
         }}
         legendCellSize={0}
         weekLabels={["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]}

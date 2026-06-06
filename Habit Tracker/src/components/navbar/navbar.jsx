@@ -22,6 +22,9 @@ export const Navbar = () => {
         <NavLink style={NavlinkStyles} to="/Analytics">
           Analytics
         </NavLink>
+        <NavLink style={NavlinkStyles} to="/Chart">
+          Charts
+        </NavLink>
         <br />
       </nav>
     </div>

@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import { HabitHeatMap } from "../heatmap/habitheatmap";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Card } from "./ui/card";
 import "./habit_item.css";
 
 export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
@@ -76,6 +78,7 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
 
   // SUBMIT EDIT
   const submit = () => {
+    if (!editHabit.trim()) return;
     const updatedHabit = {
       ...habit,
 
@@ -93,37 +96,37 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
   };
 
   return (
-    <div className="flex justify-center items-center border-2 rounded-2xl m-3">
+    <Card className="flex justify-center items-center border-2 rounded-2xl m-3 text-w hover:bg-gray-600 hover:text-white">
       {isEditing ? (
         <div>
-          <input
+          <Input
             type="text"
             value={editHabit}
             onChange={(e) => setEditHabit(e.target.value)}
           />
 
-          <button onClick={submit}>Submit</button>
+          <Button onClick={submit}>Submit</Button>
         </div>
       ) : (
-        <p className="text-2xl font-bold flex ml-2">{habit.title}</p>
+        <p className="text-2xl font-bold flex ml-2 text-white">{habit.title}</p>
       )}
 
-      <div className="p-10 flex items-center gap-3.5">
-        <button className="btn">{habit.counter}</button>
+      <div className="p-5 flex items-center gap-3.5 ">
+        <Button>{habit.counter}</Button>
 
-        <button className="btn" onClick={reset}>
+        <Button onClick={reset}>
           Reset
-        </button>
+        </Button>
 
-        <button className="btn" onClick={edit}>
+        <Button onClick={edit}>
           Edit
-        </button>
+        </Button>
 
-        <button className="btn" onClick={delete_}>
+        <Button onClick={delete_}>
           Delete
-        </button>
+        </Button>
 
-        <div key={habit.id} className="flex justify-around gap-4 items-center">
+        <div key={habit.id} className="flex justify-around gap-4 items-center flex-wrap text-white hover:bg-black">
           {weekdata.map((day) => {
             const isChecked = habit.completionDate.includes(day.completetion);
             return (
@@ -133,17 +136,17 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
               >
                 <p className="text">{day.date}</p>
                 <p className="text">{day.dayName}</p>
-                <button
+                <Button
                   className="checkbox"
                   onClick={() => checked(day.completetion)}
                 >
                   {isChecked ? "✅" : "⬜"}
-                </button>
+                </Button>
               </div>
             );
           })}
         </div>
       </div>
-    </div>
+    </Card>
   );
-};
+}
