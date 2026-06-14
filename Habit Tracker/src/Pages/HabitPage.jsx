@@ -21,11 +21,11 @@ export const HabitPage = ({
   Submit,
 }) => {
   return (
-    <div className="h-screen pt-25">
+    <div className="h-screen pt-12 bg-bgcolor1 text-textcolor1">
       <div className="h-full w-full flex flex-col">
         {/* Header */}
         <CardHeader className="border-b">
-          <CardTitle className="text-4xl text-center">Habit Tracker</CardTitle>
+          <CardTitle className="text-3xl text-center">Habit Tracker</CardTitle>
 
           <CardDescription className="text-center">
             Track your daily habits and build consistency.
@@ -43,24 +43,24 @@ export const HabitPage = ({
         {/* Scrollable Habit Section */}
         <CardContent className="flex-1 min-h-0 p-4 ">
           <ScrollArea className="h-full">
-          <div className="space-y-4  ">
-            {habitList.length === 0 ? (
-              // <CardContent className="py-10 text-center text-muted-foreground">
-              <p>No habits added yet.</p>
-            ) : (
-              habitList.map((h, index) => (
-                <Habititem
-                  key={h.id}
-                  habit={h}
-                  index={index}
-                  updateHabit={updateHabit}
-                  deleteHabit={deleteHabit}
-                  now={now}
-                  habitList={habitList}
-                />
-              ))
-            )}
-          </div>
+            <div className="space-y-4  ">
+              {habitList.length === 0 ? (
+                // <CardContent className="py-10 text-center text-muted-foreground">
+                <p className="text-center">No habits added yet.</p>
+              ) : (
+                habitList.map((h, index) => (
+                  <Habititem
+                    key={h.id}
+                    habit={h}
+                    index={index}
+                    updateHabit={updateHabit}
+                    deleteHabit={deleteHabit}
+                    now={now}
+                    habitList={habitList}
+                  />
+                ))
+              )}
+            </div>
           </ScrollArea>
         </CardContent>
       </div>
