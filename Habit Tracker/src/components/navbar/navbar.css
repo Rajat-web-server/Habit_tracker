@@ -1,4 +1,4 @@
-.navbar > nav {
+/* .navbar > nav {
   display: flex;
   justify-content:space-around;
   background-color: var(--text-color);
@@ -8,5 +8,5 @@
   padding : 20px
 }
 nav>a{
-    color: #285A48;
-}
+  color: #285A48;
+} */
