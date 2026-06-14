@@ -10,7 +10,7 @@ export const Navbar = () => {
   };
   return (
     <div>
-      <nav className="flex items-center justify-center gap-6 text-textcolor1 fixed w-full top-0 p-6 bg-[#270c43]">
+      <nav className="flex items-center justify-center gap-6 text-textcolor1 fixed w-full top-0 p-3 bg-[#270c43]">
         <motion.div
           whileHover={{ scale: 1.5 }}
           whileTap={{ scale: 0.95 }}

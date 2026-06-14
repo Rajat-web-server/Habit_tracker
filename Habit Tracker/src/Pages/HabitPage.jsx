@@ -21,11 +21,11 @@ export const HabitPage = ({
   Submit,
 }) => {
   return (
-    <div className="h-screen pt-25 bg-bgcolor1 text-textcolor1">
+    <div className="h-screen pt-12 bg-bgcolor1 text-textcolor1">
       <div className="h-full w-full flex flex-col">
         {/* Header */}
         <CardHeader className="border-b">
-          <CardTitle className="text-4xl text-center">Habit Tracker</CardTitle>
+          <CardTitle className="text-3xl text-center">Habit Tracker</CardTitle>
 
           <CardDescription className="text-center">
             Track your daily habits and build consistency.
@@ -46,7 +46,7 @@ export const HabitPage = ({
             <div className="space-y-4  ">
               {habitList.length === 0 ? (
                 // <CardContent className="py-10 text-center text-muted-foreground">
-                <p>No habits added yet.</p>
+                <p className="text-center">No habits added yet.</p>
               ) : (
                 habitList.map((h, index) => (
                   <Habititem

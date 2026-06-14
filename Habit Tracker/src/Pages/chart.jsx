@@ -7,7 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 export const Chart = () => {
   return (
     <div className="bg-bgcolor1 text-textcolor1 h-screen flex flex-col">
-      <h2 className="pt-25 text-5xl text-center shrink-0 pb-6">
+      <h2 className="pt-12 text-5xl text-center shrink-0 pb-6">
         This is Where Analytical Data will be projected
       </h2>
 

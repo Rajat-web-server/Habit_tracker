@@ -96,57 +96,59 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
   };
 
   return (
-    <Card className="flex justify-center items-center border-2 rounded-2xl m-3 text-w hover:bg-gray-600 hover:text-white">
-      {isEditing ? (
+    <Card className="flex items-center justify-center  border-2 rounded-2xl m-3 text-textcolor1 hover:bg-bgcolor3">
+      <div className="p-1 flex items-center gap-6.5 ">
+        {isEditing ? (
+          <div>
+            <Input
+              type="text"
+              value={editHabit}
+              onChange={(e) => setEditHabit(e.target.value)}
+            />
+            <div className=" flex items-center justify-center pt-3">
+              <Button onClick={submit}>Submit</Button>
+            </div>
+          </div>
+        ) : (
+          <p className="text-2xl font-bold text-white relative right-10">{habit.title}</p>
+        )}
         <div>
-          <Input
-            type="text"
-            value={editHabit}
-            onChange={(e) => setEditHabit(e.target.value)}
-          />
+          
 
-          <Button onClick={submit}>Submit</Button>
+          <Button onClick={reset}>Reset</Button>
+
+          <Button onClick={edit}>Edit</Button>
+
+          <Button onClick={delete_}>Delete</Button>
         </div>
-      ) : (
-        <p className="text-2xl font-bold flex ml-2 text-white">{habit.title}</p>
-      )}
 
-      <div className="p-5 flex items-center gap-3.5 ">
-        <Button>{habit.counter}</Button>
-
-        <Button onClick={reset}>
-          Reset
-        </Button>
-
-        <Button onClick={edit}>
-          Edit
-        </Button>
-
-        <Button onClick={delete_}>
-          Delete
-        </Button>
-
-        <div key={habit.id} className="flex justify-around gap-4 items-center flex-wrap text-white hover:bg-black">
+        <div
+          key={habit.id}
+          className="flex justify-around gap-4 items-center flex-wrap text-white"
+        >
           {weekdata.map((day) => {
             const isChecked = habit.completionDate.includes(day.completetion);
             return (
               <div
-                className="border-solid border-2 border-amber-50 rounded-2xl" 
+                className="border-solid border-2 border-amber-50 rounded-2xl"
                 key={day.completetion}
               >
-                <p className="text">{day.date}</p>
-                <p className="text">{day.dayName}</p>
+                <p className="text-[15px] text-center">{day.date}</p>
+                <p className="text-[15px] text-center">{day.dayName}</p>
                 <Button
-                  className="checkbox"
+                  className="h-8 w-8 bg-transparent hover:bg-transparent border-none shadow-none p-0"
                   onClick={() => checked(day.completetion)}
                 >
-                  {isChecked ? "✅" : "⬜"}
+                  <span className="text-sm">{isChecked ? "✅" : "⬜"}</span>
                 </Button>
               </div>
             );
           })}
         </div>
+        <div>
+          <Button className="relative left-12 h-18 w-18 text-5xl">{habit.counter}</Button>
+        </div>
       </div>
     </Card>
   );
-}
+};
