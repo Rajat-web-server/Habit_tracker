@@ -96,7 +96,7 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
   };
 
   return (
-    <Card className="flex items-center justify-center  border-2 rounded-2xl m-3 text-textcolor1 hover:bg-bgcolor3">
+    <Card className="flex items-center justify-center  border-2 rounded-2xl m-3 text-textcolor1 hover:bg-black">
       <div className="p-1 flex items-center gap-6.5 ">
         {isEditing ? (
           <div>
@@ -106,20 +106,20 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
               onChange={(e) => setEditHabit(e.target.value)}
             />
             <div className=" flex items-center justify-center pt-3">
-              <Button onClick={submit}>Submit</Button>
+              <Button variant="ghost" className="border-white" onClick={submit}>Submit</Button>
             </div>
           </div>
         ) : (
-          <p className="text-2xl font-bold text-white relative right-10">{habit.title}</p>
+          <p className="text-2xl font-bold text-white relative right-10">
+            {habit.title}
+          </p>
         )}
-        <div>
-          
+        <div className="flex gap-2">
+          <Button variant="ghost" className="border-white" onClick={reset}>Reset</Button>
 
-          <Button onClick={reset}>Reset</Button>
+          <Button variant="ghost" className="border-white" onClick={edit}>Edit</Button>
 
-          <Button onClick={edit}>Edit</Button>
-
-          <Button onClick={delete_}>Delete</Button>
+          <Button variant="ghost" className="border-white" onClick={delete_}>Delete</Button>
         </div>
 
         <div
@@ -146,7 +146,9 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
           })}
         </div>
         <div>
-          <Button className="relative left-12 h-18 w-18 text-5xl">{habit.counter}</Button>
+          <Button  variant="ghost" className="relative left-12 h-18 w-18 text-5xl mr-2 border-white">
+            {habit.counter}
+          </Button>
         </div>
       </div>
     </Card>
