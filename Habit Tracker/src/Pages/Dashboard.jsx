@@ -1,3 +1,5 @@
+import { SimpleRadarChart } from "../components/Dashboard_analytics/radar"; 
+
 export const Dashboard = () => {
   return (
     <>
@@ -5,6 +7,7 @@ export const Dashboard = () => {
         <h2 className="pt-12 text-5xl text-center">
           This is the Dashboard Page
         </h2>
+        <SimpleRadarChart/>
       </div>
     </>
   );
