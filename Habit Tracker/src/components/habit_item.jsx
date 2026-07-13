@@ -55,6 +55,10 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
       counter: updatedCompletion.length,
     };
 
+    function consistency(){
+       console.log("consistency:",updatedCompletion.slice/7) 
+    }
+    consistency();
     updateHabit(index, updatedHabit);
   };
 
@@ -106,7 +110,9 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
               onChange={(e) => setEditHabit(e.target.value)}
             />
             <div className=" flex items-center justify-center pt-3">
-              <Button variant="ghost" className="border-white" onClick={submit}>Submit</Button>
+              <Button variant="ghost" className="border-white" onClick={submit}>
+                Submit
+              </Button>
             </div>
           </div>
         ) : (
@@ -115,11 +121,17 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
           </p>
         )}
         <div className="flex gap-2">
-          <Button variant="ghost" className="border-white" onClick={reset}>Reset</Button>
+          <Button variant="ghost" className="border-white" onClick={reset}>
+            Reset
+          </Button>
 
-          <Button variant="ghost" className="border-white" onClick={edit}>Edit</Button>
+          <Button variant="ghost" className="border-white" onClick={edit}>
+            Edit
+          </Button>
 
-          <Button variant="ghost" className="border-white" onClick={delete_}>Delete</Button>
+          <Button variant="ghost" className="border-white" onClick={delete_}>
+            Delete
+          </Button>
         </div>
 
         <div
@@ -146,7 +158,10 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
           })}
         </div>
         <div>
-          <Button  variant="ghost" className="relative left-12 h-18 w-18 text-5xl mr-2 border-white">
+          <Button
+            variant="ghost"
+            className="relative left-12 h-18 w-18 text-5xl mr-2 border-white"
+          >
             {habit.counter}
           </Button>
         </div>
