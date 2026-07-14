@@ -1,16 +1,13 @@
-import { SimpleRadarChart } from "../components/Dashboard_analytics/radar"; 
-import { Greeting } from "@/components/Dashboard_analytics/greetings";
-import { HabitPreviewList } from "@/components/Dashboard_analytics/habitPreviewList";
-import { MotivationalQuote } from "@/components/Dashboard_analytics/Motivation_Quote";
-import { WeeklyRadarChart } from "../components/Dashboard_analytics/radar";
-import { StatsCards } from "@/components/Dashboard_analytics/statsCard";
-export default function Dashboard() {
+// import { SimpleRadarChart } from "../components/Dashboard_analytics/radar"; 
+// import { Greeting } from "@/components/Dashboard_analytics/greetings";
+// import { HabitPreviewList } from "@/components/Dashboard_analytics/habitPreviewList";
+// import { MotivationalQuote } from "@/components/Dashboard_analytics/Motivation_Quote";
+// import { WeeklyRadarChart } from "../components/Dashboard_analytics/radar";
+// import { StatsCards } from "@/components/Dashboard_analytics/statsCard";
+export const Dashboard=(habitList, habit, now)=> {
   return (
-    <div
-      className="min-h-screen bg-bg font-sans"
-    >
-      <Navbar />
-      <div className="mx-auto max-w-5xl space-y-6 px-4 py-6">
+    <div>
+      {/* <div className="mx-auto max-w-5xl space-y-6 px-4 py-6">
         <Greeting />
  
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
@@ -24,7 +21,8 @@ export default function Dashboard() {
           <WeeklyRadarChart />
           <WeeklyConsistencyChart />
         </div>
-      </div>
+      </div> */}
+      <h1>This is Dashboard page</h1>
     </div>
   );
 }

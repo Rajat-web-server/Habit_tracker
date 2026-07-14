@@ -4,7 +4,14 @@ import { Input } from "./ui/input";
 import { Card } from "./ui/card";
 import "./habit_item.css";
 
-export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
+export const Habititem = ({
+  habit,
+  index,
+  updateHabit,
+  deleteHabit,
+  now,
+  habitList,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const [editHabit, setEditHabit] = useState(habit.title);
@@ -55,8 +62,8 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
       counter: updatedCompletion.length,
     };
 
-    function consistency(){
-       console.log("consistency:",updatedCompletion.slice/7) 
+    function consistency() {
+      console.log("consistency:", updatedCompletion.slice / 7);
     }
     consistency();
     updateHabit(index, updatedHabit);
@@ -98,6 +105,7 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
   const delete_ = () => {
     deleteHabit(index);
   };
+
 
   return (
     <Card className="flex items-center justify-center  border-2 rounded-2xl m-3 text-textcolor1 hover:bg-black">
