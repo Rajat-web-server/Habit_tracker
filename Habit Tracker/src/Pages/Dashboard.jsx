@@ -1,7 +1,7 @@
 // import { SimpleRadarChart } from "../components/Dashboard_analytics/radar"; 
 import { Greeting } from "@/components/Dashboard_analytics/greetings";
 import { HabitPreviewList } from "@/components/Dashboard_analytics/habitPreviewList";
-// import { MotivationalQuote } from "@/components/Dashboard_analytics/Motivation_Quote";
+import { MotivationalQuote } from "@/components/Dashboard_analytics/Motivation_Quote";
 // import { WeeklyRadarChart } from "../components/Dashboard_analytics/radar";
 // import { StatsCards } from "@/components/Dashboard_analytics/statsCard";
 export const Dashboard=({habitList, habit,updateHabit, now})=> {
@@ -13,7 +13,7 @@ export const Dashboard=({habitList, habit,updateHabit, now})=> {
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
           <div className="lg:col-span-2"><HabitPreviewList habitList={habitList} habit={habit} updateHabit={updateHabit}/></div>
           {console.log("habitlist from dashboard : ",habitList)}
-          {/* <div className="lg:col-span-1"><MotivationalQuote /></div> */}
+          <div className="lg:col-span-1"><MotivationalQuote /></div>
         </div>
  
         {/* <StatsCards />
