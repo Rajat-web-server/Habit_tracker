@@ -31,7 +31,7 @@ const links = [
 
 export const Navbar = () => {
   return (
-    <nav className="flex items-center justify-center gap-6 text-textcolor1 fixed w-full top-0 z-50 p-3 bg-[#270c43]">
+    <nav className="flex items-center justify-center gap-6 text-textcolor1 fixed w-full top-0 z-50 p-1 bg-[#270c43]">
       {links.map((link) => (
         <NavLink
           key={link.to}
@@ -49,15 +49,23 @@ export const Navbar = () => {
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
-              <motion.img
-                whileHover={{ scale: 1.5 }}
-                whileTap={{ scale: 0.95 }}
-                width="20"
-                height="20"
-                src={link.src}
-                alt={link.alt}
-                className="relative z-10"
-              />
+              <motion.div
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                className="relative z-10 rounded-full"
+                style={{ display: "inline-block" }}
+              >
+                <motion.img
+                  width="30"
+                  height="30"
+                  src={link.src}
+                  alt={link.alt}
+                  whileHover={{
+                    filter: "drop-shadow(0 0 6px rgba(255,255,255,0.6))",
+                  }}
+                />
+              </motion.div>
             </>
           )}
         </NavLink>

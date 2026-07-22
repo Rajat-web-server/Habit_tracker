@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Card } from "./ui/card";
+import { HabitUtils } from "./Dashboard_analytics/habitutils";
 import "./habit_item.css";
 
 export const Habititem = ({
@@ -108,7 +109,7 @@ export const Habititem = ({
 
 
   return (
-    <Card className="flex items-center justify-center  border-2 rounded-2xl m-3 text-textcolor1 hover:bg-black">
+    <Card className="flex items-center justify-center  border-2 rounded-2xl m-3 text-textcolor1 hover:bg-black flex-wrap">
       <div className="p-1 flex items-center gap-6.5 ">
         {isEditing ? (
           <div>
@@ -174,6 +175,7 @@ export const Habititem = ({
           </Button>
         </div>
       </div>
+      <HabitUtils habit={habit} habitList={habitList} now={now}/> 
     </Card>
   );
 };

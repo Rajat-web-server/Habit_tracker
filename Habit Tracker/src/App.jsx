@@ -56,6 +56,7 @@ function App() {
                 now={now}
                 habitList={habitList}
                 habit={habit}
+                updateHabit={updateHabit}
               />
             }
           />

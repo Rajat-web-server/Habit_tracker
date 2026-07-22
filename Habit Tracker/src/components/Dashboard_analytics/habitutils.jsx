@@ -1,6 +1,5 @@
-import { div } from "motion/react-client";
 
- export const habitUtils=(habit,habitList)=>{
+ export const HabitUtils=({habit,habitList,now})=>{
 
      const daysAgoKey = (n) => {
         const d = new Date(now);
