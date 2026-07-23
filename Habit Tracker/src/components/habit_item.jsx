@@ -2,9 +2,17 @@ import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Card } from "./ui/card";
+import { HabitUtils } from "./Dashboard_analytics/habitutils";
 import "./habit_item.css";
 
-export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
+export const Habititem = ({
+  habit,
+  index,
+  updateHabit,
+  deleteHabit,
+  now,
+  habitList,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const [editHabit, setEditHabit] = useState(habit.title);
@@ -55,6 +63,10 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
       counter: updatedCompletion.length,
     };
 
+    function consistency() {
+      console.log("consistency:", updatedCompletion.slice / 7);
+    }
+    consistency();
     updateHabit(index, updatedHabit);
   };
 
@@ -95,8 +107,9 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
     deleteHabit(index);
   };
 
+
   return (
-    <Card className="flex items-center justify-center  border-2 rounded-2xl m-3 text-textcolor1 hover:bg-black">
+    <Card className="flex items-center justify-center  border-2 rounded-2xl m-3 text-textcolor1 hover:bg-black flex-wrap">
       <div className="p-1 flex items-center gap-6.5 ">
         {isEditing ? (
           <div>
@@ -106,7 +119,9 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
               onChange={(e) => setEditHabit(e.target.value)}
             />
             <div className=" flex items-center justify-center pt-3">
-              <Button variant="ghost" className="border-white" onClick={submit}>Submit</Button>
+              <Button variant="ghost" className="border-white" onClick={submit}>
+                Submit
+              </Button>
             </div>
           </div>
         ) : (
@@ -115,11 +130,17 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
           </p>
         )}
         <div className="flex gap-2">
-          <Button variant="ghost" className="border-white" onClick={reset}>Reset</Button>
+          <Button variant="ghost" className="border-white" onClick={reset}>
+            Reset
+          </Button>
 
-          <Button variant="ghost" className="border-white" onClick={edit}>Edit</Button>
+          <Button variant="ghost" className="border-white" onClick={edit}>
+            Edit
+          </Button>
 
-          <Button variant="ghost" className="border-white" onClick={delete_}>Delete</Button>
+          <Button variant="ghost" className="border-white" onClick={delete_}>
+            Delete
+          </Button>
         </div>
 
         <div
@@ -146,11 +167,15 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
           })}
         </div>
         <div>
-          <Button  variant="ghost" className="relative left-12 h-18 w-18 text-5xl mr-2 border-white">
+          <Button
+            variant="ghost"
+            className="relative left-12 h-18 w-18 text-5xl mr-2 border-white"
+          >
             {habit.counter}
           </Button>
         </div>
       </div>
+      <HabitUtils habit={habit} habitList={habitList} now={now}/> 
     </Card>
   );
 };

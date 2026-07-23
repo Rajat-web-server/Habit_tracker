@@ -49,19 +49,39 @@ function App() {
       <Navbar />
       <div>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route
+            path="/"
+            element={
+              <Dashboard
+                now={now}
+                habitList={habitList}
+                habit={habit}
+                updateHabit={updateHabit}
+              />
+            }
+          />
+
           <Route
             path="/habits"
             element={
-              <HabitPage updateHabit={updateHabit} deleteHabit={deleteHabit} now={now}
-            habitList={habitList} habit={habit}
-            Submit={Submit} setHabit={setHabit}/>
+              <HabitPage
+                updateHabit={updateHabit}
+                deleteHabit={deleteHabit}
+                now={now}
+                habitList={habitList}
+                habit={habit}
+                Submit={Submit}
+                setHabit={setHabit}
+              />
             }
           />
-          <Route path="/Analytics" element={<AnalyticsPage  habitList={habitList} />} />
-          <Route path="/chart" element={<Chart/>}/>
+          <Route
+            path="/Analytics"
+            element={<AnalyticsPage habitList={habitList} />}
+          />
+          <Route path="/chart" element={<Chart />} />
         </Routes>
-     </div>
+      </div>
     </div>
   );
 }

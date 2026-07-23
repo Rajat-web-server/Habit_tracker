@@ -1,88 +1,19 @@
-import {
-  Radar,
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  ResponsiveContainer,
-} from "recharts";
-import { RechartsDevtools } from "@recharts/devtools";
-
-// #region Sample data
-const data = [
-  {
-    subject: "Math",
-    A: 120,
-    B: 110,
-    fullMark: 150,
-  },
-  {
-    subject: "Chinese",
-    A: 98,
-    B: 130,
-    fullMark: 150,
-  },
-  {
-    subject: "English",
-    A: 86,
-    B: 130,
-    fullMark: 150,
-  },
-  {
-    subject: "Geography",
-    A: 99,
-    B: 100,
-    fullMark: 150,
-  },
-  {
-    subject: "Physics",
-    A: 85,
-    B: 90,
-    fullMark: 150,
-  },
-  {
-    subject: "History",
-    A: 65,
-    B: 85,
-    fullMark: 150,
-  },
-];
-
-// #endregion
-export const SimpleRadarChart = () => {
+export const WeeklyRadarChart=()=> {
   return (
-
-      <RadarChart
-        style={{
-          width: "100%",
-          height: "100%",
-          maxWidth: "500px",
-          maxHeight: "80vh",
-          aspectRatio: 1,
-        }}
-        responsive
-        outerRadius="80%"
-        data={data}
-        margin={{
-          top: 20,
-          left: 20,
-          right: 20,
-          bottom: 20,
-        }}
-      >
-        <PolarGrid />
-        <PolarAngleAxis/>
-        <PolarAngleAxis dataKey="subject" />
-        <PolarRadiusAxis />
-        <Radar
-          name="Mike"
-          dataKey="A"
-          stroke="#1A312C"
-          fill="#89D7B7"
-          fillOpacity={0.6}
-        />
-      </RadarChart>
-
+    <Card className="p-4">
+      <h3 className="mb-3 text-sm font-semibold text-fg">Habit consistency — last 7 days</h3>
+      <div className="h-72 w-full">
+        <ResponsiveContainer width="100%" height="100%">
+          <RadarChart data={radarData} outerRadius="75%">
+            <PolarGrid stroke="var(--border)" />
+            <PolarAngleAxis dataKey="habit" tick={{ fill: "var(--muted-fg)", fontSize: 12 }} />
+            <PolarRadiusAxis angle={90} domain={[0, 100]} tick={{ fill: "var(--muted-fg)", fontSize: 10 }} />
+            <Tooltip formatter={(v) => [`${v}%`, "Consistency"]} contentStyle={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 8, fontSize: 12 }} />
+            <Radar name="Consistency" dataKey="consistency" stroke="var(--primary)" fill="var(--primary)" fillOpacity={0.35} />
+          </RadarChart>
+        </ResponsiveContainer>
+      </div>
+    </Card>
   );
-};
+}
 
