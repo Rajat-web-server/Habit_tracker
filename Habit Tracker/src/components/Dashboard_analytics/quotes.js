@@ -32,7 +32,7 @@ export const quotes = [
     author: "Angela Duckworth",
   },
   {
-    text: "'T is easier to prevent bad habits than break them.",
+    text: "It is easier to prevent bad habits than break them.",
     author: "Benjamin Franklin",
   },
   {

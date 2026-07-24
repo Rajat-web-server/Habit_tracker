@@ -1,3 +1,6 @@
+import { Card } from "../ui/card";
+import { RadarChart, ResponsiveContainer, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from "recharts";
+
 export const WeeklyRadarChart=()=> {
   return (
     <Card className="p-4">

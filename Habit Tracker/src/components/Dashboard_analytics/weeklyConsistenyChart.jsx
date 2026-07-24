@@ -1,3 +1,6 @@
+import { Card } from "../ui/card";
+import { ResponsiveContainer, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip, Area } from "recharts";
+
 export const WeeklyConsistencyChart=()=>{
   return (
     <Card className="p-4">

@@ -1,4 +1,4 @@
- import { StatsCards } from "./statsCard";
+//  import { StatsCards } from "./statsCard";
  export const HabitUtils=({habit,habitList,now})=>{
 
      const daysAgoKey = (n) => {
@@ -104,7 +104,7 @@
           <p>
             {trend.map((item) => `${item.day}: ${item.completion}% `)}
           </p> */}
-          <StatsCards trend={trend} bestStreak={bestStreak} bestHabit={bestHabit} Remaining = {Remaining} consistency={consistency}/>
+          {/* <StatsCards trend={trend} bestStreak={bestStreak} bestHabit={bestHabit} Remaining = {Remaining} consistency={consistency}/> */}
         </div>
       )
  }
