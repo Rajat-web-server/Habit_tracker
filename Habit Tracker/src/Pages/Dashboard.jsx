@@ -2,6 +2,7 @@
 import { Greeting } from "@/components/Dashboard_analytics/greetings";
 import { HabitPreviewList } from "@/components/Dashboard_analytics/habitPreviewList";
 import { MotivationalQuote } from "@/components/Dashboard_analytics/Motivation_Quote";
+// import { WeeklyConsistencyChart } from "@/components/Dashboard_analytics/weeklyConsistenyChart";
 // import { WeeklyRadarChart } from "../components/Dashboard_analytics/radar";
 // import { StatsCards } from "@/components/Dashboard_analytics/statsCard";
 export const Dashboard=({habitList, habit,updateHabit, now})=> {
@@ -16,9 +17,9 @@ export const Dashboard=({habitList, habit,updateHabit, now})=> {
           <div className="lg:col-span-1"><MotivationalQuote /></div>
         </div>
  
-        {/* <StatsCards />
+        {/* <StatsCards habitList={habitList} habit={habit}/> */}
  
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        {/* <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           <WeeklyRadarChart />
           <WeeklyConsistencyChart />
         </div> */}
