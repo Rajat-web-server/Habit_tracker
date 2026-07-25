@@ -73,7 +73,7 @@ export const HabitPreviewList = ({ habitList, updateHabit }) => {
                   {habit.title}
                 </p>
 
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-gray-500 $">
                   Completed {habit.counter} times
                 </p>
               </div>
@@ -90,7 +90,7 @@ export const HabitPreviewList = ({ habitList, updateHabit }) => {
     console.log("ERROR : ", err);
   }
   return (
-    <Card className="p-4 h-full">
+    <Card className="bg-[#0d0d0e] p-4 h-full text-amber-50">
       <h2 className="font-semibold mb-4">Today's Habits</h2>
 
       <div className="space-y-3">{rendered_habits}</div>
