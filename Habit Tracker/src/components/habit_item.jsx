@@ -114,8 +114,8 @@ export const Habititem = ({
   
 
   return (
-    <Card className="flex items-center justify-center  border-2 rounded-2xl m-3 text-textcolor1 hover:bg-black flex-wrap">
-      <div className="p-1 flex items-center gap-6.5 ">
+    <Card className="flex items-center justify-center max-w-7xl  border-2 rounded-2xl m-3 text-textcolor1 hover:bg-black flex-wrap">
+      <div className="p-1 flex flex-wrap items-center gap-6.5 ">
 
         {isEditing ? (
           <div>
@@ -131,11 +131,11 @@ export const Habititem = ({
             </div>
           </div>
         ) : (
-          <p className="text-2xl font-bold text-white relative right-10">
+          <p className="flex-1 min-w-[180px] text-2xl font-bold break-words text-white relative right-10">
             {habit.title}
           </p>
         )}
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Button variant="ghost" className="border-white" onClick={reset}>
             Reset
           </Button>
@@ -151,7 +151,7 @@ export const Habititem = ({
 
         <div
           key={habit.id}
-          className="flex justify-around gap-4 items-center flex-wrap text-white"
+          className="flex flex-wrap justify-center gap-4 text-white"
         >
           {weekdata.map((day) => {
             const isChecked = habit.completionDate.includes(day.completetion);
@@ -175,7 +175,7 @@ export const Habititem = ({
         <div>
           <Button
             variant="ghost"
-            className="relative left-12 h-18 w-18 text-5xl mr-2 border-white"
+            className="relative h-14 w-14 sm:h-16 sm:w-16 text-3xl sm:text-5xl mr-2 border-white"
           >
             {habit.counter}
           </Button>
