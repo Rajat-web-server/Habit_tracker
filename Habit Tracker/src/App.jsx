@@ -5,6 +5,7 @@ import { AnalyticsPage } from "./Pages/AnalyticsPage";
 import { HabitPage } from "./Pages/HabitPage";
 import { Navbar } from "./components/navbar/navbar";
 import { Chart } from "./Pages/chart";
+import { HabitUtils } from "./components/Dashboard_analytics/habitutils";
 import "./App.css";
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
 
   return (
     <div>
+      
       <Navbar />
       <div>
         <Routes>

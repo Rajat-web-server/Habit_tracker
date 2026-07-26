@@ -20,6 +20,10 @@ export const Habititem = ({
     setEditHabit(habit.title);
   }, [habit]);
 
+  console.log(now);
+  console.log(habit);
+  console.log("habitlist :", habitList);
+
   const weekFunc = () => {
     const week = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const weekdata = [];
@@ -107,10 +111,12 @@ export const Habititem = ({
     deleteHabit(index);
   };
 
+  
 
   return (
     <Card className="flex items-center justify-center  border-2 rounded-2xl m-3 text-textcolor1 hover:bg-black flex-wrap">
       <div className="p-1 flex items-center gap-6.5 ">
+
         {isEditing ? (
           <div>
             <Input
@@ -175,7 +181,6 @@ export const Habititem = ({
           </Button>
         </div>
       </div>
-      <HabitUtils habit={habit} habitList={habitList} now={now}/> 
     </Card>
   );
 };
