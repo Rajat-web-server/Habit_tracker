@@ -1,127 +1,194 @@
-import { StatsCards } from "./statsCard";
 export const HabitUtils = ({ habitList, now }) => {
   const daysAgoKey = (n) => {
     const d = new Date(now);
     d.setDate(d.getDate() - n);
+
     return d.toISOString().slice(0, 10);
-    console.log("d value is :", d);
   };
-  // console.log(now)
-  // console.log(habit)
-  console.log("habitlist :", habitList);
+
+  // -----------------------------
+  // CURRENT STREAK
+  // -----------------------------
   const currentStreak = (habit) => {
+    if (!habit) return 0;
+
     let streak = 0;
     let i = 0;
-    console.log("habit :", habit);
 
+    // If today isn't completed, start checking from yesterday
     if (!habit.completionDate.includes(daysAgoKey(0))) {
       i = 1;
     }
+
     while (habit.completionDate.includes(daysAgoKey(i))) {
       streak++;
       i++;
     }
-    console.log(streak);
+
+    // If today was completed, include today
+    if (habit.completionDate.includes(daysAgoKey(0))) {
+      streak++;
+    }
 
     return streak;
   };
-  const consistency7d = () => {
-  let totalDone = 0;
 
-  for (const habit of habitList) {
+  // -----------------------------
+  // CONSISTENCY FOR ONE HABIT
+  // -----------------------------
+  const consistencyForHabit = (habit) => {
+    if (!habit) return 0;
+
+    let completed = 0;
+
     for (let i = 0; i < 7; i++) {
       if (habit.completionDate.includes(daysAgoKey(i))) {
-        totalDone++;
+        completed++;
       }
     }
-  }
 
-  const totalPossible = habitList.length * 7;
+    return Math.round((completed / 7) * 100);
+  };
 
-  if (totalPossible === 0) return 0;
+  // -----------------------------
+  // OVERALL 7-DAY CONSISTENCY
+  // -----------------------------
+  const consistency7d = () => {
+    if (habitList.length === 0) return 0;
 
-  return Math.round((totalDone / totalPossible) * 100);
-};
+    let totalDone = 0;
 
+    for (const habit of habitList) {
+      for (let i = 0; i < 7; i++) {
+        if (habit.completionDate.includes(daysAgoKey(i))) {
+          totalDone++;
+        }
+      }
+    }
+
+    const totalPossible = habitList.length * 7;
+
+    return Math.round((totalDone / totalPossible) * 100);
+  };
+
+  // -----------------------------
+  // GREETING
+  // -----------------------------
   const greetingText = () => {
     const h = now.getHours();
+
     if (h < 5) return "Still up?";
     if (h < 12) return "Hello, Good morning";
     if (h < 17) return "Good afternoon";
     if (h < 21) return "Good evening";
+
     return "Winding down?";
   };
 
+  // -----------------------------
+  // REMAINING TODAY
+  // -----------------------------
   const getRemainingToday = () => {
-    return habitList.filter((h) => !h.completionDate.includes(daysAgoKey(0)))
-      .length;
+    return habitList.filter(
+      (h) => !h.completionDate.includes(daysAgoKey(0)),
+    ).length;
   };
 
+  // -----------------------------
+  // BEST HABIT
+  // -----------------------------
   const getBestHabit = () => {
-    return habitList.reduce((b, h) => {
-      const streak = currentStreak(h);
-      const cons = consistency7d(h);
-      const total = Object.keys(h.completionDate).length;
-      const score = streak * 3 + cons * 0.5 + total * 0.2;
-      return !b || score > b.score
-        ? { habit: h, streak, consistency: cons, score }
-        : b;
+    return habitList.reduce((best, habit) => {
+      const streak = currentStreak(habit);
+      const consistency = consistencyForHabit(habit);
+      const total = habit.completionDate.length;
+
+      const score =
+        streak * 3 +
+        consistency * 0.5 +
+        total * 0.2;
+
+      return !best || score > best.score
+        ? {
+            habit,
+            streak,
+            consistency,
+            score,
+          }
+        : best;
     }, null);
   };
 
+  // -----------------------------
+  // BEST STREAK
+  // -----------------------------
   const getBestStreak = () => {
-    return habitList.reduce((b, h) => {
-      const s = currentStreak(h);
-      return !b || s > b.streak ? { habit: h, streak: s } : b;
+    return habitList.reduce((best, habit) => {
+      const streak = currentStreak(habit);
+
+      return !best || streak > best.streak
+        ? {
+            habit,
+            streak,
+          }
+        : best;
     }, null);
   };
 
+  // -----------------------------
+  // WEEKLY TREND
+  // -----------------------------
   const weeklyTrend = () => {
     const out = [];
+
     for (let i = 6; i >= 0; i--) {
       const key = daysAgoKey(i);
-      const done = habitList.filter((h) =>
-        h.completionDate.includes(key),
+
+      const done = habitList.filter((habit) =>
+        habit.completionDate.includes(key),
       ).length;
-      const label = new Date(Date.now() - i * 86400000).toLocaleDateString(
-        undefined,
-        { weekday: "short" },
-      );
+
+      const label = new Date(
+        now.getTime() - i * 86400000,
+      ).toLocaleDateString(undefined, {
+        weekday: "short",
+      });
+
       out.push({
         day: label,
-        completion: Math.round((done / habitList.length) * 100),
+        completion:
+          habitList.length === 0
+            ? 0
+            : Math.round(
+                (done / habitList.length) * 100,
+              ),
       });
     }
+
     return out;
   };
+
+  // -----------------------------
+  // CALCULATE EVERYTHING
+  // -----------------------------
 
   const trend = weeklyTrend();
   const bestStreak = getBestStreak();
   const bestHabit = getBestHabit();
-  const streak = currentStreak(habitList[0]);
-  const consistency = consistency7d(habitList[0]);
+  const consistency = consistency7d();
   const greetings = greetingText();
   const Remaining = getRemainingToday();
 
-  return (
-    <div>
-      {/* <p>🔥 {streak}</p>
-          <p>📈 {consistency}%</p>
-          <p>{greetings}</p>
-          <p>{Remaining}</p>
-          <p>{bestHabit.habit.title}</p>
-          <p>{bestStreak?.streak}</p>
-          <p>
-          {trend.map((item) => `${item.day}: ${item.completion}% `)}
-          </p> */}
-      <StatsCards
-        trend={trend}
-        bestStreak={bestStreak}
-        bestHabit={bestHabit}
-        Remaining={Remaining}
-        consistency={consistency}
-        streak={streak}
-      />
-    </div>
-  );
+  // -----------------------------
+  // RETURN DATA
+  // -----------------------------
+
+  return {
+    trend,
+    bestStreak,
+    bestHabit,
+    consistency,
+    greetings,
+    Remaining,
+  };
 };
