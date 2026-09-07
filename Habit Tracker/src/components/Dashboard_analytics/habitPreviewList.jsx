@@ -69,7 +69,7 @@ export const HabitPreviewList = ({ habitList, updateHabit }) => {
               />
 
               <div>
-                <p className={`font-medium ${done ? "line-through" : ""}`}>
+                <p className={`font-medium  ${done ? "line-through text-black" : ""}`}>
                   {habit.title}
                 </p>
 

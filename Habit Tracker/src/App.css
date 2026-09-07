@@ -6,7 +6,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-bgcolor1: #061e29;
+  --color-bgcolor1: #181a1b;
   --color-bgcolor2: #000000;
   --color-bgcolor3: #362f4f;
   --color-textcolor1: #fff6f6;
