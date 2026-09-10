@@ -3,6 +3,7 @@ import Tooltip from "@uiw/react-tooltip";
 import HeatMap from "@uiw/react-heat-map";
 import "./heatmap.css";
 
+
 export function HabitHeatMap({ completionDate }) {
   const value = completionDate
     .filter((date) => date)

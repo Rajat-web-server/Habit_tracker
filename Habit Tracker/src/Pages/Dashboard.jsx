@@ -14,12 +14,12 @@ export const Dashboard = ({ habitList, habit, updateHabit, now }) => {
     });
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30}}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="min-h-screen w-full bg-black text-white"
-    >
+    <div className="min-h-screen w-full bg-black text-white">
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
       <div className="mx-auto w-full max-w-[1600px] space-y-6 px-4 py-6 pt-2">
         {/* Greeting */}
         <Greeting />
@@ -53,6 +53,7 @@ export const Dashboard = ({ habitList, habit, updateHabit, now }) => {
         {/* Radar Chart */}
         <WeeklyRadarChart radarData={radarData} />
       </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 };

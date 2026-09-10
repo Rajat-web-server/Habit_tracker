@@ -1,4 +1,5 @@
 import { Habititem } from "../components/habit_item";
+import { AnimatePresence, motion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import {
   CardContent,
@@ -55,17 +56,28 @@ export const HabitPage = ({
                   No habits added yet.
                 </p>
               ) : (
-                habitList.map((h, index) => (
-                  <Habititem
-                    key={h.id}
-                    habit={h}
-                    index={index}
-                    updateHabit={updateHabit}
-                    deleteHabit={deleteHabit}
-                    now={now}
-                    habitList={habitList}
-                  />
-                ))
+                <AnimatePresence initial={false}>
+                  {habitList.map((h, index) => (
+                    <motion.div
+                      key={h.id}
+                      layout
+                      initial={{ opacity: 0, height: 0, y: -10 }}
+                      animate={{ opacity: 1, height: "auto", y: 0 }}
+                      exit={{ opacity: 0, height: 0, y: -10 }}
+                      transition={{ duration: 0.25 }}
+                      className="overflow-hidden"
+                    >
+                      <Habititem
+                        habit={h}
+                        index={index}
+                        updateHabit={updateHabit}
+                        deleteHabit={deleteHabit}
+                        now={now}
+                        habitList={habitList}
+                      />
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
               )}
             </div>
           </ScrollArea>
