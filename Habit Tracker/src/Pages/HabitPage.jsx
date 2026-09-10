@@ -1,16 +1,15 @@
 import { Habititem } from "../components/habit_item";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-
 import { Input_ } from "../components/input";
 import "../index.css";
+
 export const HabitPage = ({
   updateHabit,
   deleteHabit,
@@ -21,32 +20,40 @@ export const HabitPage = ({
   Submit,
 }) => {
   return (
-    <div className="h-screen pt-12 bg-bgcolor1 text-textcolor1">
-      <div className="h-full w-full flex flex-col">
+    <div className="min-h-screen w-full bg-black pt-2 text-white">
+      <div className="mx-auto flex min-h-[calc(100vh-3rem)] w-full flex-col">
         {/* Header */}
-        <CardHeader className="border-b">
-          <CardTitle className="text-3xl text-center">Habit Tracker</CardTitle>
+        <CardHeader className="border-b border-white/10 px-6 py-6">
+          <CardTitle className="text-center text-3xl text-white">
+            Habit Tracker
+          </CardTitle>
 
-          <CardDescription className="text-center">
+          <CardDescription className="text-center text-gray-400">
             Track your daily habits and build consistency.
           </CardDescription>
 
-          <div className="flex justify-center items-center gap-4 pt-4">
+          <div className="flex items-center justify-center gap-4 pt-4">
             <div className="w-full max-w-md">
               <Input_ setHabit={setHabit} habit={habit} />
             </div>
 
-            <Button onClick={Submit}>Add Habit</Button>
+            <Button
+              onClick={Submit}
+              className="bg-green-500 text-black hover:bg-green-400"
+            >
+              Add Habit
+            </Button>
           </div>
         </CardHeader>
 
-        {/* Scrollable Habit Section */}
-        <CardContent className="flex-1 min-h-0 p-4 ">
+        {/* Habits */}
+        <CardContent className="flex-1 min-h-0 p-6">
           <ScrollArea className="h-full">
-            <div className="space-y-4  ">
+            <div className="space-y-4">
               {habitList.length === 0 ? (
-                // <CardContent className="py-10 text-center text-muted-foreground">
-                <p className="text-center">No habits added yet.</p>
+                <p className="py-10 text-center text-gray-400">
+                  No habits added yet.
+                </p>
               ) : (
                 habitList.map((h, index) => (
                   <Habititem

@@ -2,183 +2,239 @@ import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Card } from "./ui/card";
-import { HabitUtils } from "./Dashboard_analytics/habitutils";
-import "./habit_item.css";
 
-export const Habititem = ({
-  habit,
-  index,
-  updateHabit,
-  deleteHabit,
-  now,
-  habitList,
-}) => {
+import { ButtonGroup } from "./ui/button-group";
+
+import { MoreVertical } from "lucide-react";
+
+export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
   const [isEditing, setIsEditing] = useState(false);
-
   const [editHabit, setEditHabit] = useState(habit.title);
+
   useEffect(() => {
     setEditHabit(habit.title);
   }, [habit]);
 
-  console.log(now);
-  console.log(habit);
-  console.log("habitlist :", habitList);
+  // -------------------------
+  // Generate last 7 days
+  // -------------------------
 
   const weekFunc = () => {
     const week = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const weekdata = [];
+
     for (let index = 0; index < 7; index++) {
-      const currentDay = new Date();
+      const currentDay = new Date(now);
+
       currentDay.setDate(now.getDate() - index);
+
       const fullDate = `${currentDay.getFullYear()}-${String(
         currentDay.getMonth() + 1,
       ).padStart(2, "0")}-${String(currentDay.getDate()).padStart(2, "0")}`;
+
       weekdata.push({
         dayName: week[currentDay.getDay()],
         date: currentDay.getDate(),
-        completetion: fullDate,
-        checked: false,
-        month: currentDay.getMonth() + 1,
-        year: currentDay.getFullYear(),
+        completion: fullDate,
       });
     }
 
-    console.log(weekdata);
     return weekdata;
   };
+
   const weekdata = weekFunc();
 
-  // TOGGLE CHECKBOX
-  const checked = (completetion) => {
+  // -------------------------
+  // Toggle completion
+  // -------------------------
+
+  const checked = (completion) => {
     let updatedCompletion;
 
-    if (habit.completionDate.includes(completetion)) {
+    if (habit.completionDate.includes(completion)) {
       updatedCompletion = habit.completionDate.filter(
-        (d) => d !== completetion,
+        (date) => date !== completion,
       );
     } else {
-      updatedCompletion = [...habit.completionDate, completetion];
+      updatedCompletion = [...habit.completionDate, completion];
     }
+
     const updatedHabit = {
       ...habit,
-
       completionDate: updatedCompletion,
-
       counter: updatedCompletion.length,
     };
 
-    function consistency() {
-      console.log("consistency:", updatedCompletion.slice / 7);
-    }
-    consistency();
     updateHabit(index, updatedHabit);
   };
 
-  // RESET
+  // -------------------------
+  // Reset
+  // -------------------------
+
   const reset = () => {
     const updatedHabit = {
       ...habit,
-
       counter: 0,
-
       completionDate: [],
     };
 
     updateHabit(index, updatedHabit);
   };
 
-  // EDIT BUTTON
+  // -------------------------
+  // Edit
+  // -------------------------
+
   const edit = () => {
     setIsEditing(true);
   };
 
-  // SUBMIT EDIT
+  // -------------------------
+  // Submit edit
+  // -------------------------
+
   const submit = () => {
     if (!editHabit.trim()) return;
+
     const updatedHabit = {
       ...habit,
-
       title: editHabit,
     };
 
     updateHabit(index, updatedHabit);
-
     setIsEditing(false);
   };
 
-  // DELETE
+  // -------------------------
+  // Delete
+  // -------------------------
+
   const delete_ = () => {
     deleteHabit(index);
   };
 
-  
-
   return (
-    <Card className="flex items-center justify-center max-w-7xl  border-2 rounded-2xl m-3 text-textcolor1 hover:bg-black flex-wrap">
-      <div className="p-1 flex flex-wrap items-center gap-6.5 ">
+    <Card className="w-full overflow-hidden rounded-2xl border border-white/10 bg-[#111313] text-white shadow-none">
+      <div className="overflow-x-auto">
+        <div className="grid min-w-[1000px] grid-cols-[1.2fr_1.5fr_3fr_0.7fr] items-center gap-8 p-6">
+          {/* =====================
+              HABIT NAME
+          ====================== */}
 
-        {isEditing ? (
-          <div>
-            <Input
-              type="text"
-              value={editHabit}
-              onChange={(e) => setEditHabit(e.target.value)}
-            />
-            <div className=" flex items-center justify-center pt-3">
-              <Button variant="ghost" className="border-white" onClick={submit}>
-                Submit
-              </Button>
-            </div>
-          </div>
-        ) : (
-          <p className="flex-1 min-w-[180px] text-2xl font-bold break-words text-white relative right-10">
-            {habit.title}
-          </p>
-        )}
-        <div className="flex flex-wrap gap-2">
-          <Button variant="ghost" className="border-white" onClick={reset}>
-            Reset
-          </Button>
+          <div className="min-w-0">
+            {isEditing ? (
+              <div className="flex flex-col gap-2">
+                <Input
+                  type="text"
+                  value={editHabit}
+                  onChange={(e) => setEditHabit(e.target.value)}
+                  className="border-white/10 bg-[#0d0d0e] text-white focus-visible:ring-green-500"
+                />
 
-          <Button variant="ghost" className="border-white" onClick={edit}>
-            Edit
-          </Button>
-
-          <Button variant="ghost" className="border-white" onClick={delete_}>
-            Delete
-          </Button>
-        </div>
-
-        <div
-          key={habit.id}
-          className="flex flex-wrap justify-center gap-4 text-white"
-        >
-          {weekdata.map((day) => {
-            const isChecked = habit.completionDate.includes(day.completetion);
-            return (
-              <div
-                className="border-solid border-2 border-amber-50 rounded-2xl"
-                key={day.completetion}
-              >
-                <p className="text-[15px] text-center">{day.date}</p>
-                <p className="text-[15px] text-center">{day.dayName}</p>
                 <Button
-                  className="h-8 w-8 bg-transparent hover:bg-transparent border-none shadow-none p-0"
-                  onClick={() => checked(day.completetion)}
+                  variant="ghost"
+                  className="w-fit border border-green-500/30 text-green-400 hover:bg-green-500/10 hover:text-green-400"
+                  onClick={submit}
                 >
-                  <span className="text-sm">{isChecked ? "✅" : "⬜"}</span>
+                  Submit
                 </Button>
               </div>
-            );
-          })}
-        </div>
-        <div>
-          <Button
-            variant="ghost"
-            className="relative h-14 w-14 sm:h-16 sm:w-16 text-3xl sm:text-5xl mr-2 border-white"
-          >
-            {habit.counter}
-          </Button>
+            ) : (
+              <p className="break-words text-sm font-semibold text-white sm:text-lg lg:text-xl">
+                {habit.title}
+              </p>
+            )}
+          </div>
+
+          {/* =====================
+              ACTION MENU
+          ====================== */}
+
+          <ButtonGroup>
+            <Button
+              variant="outline"
+              onClick={reset}
+              className="border-white/10 bg-[#0d0d0e] text-gray-300 hover:bg-white/10 hover:text-white"
+            >
+              Reset
+            </Button>
+
+            <Button
+              variant="outline"
+              onClick={edit}
+              className="border-white/10 bg-[#0d0d0e] text-gray-300 hover:bg-white/10 hover:text-white"
+            >
+              Edit
+            </Button>
+
+            <Button
+              variant="outline"
+              onClick={delete_}
+              className="border-red-500/20 bg-[#0d0d0e] text-red-400 hover:bg-red-500/10 hover:text-red-400"
+            >
+              Delete
+            </Button>
+          </ButtonGroup>
+
+          {/* =====================
+              LAST 7 DAYS
+          ====================== */}
+
+          <div className="flex items-center justify-start gap-2">
+            {weekdata.map((day) => {
+              const isChecked = habit.completionDate.includes(day.completion);
+
+              return (
+                <div
+                  key={day.completion}
+                  className={`flex h-14 w-9 shrink-0 flex-col items-center justify-between rounded-xl border px-0.5 py-1 transition-colors sm:h-16 sm:w-10 sm:rounded-2xl sm:py-2 lg:h-20 lg:w-12 ${
+                    isChecked
+                      ? "border-green-500/40 bg-green-500/10"
+                      : "border-white/10 bg-[#0d0d0e]"
+                  }`}
+                >
+                  <p className="text-[10px] font-medium text-gray-400 sm:text-xs lg:text-sm">
+                    {day.date}
+                  </p>
+
+                  <p
+                    className={`text-[10px] font-semibold sm:text-xs lg:text-sm ${
+                      isChecked ? "text-green-400" : "text-gray-300"
+                    }`}
+                  >
+                    {day.dayName}
+                  </p>
+
+                  <Button
+                    variant="ghost"
+                    className="h-5 w-5 bg-transparent p-0 shadow-none hover:bg-transparent sm:h-6 sm:w-6 lg:h-7 lg:w-7"
+                    onClick={() => checked(day.completion)}
+                  >
+                    <span className="text-[10px] sm:text-xs lg:text-sm">
+                      {isChecked ? "✓" : "○"}
+                    </span>
+                  </Button>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* =====================
+              COUNTER
+          ====================== */}
+
+          <div className="flex justify-start lg:justify-center">
+            <div
+              className={`flex h-12 w-12 items-center justify-center rounded-xl border text-xl font-semibold transition-colors sm:h-14 sm:w-14 sm:text-2xl lg:h-16 lg:w-16 lg:rounded-2xl lg:text-3xl ${
+                habit.counter > 0
+                  ? "border-green-500/40 bg-green-500/10 text-green-400"
+                  : "border-white/10 bg-[#0d0d0e] text-gray-400"
+              }`}
+            >
+              {habit.counter}
+            </div>
+          </div>
         </div>
       </div>
     </Card>

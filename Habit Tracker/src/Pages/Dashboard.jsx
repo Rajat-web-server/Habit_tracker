@@ -4,6 +4,7 @@ import { HabitUtils } from "@/components/Dashboard_analytics/habitutils";
 import { WeeklyRadarChart } from "@/components/Dashboard_analytics/radar";
 import { MotivationalQuote } from "@/components/Dashboard_analytics/Motivation_Quote";
 import { Greeting } from "@/components/Dashboard_analytics/greetings";
+import { WeeklyConsistencyChart } from "@/components/Dashboard_analytics/weeklyConsistenyChart";
 
 export const Dashboard = ({
   habitList,
@@ -12,6 +13,7 @@ export const Dashboard = ({
   now,
 }) => {
   const {
+    trend,
     bestStreak,
     bestHabit,
     consistency,
@@ -23,8 +25,9 @@ export const Dashboard = ({
   });
 
   return (
-    <div>
-      <div className="mx-auto max-w-5xl space-y-6 px-4 py-6 pt-15">
+    <div className="min-h-screen w-full bg-black text-white">
+
+      <div className="mx-auto w-full max-w-[1600px] space-y-6 px-4 py-6 pt-2">
 
         {/* Greeting */}
         <Greeting />
@@ -53,6 +56,11 @@ export const Dashboard = ({
           <MotivationalQuote />
 
         </div>
+
+        {/* Weekly Consistency */}
+        <WeeklyConsistencyChart
+          trend={trend}
+        />
 
         {/* Radar Chart */}
         <WeeklyRadarChart

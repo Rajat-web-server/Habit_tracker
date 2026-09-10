@@ -1,34 +1,40 @@
 import { HabitHeatMap } from "../heatmap/habitheatmap";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
+
 export const AnalyticsPage = ({ habitList }) => {
   return (
-    <>
-      <div className="h-screen overflow-hidden ">
-        <div className="h-full flex flex-col pt-12 overflow-hidden text-textcolor1 bg-bgcolor1">
-          <CardHeader className="text-center pb-2 font-bold text-3xl shrink-0 border-b mt-3 mb-5">
-            The Analytics Page
-          </CardHeader>
-          {/* scrollable area */}
-          <CardContent className="overflow-hidden flex-1 min-h-0">
-            <ScrollArea className="h-full">
-              <div className="flex flex-col gap-4 pr-4 space-y-4 mb-20">
-                {habitList.map((habit) => (
-                  <Card
-                    key={habit.id}
-                    className="flex flex-row justify-center items-center border-2 border-grey  text-textcolor1 flex-wrap hover:bg-bgcolor2 hover:text-white"
-                  >
-                    <CardTitle className="p-2 ml-2 font-bold text-3xl">
-                      {habit.title}
-                    </CardTitle>
+    <div className="min-h-screen w-full bg-black  text-white">
+      <div className="mx-auto flex min-h-[calc(100vh-3rem)] w-full flex-col">
+        {/* Header */}
+        <CardHeader className="shrink-0 border-b border-white/10 px-6 py-6 text-center">
+          <CardTitle className="text-3xl font-bold text-white">
+            Track your consistency throughout the year
+          </CardTitle>
+        </CardHeader>
+
+        {/* Heatmaps */}
+        <CardContent className="min-h-0 flex-1 overflow-hidden p-6">
+          <ScrollArea className="h-full">
+            <div className="mb-20 flex flex-col gap-5 pr-4">
+              {habitList.map((habit) => (
+                <Card
+                  key={habit.id}
+                  className="w-full rounded-2xl border border-white/10 bg-[#111313] p-6 text-white shadow-none transition-colors hover:border-green-500/30"
+                >
+                  <CardTitle className="mb-6 text-center text-3xl font-bold text-white">
+                    {habit.title}
+                  </CardTitle>
+
+                  <div className="flex w-full justify-center overflow-x-auto rounded-xl border border-white/10 bg-[#0d0d0e] p-8">
                     <HabitHeatMap completionDate={habit.completionDate} />
-                  </Card>
-                ))}
-              </div>
-            </ScrollArea>
-          </CardContent>
-        </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </ScrollArea>
+        </CardContent>
       </div>
-    </>
+    </div>
   );
 };
