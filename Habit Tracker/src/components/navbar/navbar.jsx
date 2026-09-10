@@ -24,7 +24,7 @@ export const Navbar = () => {
   return (
     <nav
       className="
-        fixed bottom-6 left-1/2 z-50
+        fixed bottom-3 left-1/2 z-50
         flex -translate-x-1/2 items-center gap-2
         rounded-2xl
         border border-white/10
