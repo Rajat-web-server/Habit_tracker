@@ -5,76 +5,64 @@ import {
   ResponsiveContainer,
   PolarGrid,
   PolarAngleAxis,
-  PolarRadiusAxis,
   Radar,
   Tooltip,
 } from "recharts";
 
 export const WeeklyRadarChart = ({ radarData }) => {
   console.log("Radar data:", radarData);
-  return (
-    <Card className="h-80 bg-[#111313] p-4 text-white">
 
-      <h3 className="mb-3 text-sm font-semibold text-white">
+  return (
+    <Card className="h-96 border border-white/10 bg-[#111313] p-5 text-white">
+      <h3 className="mb-6 text-sm font-semibold text-white">
         Habit consistency — last 7 days
       </h3>
 
-      <div className="h-64 w-full">
+      <div className="h-80 w-full">
         <ResponsiveContainer width="100%" height="100%">
-          <RadarChart
-            data={radarData}
-            outerRadius="70%"
-          >
+          <RadarChart data={radarData} outerRadius="82%">
+            <PolarGrid
+              stroke="#444"
+              strokeDasharray="3 3"
+            />
 
-            {/* Grid */}
-            <PolarGrid stroke="#444" />
-
-            {/* Habit names */}
             <PolarAngleAxis
               dataKey="habit"
               tick={{
                 fill: "#ffffff",
-                fontSize: 12,
+                fontSize: 13,
               }}
             />
 
-            {/* 0 - 100 scale */}
-            <PolarRadiusAxis
-              angle={90}
-              domain={[0, 100]}
-              tick={{
-                fill: "#999",
-                fontSize: 10,
-              }}
-            />
-
-            {/* Hover information */}
             <Tooltip
               formatter={(value) => [
                 `${value}%`,
                 "Consistency",
               ]}
               contentStyle={{
-                backgroundColor: "#222",
+                backgroundColor: "#111313",
                 border: "1px solid #444",
                 borderRadius: "8px",
-                color: "#fff",
+                color: "#ffffff",
               }}
             />
 
-            {/* Actual radar */}
             <Radar
               name="Consistency"
               dataKey="consistency"
-              stroke="#ffffff"
-              fill="#ffffff"
+              stroke="#22c55e"
+              fill="#22c55e"
               fillOpacity={0.25}
+              strokeWidth={3}
+              dot={{
+                r: 4,
+                fill: "#22c55e",
+                stroke: "#22c55e",
+              }}
             />
-
           </RadarChart>
         </ResponsiveContainer>
       </div>
-
     </Card>
   );
 };

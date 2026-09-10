@@ -12,34 +12,29 @@ function StatCard({
   label,
   value,
   sub,
-  tone,
 }) {
   return (
-    <Card className="flex items-start justify-between gap-3 bg-[#090c0e] p-4 text-white">
-      
+    <Card className="flex items-start justify-between gap-3 border border-white/10 bg-[#111313] p-4 text-white transition-colors hover:border-green-500/30">
+
       <div className="min-w-0">
-        <p className="text-xs font-medium text-muted-fg">
+
+        <p className="text-xs font-medium text-gray-400">
           {label}
         </p>
 
-        <p className="mt-1 truncate text-2xl font-semibold tracking-tight text-fg">
+        <p className="mt-1 truncate text-2xl font-semibold tracking-tight text-white">
           {value}
         </p>
 
         {sub && (
-          <p className="mt-0.5 truncate text-xs text-muted-fg">
+          <p className="mt-0.5 truncate text-xs text-gray-400">
             {sub}
           </p>
         )}
+
       </div>
 
-      <span
-        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
-        style={{
-          backgroundColor: tone.bg,
-          color: tone.fg,
-        }}
-      >
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-green-500/10 text-green-500">
         <Icon size={18} />
       </span>
 
@@ -53,6 +48,7 @@ export const StatsCards = ({
   Remaining,
   consistency,
 }) => {
+
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
 
@@ -66,10 +62,6 @@ export const StatsCards = ({
             : "—"
         }
         sub={bestStreak?.habit?.title}
-        tone={{
-          bg: "#F59E0B22",
-          fg: "#F97316",
-        }}
       />
 
       {/* Weekly Consistency */}
@@ -78,28 +70,18 @@ export const StatsCards = ({
         label="Weekly consistency"
         value={`${consistency}%`}
         sub="Across all habits"
-        tone={{
-          bg: "#0EA5E922",
-          fg: "#0EA5E9",
-        }}
       />
 
       {/* Best Habit */}
       <StatCard
         icon={Trophy}
         label="Best habit"
-        value={
-          bestHabit?.habit?.title ?? "—"
-        }
+        value={bestHabit?.habit?.title ?? "—"}
         sub={
           bestHabit
             ? `${bestHabit.streak}d streak · ${bestHabit.consistency}% consistent`
             : ""
         }
-        tone={{
-          bg: "#F59E0B22",
-          fg: "#F59E0B",
-        }}
       />
 
       {/* Remaining */}
@@ -112,10 +94,6 @@ export const StatsCards = ({
             ? "All done!"
             : "Still to check off"
         }
-        tone={{
-          bg: "#10B98122",
-          fg: "#10B981",
-        }}
       />
 
     </div>
