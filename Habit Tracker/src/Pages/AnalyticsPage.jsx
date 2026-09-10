@@ -6,7 +6,7 @@ import { motion } from "motion/react";
 export const AnalyticsPage = ({ habitList }) => {
   return (
     
-     <div className="min-h-screen w-full bg-black pt-12 text-white">
+     <div className="min-h-screen w-full bg-black  text-white">
     
       <div className="mx-auto flex min-h-[calc(100vh-3rem)] w-full flex-col">
         {/* Header */}
