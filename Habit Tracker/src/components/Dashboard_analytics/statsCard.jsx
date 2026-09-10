@@ -4,6 +4,7 @@ import {
   Trophy,
   ListTodo,
 } from "lucide-react";
+import { motion } from "motion/react";
 
 import { Card } from "@/components/ui/card";
 

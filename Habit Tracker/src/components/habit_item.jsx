@@ -116,127 +116,147 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
 
   return (
     <Card className="w-full overflow-hidden rounded-2xl border border-white/10 bg-[#111313] text-white shadow-none">
-      <div className="overflow-x-auto">
-        <div className="grid min-w-[1000px] grid-cols-[1.2fr_1.5fr_3fr_0.7fr] items-center gap-8 p-6">
-          {/* =====================
-              HABIT NAME
-          ====================== */}
+  <div className="overflow-x-auto">
+    <div
+      className="
+        grid min-w-[620px]
+        grid-cols-[1.2fr_1.4fr_3fr_0.6fr]
+        items-center
+        gap-2
+        p-3
 
-          <div className="min-w-0">
-            {isEditing ? (
-              <div className="flex flex-col gap-2">
-                <Input
-                  type="text"
-                  value={editHabit}
-                  onChange={(e) => setEditHabit(e.target.value)}
-                  className="border-white/10 bg-[#0d0d0e] text-white focus-visible:ring-green-500"
-                />
+        sm:min-w-[750px]
+        sm:grid-cols-[1.2fr_1.5fr_3fr_0.7fr]
+        sm:gap-4
+        sm:p-4
 
-                <Button
-                  variant="ghost"
-                  className="w-fit border border-green-500/30 text-green-400 hover:bg-green-500/10 hover:text-green-400"
-                  onClick={submit}
-                >
-                  Submit
-                </Button>
-              </div>
-            ) : (
-              <p className="break-words text-sm font-semibold text-white sm:text-lg lg:text-xl">
-                {habit.title}
-              </p>
-            )}
+        lg:min-w-[1000px]
+        lg:gap-8
+        lg:p-6
+      "
+    >
+
+      {/* =====================
+          HABIT NAME
+      ====================== */}
+      <div className="min-w-0">
+        {isEditing ? (
+          <div className="flex flex-col gap-1 sm:gap-2">
+            <Input
+              type="text"
+              value={editHabit}
+              onChange={(e) => setEditHabit(e.target.value)}
+              className="h-8 border-white/10 bg-[#0d0d0e] text-sm text-white focus-visible:ring-green-500 sm:h-9"
+            />
+
+            <Button
+              variant="ghost"
+              className="h-7 w-fit border border-green-500/30 px-2 text-xs text-green-400 hover:bg-green-500/10 hover:text-green-400 sm:h-8 sm:px-3 sm:text-sm"
+              onClick={submit}
+            >
+              Submit
+            </Button>
           </div>
+        ) : (
+          <p className="break-words text-xs font-semibold text-white sm:text-base lg:text-xl">
+            {habit.title}
+          </p>
+        )}
+      </div>
 
-          {/* =====================
-              ACTION MENU
-          ====================== */}
+      {/* =====================
+          ACTION MENU
+      ====================== */}
+      <div className="flex justify-center">
+        <ButtonGroup>
+          <Button
+            variant="outline"
+            onClick={reset}
+            className="h-7 border-white/10 bg-[#0d0d0e] px-2 text-[10px] text-gray-300 hover:bg-white/10 hover:text-white sm:h-8 sm:px-2.5 sm:text-xs lg:h-9 lg:px-3 lg:text-sm"
+          >
+            Reset
+          </Button>
 
-          <ButtonGroup>
-            <Button
-              variant="outline"
-              onClick={reset}
-              className="border-white/10 bg-[#0d0d0e] text-gray-300 hover:bg-white/10 hover:text-white"
-            >
-              Reset
-            </Button>
+          <Button
+            variant="outline"
+            onClick={edit}
+            className="h-7 border-white/10 bg-[#0d0d0e] px-2 text-[10px] text-gray-300 hover:bg-white/10 hover:text-white sm:h-8 sm:px-2.5 sm:text-xs lg:h-9 lg:px-3 lg:text-sm"
+          >
+            Edit
+          </Button>
 
-            <Button
-              variant="outline"
-              onClick={edit}
-              className="border-white/10 bg-[#0d0d0e] text-gray-300 hover:bg-white/10 hover:text-white"
-            >
-              Edit
-            </Button>
+          <Button
+            variant="outline"
+            onClick={delete_}
+            className="h-7 border-red-500/20 bg-[#0d0d0e] px-2 text-[10px] text-red-400 hover:bg-red-500/10 hover:text-red-400 sm:h-8 sm:px-2.5 sm:text-xs lg:h-9 lg:px-3 lg:text-sm"
+          >
+            Delete
+          </Button>
+        </ButtonGroup>
+      </div>
 
-            <Button
-              variant="outline"
-              onClick={delete_}
-              className="border-red-500/20 bg-[#0d0d0e] text-red-400 hover:bg-red-500/10 hover:text-red-400"
-            >
-              Delete
-            </Button>
-          </ButtonGroup>
+      {/* =====================
+          LAST 7 DAYS
+      ====================== */}
+      <div className="flex items-center justify-center gap-1 sm:gap-2">
+        {weekdata.map((day) => {
+          const isChecked = habit.completionDate.includes(
+            day.completion
+          );
 
-          {/* =====================
-              LAST 7 DAYS
-          ====================== */}
-
-          <div className="flex items-center justify-start gap-2">
-            {weekdata.map((day) => {
-              const isChecked = habit.completionDate.includes(day.completion);
-
-              return (
-                <div
-                  key={day.completion}
-                  className={`flex h-14 w-9 shrink-0 flex-col items-center justify-between rounded-xl border px-0.5 py-1 transition-colors sm:h-16 sm:w-10 sm:rounded-2xl sm:py-2 lg:h-20 lg:w-12 ${
-                    isChecked
-                      ? "border-green-500/40 bg-green-500/10"
-                      : "border-white/10 bg-[#0d0d0e]"
-                  }`}
-                >
-                  <p className="text-[10px] font-medium text-gray-400 sm:text-xs lg:text-sm">
-                    {day.date}
-                  </p>
-
-                  <p
-                    className={`text-[10px] font-semibold sm:text-xs lg:text-sm ${
-                      isChecked ? "text-green-400" : "text-gray-300"
-                    }`}
-                  >
-                    {day.dayName}
-                  </p>
-
-                  <Button
-                    variant="ghost"
-                    className="h-5 w-5 bg-transparent p-0 shadow-none hover:bg-transparent sm:h-6 sm:w-6 lg:h-7 lg:w-7"
-                    onClick={() => checked(day.completion)}
-                  >
-                    <span className="text-[10px] sm:text-xs lg:text-sm">
-                      {isChecked ? "✓" : "○"}
-                    </span>
-                  </Button>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* =====================
-              COUNTER
-          ====================== */}
-
-          <div className="flex justify-start lg:justify-center">
+          return (
             <div
-              className={`flex h-12 w-12 items-center justify-center rounded-xl border text-xl font-semibold transition-colors sm:h-14 sm:w-14 sm:text-2xl lg:h-16 lg:w-16 lg:rounded-2xl lg:text-3xl ${
-                habit.counter > 0
-                  ? "border-green-500/40 bg-green-500/10 text-green-400"
-                  : "border-white/10 bg-[#0d0d0e] text-gray-400"
+              key={day.completion}
+              className={`flex h-12 w-7 shrink-0 flex-col items-center justify-between rounded-lg border px-0.5 py-1 transition-colors sm:h-16 sm:w-10 sm:rounded-xl sm:py-2 lg:h-20 lg:w-12 lg:rounded-2xl ${
+                isChecked
+                  ? "border-green-500/40 bg-green-500/10"
+                  : "border-white/10 bg-[#0d0d0e]"
               }`}
             >
-              {habit.counter}
+              <p className="text-[8px] font-medium text-gray-400 sm:text-[10px] lg:text-sm">
+                {day.date}
+              </p>
+
+              <p
+                className={`text-[8px] font-semibold sm:text-[10px] lg:text-sm ${
+                  isChecked
+                    ? "text-green-400"
+                    : "text-gray-300"
+                }`}
+              >
+                {day.dayName}
+              </p>
+
+              <Button
+                variant="ghost"
+                className="h-4 w-4 bg-transparent p-0 shadow-none hover:bg-transparent sm:h-5 sm:w-5 lg:h-7 lg:w-7"
+                onClick={() => checked(day.completion)}
+              >
+                <span className="text-[9px] sm:text-xs lg:text-sm">
+                  {isChecked ? "✓" : "○"}
+                </span>
+              </Button>
             </div>
-          </div>
+          );
+        })}
+      </div>
+
+      {/* =====================
+          COUNTER
+      ====================== */}
+      <div className="flex justify-center">
+        <div
+          className={`flex h-9 w-9 items-center justify-center rounded-lg border text-base font-semibold transition-colors sm:h-12 sm:w-12 sm:rounded-xl sm:text-xl lg:h-16 lg:w-16 lg:rounded-2xl lg:text-3xl ${
+            habit.counter > 0
+              ? "border-green-500/40 bg-green-500/10 text-green-400"
+              : "border-white/10 bg-[#0d0d0e] text-gray-400"
+          }`}
+        >
+          {habit.counter}
         </div>
       </div>
-    </Card>
+    </div>
+  </div>
+</Card>
   );
 };
