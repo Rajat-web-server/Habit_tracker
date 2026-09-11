@@ -23,6 +23,11 @@ export const HabitPage = ({
   return (
     <div className="min-h-screen w-full bg-black pt-2 text-white">
       <div className="mx-auto flex min-h-[calc(100vh-3rem)] w-full flex-col">
+         <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
         {/* Header */}
         <CardHeader className="border-b border-white/10 px-6 py-6">
           <CardTitle className="text-center text-3xl text-white">
@@ -82,6 +87,7 @@ export const HabitPage = ({
             </div>
           </ScrollArea>
         </CardContent>
+        </motion.div>
       </div>
     </div>
   );
