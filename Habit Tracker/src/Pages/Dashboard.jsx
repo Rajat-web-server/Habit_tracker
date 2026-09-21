@@ -20,39 +20,39 @@ export const Dashboard = ({ habitList, habit, updateHabit, now }) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
       >
-      <div className="mx-auto w-full max-w-[1600px] space-y-6 px-4 py-6 pt-2">
-        {/* Greeting */}
-        <Greeting />
+        <div className="mx-auto w-full max-w-[1600px] space-y-6 px-4 py-6 pt-2">
+          {/* Greeting */}
+          <Greeting />
 
-        {/* Statistics */}
-        <StatsCards
-          bestStreak={bestStreak}
-          bestHabit={bestHabit}
-          Remaining={Remaining}
-          consistency={consistency}
-        />
+          {/* Statistics */}
+          <StatsCards
+            bestStreak={bestStreak}
+            bestHabit={bestHabit}
+            Remaining={Remaining}
+            consistency={consistency}
+          />
 
-        {/* Main dashboard */}
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-          {/* Habit List */}
-          <div className="lg:col-span-2">
-            <HabitPreviewList
-              habitList={habitList}
-              habit={habit}
-              updateHabit={updateHabit}
-            />
+          {/* Main dashboard */}
+          <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-3">
+            <div className="lg:col-span-2">
+              <HabitPreviewList
+                habitList={habitList}
+                habit={habit}
+                updateHabit={updateHabit}
+              />
+            </div>
+
+            <div className="flex items-center justify-center self-stretch">
+              <MotivationalQuote />
+            </div>
           </div>
 
-          {/* Quote */}
-          <MotivationalQuote />
+          {/* Weekly Consistency */}
+          <WeeklyConsistencyChart trend={trend} />
+
+          {/* Radar Chart */}
+          <WeeklyRadarChart radarData={radarData} />
         </div>
-
-        {/* Weekly Consistency */}
-        <WeeklyConsistencyChart trend={trend} />
-
-        {/* Radar Chart */}
-        <WeeklyRadarChart radarData={radarData} />
-      </div>
       </motion.div>
     </div>
   );

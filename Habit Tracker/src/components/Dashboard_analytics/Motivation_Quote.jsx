@@ -8,7 +8,7 @@ export const MotivationalQuote = () => {
   const quote = quotes[dayNumber % quotes.length];
 
   return (
-    <Card className="flex h-full flex-col justify-center gap-4  p-6 text-primary-fg bg-[#111313] text-white">
+    <Card className="flex  flex-col justify-center gap-4  p-6 text-primary-fg bg-[#111313] text-white">
       <Quote size={22} className="opacity-70" />
 
       <p className="text-lg font-medium leading-snug">
