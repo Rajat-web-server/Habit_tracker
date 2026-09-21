@@ -1,7 +1,8 @@
 const express = require("express");
-
+const prisma = require("./config/prisma.js")
 const app = express();
 const PORT = 5000;
+
 
 app.use(express.json());
 
@@ -10,7 +11,19 @@ app.get("/", (req, res) => {
     message: "Habit Tracker API is running",
   });
 });
+app.get("/test-db", async (req, res) => {
+  try {
+    const users = await prisma.user.findMany();
 
+    res.json(users);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Database connection failed",
+    });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
