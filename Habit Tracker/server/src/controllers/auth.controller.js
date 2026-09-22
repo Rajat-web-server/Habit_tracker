@@ -1,5 +1,5 @@
-const { registerSchema } = require("../validators/auth.validator");
-const { registerUser } = require("../services/auth.service");
+const registerSchema  = require("../validators/auth.validator");
+const  registerUser  = require("../services/auth.service");
 
 async function register(req, res) {
   try {

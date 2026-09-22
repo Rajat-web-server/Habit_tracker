@@ -1,6 +1,6 @@
 const express = require("express");
 const prisma = require("./config/prisma.js")
-const authRoutes = require("./routes/auth.routes.")
+const authRoutes = require("./routes/auth.routes.js")
 const app = express();
 const PORT = 5000;
 
