@@ -1,9 +1,11 @@
 const express = require("express");
 const prisma = require("./config/prisma.js")
 const authRoutes = require("./routes/auth.routes.js")
+
+const cookieParser = require("cookie-parser");
 const app = express();
 const PORT = 5000;
-
+app.use(cookieParser());
 
 app.use(express.json());
 app.use("/api/auth", authRoutes);
