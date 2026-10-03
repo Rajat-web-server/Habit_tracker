@@ -104,6 +104,29 @@ async function completeHabit({ habitId, userId, date }) {
 
   return completion;
 }
+async function getHabitCompletions(habitId, userId) {
+  const habit = await prisma.habit.findFirst({
+    where: {
+      id: habitId,
+      userId: userId,
+    },
+  });
+
+  if (!habit) {
+    return null;
+  }
+
+  const completions = await prisma.habitCompletion.findMany({
+    where: {
+      habitId,
+    },
+    orderBy: {
+      date: "desc",
+    },
+  });
+
+  return completions;
+}
 
 module.exports = {
   createHabit,
@@ -111,5 +134,6 @@ module.exports = {
   getHabitById,
   updateHabit,
   deleteHabit,
-  completeHabit
+  completeHabit,
+  getHabitCompletions,
 };

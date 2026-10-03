@@ -1,5 +1,17 @@
-const { createHabitSchema,updateHabitSchema,completionSchema } = require("../validators/habit.validator");
-const { createHabit,getUserHabits, getHabitById,updateHabit,deleteHabit,completeHabit } = require("../services/habit.service");
+const {
+  createHabitSchema,
+  updateHabitSchema,
+  completionSchema,
+} = require("../validators/habit.validator");
+const {
+  createHabit,
+  getUserHabits,
+  getHabitById,
+  updateHabit,
+  deleteHabit,
+  completeHabit,
+  getHabitCompletions,
+} = require("../services/habit.service");
 
 async function create(req, res) {
   try {
@@ -44,10 +56,7 @@ async function getAll(req, res) {
 }
 async function getOne(req, res) {
   try {
-    const habit = await getHabitById(
-      req.params.id,
-      req.user.id
-    );
+    const habit = await getHabitById(req.params.id, req.user.id);
 
     if (!habit) {
       return res.status(404).json({
@@ -80,7 +89,7 @@ async function update(req, res) {
     const habit = await updateHabit(
       req.params.id,
       req.user.id,
-      result.data.title
+      result.data.title,
     );
 
     if (!habit) {
@@ -103,10 +112,7 @@ async function update(req, res) {
 }
 async function remove(req, res) {
   try {
-    const habit = await deleteHabit(
-      req.params.id,
-      req.user.id
-    );
+    const habit = await deleteHabit(req.params.id, req.user.id);
 
     if (!habit) {
       return res.status(404).json({
@@ -153,17 +159,41 @@ async function complete(req, res) {
       completion,
     });
   } catch (error) {
-  console.error(error);
+    console.error(error);
 
-  if (error.code === "P2002") {
-    return res.status(409).json({
-      message: "Habit already completed for this date",
+    if (error.code === "P2002") {
+      return res.status(409).json({
+        message: "Habit already completed for this date",
+      });
+    }
+
+    return res.status(500).json({
+      message: "Something went wrong",
     });
   }
+}
+async function getCompletions(req, res) {
+  try {
+    const completions = await getHabitCompletions(
+      req.params.id,
+      req.user.id
+    );
 
-  return res.status(500).json({
-    message: "Something went wrong",
-  });
+    if (!completions) {
+      return res.status(404).json({
+        message: "Habit not found",
+      });
+    }
+
+    res.status(200).json({
+      completions,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      message: "Something went wrong",
+    });
+  }
 }
-}
-module.exports={create, getAll, getOne, update, remove,complete}
+module.exports = { create, getAll, getOne, update, remove, complete, getCompletions };
