@@ -153,11 +153,17 @@ async function complete(req, res) {
       completion,
     });
   } catch (error) {
-    console.error(error);
+  console.error(error);
 
-    res.status(500).json({
-      message: "Something went wrong",
+  if (error.code === "P2002") {
+    return res.status(409).json({
+      message: "Habit already completed for this date",
     });
   }
+
+  return res.status(500).json({
+    message: "Something went wrong",
+  });
+}
 }
 module.exports={create, getAll, getOne, update, remove,complete}
