@@ -1,5 +1,5 @@
-const { createHabitSchema,updateHabitSchema } = require("../validators/habit.validator");
-const { createHabit,getUserHabits, getHabitById,updateHabit,deleteHabit } = require("../services/habit.service");
+const { createHabitSchema,updateHabitSchema,completionSchema } = require("../validators/habit.validator");
+const { createHabit,getUserHabits, getHabitById,updateHabit,deleteHabit,completeHabit } = require("../services/habit.service");
 
 async function create(req, res) {
   try {
@@ -125,4 +125,39 @@ async function remove(req, res) {
     });
   }
 }
-module.exports={create, getAll, getOne, update, remove}
+async function complete(req, res) {
+  try {
+    const result = completionSchema.safeParse(req.body);
+
+    if (!result.success) {
+      return res.status(400).json({
+        message: "Invalid date",
+        errors: result.error.flatten(),
+      });
+    }
+
+    const completion = await completeHabit({
+      habitId: req.params.id,
+      userId: req.user.id,
+      date: result.data.date,
+    });
+
+    if (!completion) {
+      return res.status(404).json({
+        message: "Habit not found",
+      });
+    }
+
+    res.status(201).json({
+      message: "Habit completed successfully",
+      completion,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Something went wrong",
+    });
+  }
+}
+module.exports={create, getAll, getOne, update, remove,complete}

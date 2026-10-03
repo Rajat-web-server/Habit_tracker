@@ -81,11 +81,35 @@ async function deleteHabit(habitId, userId) {
 
   return habit;
 }
+async function completeHabit({ habitId, userId, date }) {
+  const habit = await prisma.habit.findFirst({
+    where: {
+      id: habitId,
+      userId: userId,
+    },
+  });
+
+  if (!habit) {
+    return null;
+  }
+
+  const normalizedDate = new Date(`${date}T00:00:00.000Z`);
+
+  const completion = await prisma.habitCompletion.create({
+    data: {
+      habitId,
+      date: normalizedDate,
+    },
+  });
+
+  return completion;
+}
 
 module.exports = {
   createHabit,
   getUserHabits,
   getHabitById,
   updateHabit,
-  deleteHabit
+  deleteHabit,
+  completeHabit
 };

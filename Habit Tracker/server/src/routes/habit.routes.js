@@ -1,7 +1,7 @@
 const express = require("express");
 
 const authMiddleware = require("../middleware/auth.middleware");
-const { create, getAll, getOne,update, remove } = require("../controllers/habit.controller");
+const { create, getAll, getOne,update, remove, complete } = require("../controllers/habit.controller");
 
 const router = express.Router();
 
@@ -10,6 +10,6 @@ router.get("/",authMiddleware,getAll)
 router.get("/:id",authMiddleware,getOne)
 router.patch("/:id", authMiddleware, update);
 router.delete("/:id", authMiddleware, remove);
-
+router.post("/:id/completions", authMiddleware, complete);
 
 module.exports = router;
