@@ -1,5 +1,5 @@
 const { createHabitSchema } = require("../validators/habit.validator");
-const { createHabit } = require("../services/habit.service");
+const { createHabit,getUserHabits } = require("../services/habit.service");
 
 async function create(req, res) {
   try {
@@ -27,4 +27,20 @@ async function create(req, res) {
   }
 }
 
-module.exports={create}
+async function getAll(req, res) {
+  try {
+    const habits = await getUserHabits(req.user.id);
+
+    res.status(200).json({
+      habits,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Something went wrong",
+    });
+  }
+}
+
+module.exports={create, getAll}

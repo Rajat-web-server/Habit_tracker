@@ -11,6 +11,20 @@ async function createHabit({ title, userId }) {
   return habit;
 }
 
+async function getUserHabits(userId){
+  const habits = await prisma.habit.findMany({
+    where: {
+      userId,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return habits;
+}
+
 module.exports = {
   createHabit,
+  getUserHabits
 };
