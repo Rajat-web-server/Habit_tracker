@@ -38,8 +38,33 @@ async function getHabitById(habitId, userId) {
   return habit;
 }
 
+async function updateHabit(habitId, userId, title) {
+  const habit = await prisma.habit.findFirst({
+    where: {
+      id: habitId,
+      userId: userId,
+    },
+  });
+
+  if (!habit) {
+    return null;
+  }
+
+  const updatedHabit = await prisma.habit.update({
+    where: {
+      id: habitId,
+    },
+    data: {
+      title,
+    },
+  });
+
+  return updatedHabit;
+}
+
 module.exports = {
   createHabit,
   getUserHabits,
-  getHabitById
+  getHabitById,
+  updateHabit
 };
