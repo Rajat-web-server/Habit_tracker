@@ -1,5 +1,5 @@
 const { createHabitSchema,updateHabitSchema } = require("../validators/habit.validator");
-const { createHabit,getUserHabits, getHabitById,updateHabit } = require("../services/habit.service");
+const { createHabit,getUserHabits, getHabitById,updateHabit,deleteHabit } = require("../services/habit.service");
 
 async function create(req, res) {
   try {
@@ -101,5 +101,28 @@ async function update(req, res) {
     });
   }
 }
+async function remove(req, res) {
+  try {
+    const habit = await deleteHabit(
+      req.params.id,
+      req.user.id
+    );
 
-module.exports={create, getAll, getOne, update}
+    if (!habit) {
+      return res.status(404).json({
+        message: "Habit not found",
+      });
+    }
+
+    res.status(200).json({
+      message: "Habit deleted successfully",
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Something went wrong",
+    });
+  }
+}
+module.exports={create, getAll, getOne, update, remove}

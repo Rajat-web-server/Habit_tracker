@@ -61,10 +61,31 @@ async function updateHabit(habitId, userId, title) {
 
   return updatedHabit;
 }
+async function deleteHabit(habitId, userId) {
+  const habit = await prisma.habit.findFirst({
+    where: {
+      id: habitId,
+      userId: userId,
+    },
+  });
+
+  if (!habit) {
+    return null;
+  }
+
+  await prisma.habit.delete({
+    where: {
+      id: habitId,
+    },
+  });
+
+  return habit;
+}
 
 module.exports = {
   createHabit,
   getUserHabits,
   getHabitById,
-  updateHabit
+  updateHabit,
+  deleteHabit
 };
