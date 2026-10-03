@@ -11,7 +11,7 @@ async function createHabit({ title, userId }) {
   return habit;
 }
 
-async function getUserHabits(userId){
+async function getUserHabits(userId) {
   const habits = await prisma.habit.findMany({
     where: {
       userId,
@@ -24,7 +24,22 @@ async function getUserHabits(userId){
   return habits;
 }
 
+async function getHabitById(habitId, userId) {
+  const habit = await prisma.habit.findFirst({
+    where: {
+      id: habitId,
+      userId: userId,
+    },
+    include: {
+      completions: true,
+    },
+  });
+
+  return habit;
+}
+
 module.exports = {
   createHabit,
-  getUserHabits
+  getUserHabits,
+  getHabitById
 };
