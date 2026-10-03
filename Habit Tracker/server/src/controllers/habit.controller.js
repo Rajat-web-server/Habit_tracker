@@ -11,6 +11,7 @@ const {
   deleteHabit,
   completeHabit,
   getHabitCompletions,
+  deleteHabitCompletion,
 } = require("../services/habit.service");
 
 async function create(req, res) {
@@ -174,10 +175,7 @@ async function complete(req, res) {
 }
 async function getCompletions(req, res) {
   try {
-    const completions = await getHabitCompletions(
-      req.params.id,
-      req.user.id
-    );
+    const completions = await getHabitCompletions(req.params.id, req.user.id);
 
     if (!completions) {
       return res.status(404).json({
@@ -196,4 +194,38 @@ async function getCompletions(req, res) {
     });
   }
 }
-module.exports = { create, getAll, getOne, update, remove, complete, getCompletions };
+async function removeCompletion(req, res) {
+  try {
+    const completion = await deleteHabitCompletion(
+      req.params.completionId,
+      req.params.id,
+      req.user.id,
+    );
+
+    if (!completion) {
+      return res.status(404).json({
+        message: "Completion not found",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Completion deleted successfully",
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      message: "Something went wrong",
+    });
+  }
+}
+module.exports = {
+  create,
+  getAll,
+  getOne,
+  update,
+  remove,
+  complete,
+  getCompletions,
+  removeCompletion,
+};
