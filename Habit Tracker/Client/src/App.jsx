@@ -15,23 +15,63 @@ function App() {
   const now = new Date();
 
   const [habit, setHabit] = useState("");
-  const [habitList, sethabitList] = useState(() => {
-    const storedHabit = localStorage.getItem(keyName);
-    return storedHabit ? JSON.parse(storedHabit) : [];
-  });
-  const Submit = () => {
-    if (!habit.trim()) return;
-    const newHabit = {
-      id: now.toLocaleString(),
-      title: habit,
-      counter: 0,
-      completionDate: [],
-    };
-    console.log("Habit :", newHabit);
-    sethabitList([...habitList, newHabit]);
+  const [habitList, sethabitList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const fetchHabits = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/habits", {
+        credentials: "include",
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error(data.message);
+        return;
+      }
+
+      sethabitList(data.habits);
+    } catch (error) {
+      console.error("Failed to fetch habits:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+  fetchHabits();
+}, []);
+  const Submit = async () => {
+  if (!habit.trim()) return;
+
+  try {
+    const response = await fetch(
+      "http://localhost:5000/api/habits",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          title: habit,
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error(data.message);
+      return;
+    }
+
+    sethabitList((prev) => [...prev, data.habit]);
 
     setHabit("");
-  };
+  } catch (error) {
+    console.error("Failed to create habit:", error);
+  }
+};
   console.log("newHabit :", habit);
   const updateHabit = (index, newValue) => {
     const updatedhabits = [...habitList];
@@ -43,9 +83,7 @@ function App() {
     sethabitList(updatedList);
   };
 
-  useEffect(() => {
-    localStorage.setItem(keyName, JSON.stringify(habitList));
-  }, [keyName, habitList]);
+
 
   return (
     <div>
