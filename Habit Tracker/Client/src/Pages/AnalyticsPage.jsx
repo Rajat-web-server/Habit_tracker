@@ -5,9 +5,7 @@ import { motion } from "motion/react";
 
 export const AnalyticsPage = ({ habitList }) => {
   return (
-    
-     <div className="min-h-screen w-full bg-black  text-white">
-    
+    <div className="min-h-screen w-full bg-black  text-white">
       <div className="mx-auto flex min-h-[calc(100vh-3rem)] w-full flex-col">
         {/* Header */}
         <motion.div
@@ -24,30 +22,29 @@ export const AnalyticsPage = ({ habitList }) => {
               Track your consistency throughout the year.
             </p>
           </CardHeader>
-        
 
-        {/* Heatmaps */}
-        
-        <CardContent className="min-h-0 flex-1 overflow-hidden p-6">
-          <ScrollArea className="h-full">
-            <div className="mb-20 flex flex-col gap-5 pr-4">
-              {habitList.map((habit) => (
-                <Card
-                  key={habit.id}
-                  className="w-full rounded-2xl border border-white/10 bg-[#111313] p-6 text-white shadow-none transition-colors hover:border-green-500/30"
-                >
-                  <CardTitle className="mb-6 text-center text-3xl font-bold text-white">
-                    {habit.title}
-                  </CardTitle>
+          {/* Heatmaps */}
 
-                  <div className="flex w-full justify-center overflow-x-auto rounded-xl border border-white/10 bg-[#0d0d0e] p-8">
-                    <HabitHeatMap completionDate={habit.completionDate} />
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </ScrollArea>
-        </CardContent>
+          <CardContent className="min-h-0 flex-1 overflow-hidden p-6">
+            <ScrollArea className="h-full">
+              <div className="mb-20 flex flex-col gap-5 pr-4">
+                {habitList.map((habit) => (
+                  <Card
+                    key={habit.id}
+                    className="w-full rounded-2xl border border-white/10 bg-[#111313] p-6 text-white shadow-none transition-colors hover:border-green-500/30"
+                  >
+                    <CardTitle className="mb-6 text-center text-3xl font-bold text-white">
+                      {habit.title}
+                    </CardTitle>
+
+                    <div className="flex w-full justify-center overflow-x-auto rounded-xl border border-white/10 bg-[#0d0d0e] p-8">
+                      <HabitHeatMap completions={habit.completions} />
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            </ScrollArea>
+          </CardContent>
         </motion.div>
       </div>
     </div>

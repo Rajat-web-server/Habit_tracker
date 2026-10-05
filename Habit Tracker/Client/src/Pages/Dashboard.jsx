@@ -6,7 +6,13 @@ import { MotivationalQuote } from "@/components/Dashboard_analytics/Motivation_Q
 import { Greeting } from "@/components/Dashboard_analytics/greetings";
 import { WeeklyConsistencyChart } from "@/components/Dashboard_analytics/weeklyConsistenyChart";
 import { motion } from "motion/react";
-export const Dashboard = ({ habitList, habit, updateHabit, now }) => {
+export const Dashboard = ({
+  habitList,
+  habit,
+  updateHabit,
+  updateHabitCompletions,
+  now,
+}) => {
   const { trend, bestStreak, bestHabit, consistency, Remaining, radarData } =
     HabitUtils({
       habitList,
@@ -37,8 +43,7 @@ export const Dashboard = ({ habitList, habit, updateHabit, now }) => {
             <div className="lg:col-span-2">
               <HabitPreviewList
                 habitList={habitList}
-                habit={habit}
-                updateHabit={updateHabit}
+                updateHabitCompletions={updateHabitCompletions}
               />
             </div>
 

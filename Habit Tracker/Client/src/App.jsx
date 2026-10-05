@@ -157,10 +157,11 @@ function App() {
             element={
               <ProtectedRoute>
                 <Dashboard
-                  now={now}
                   habitList={habitList}
                   habit={habit}
                   updateHabit={updateHabit}
+                  updateHabitCompletions={updateHabitCompletions}
+                  now={now}
                 />
               </ProtectedRoute>
             }
