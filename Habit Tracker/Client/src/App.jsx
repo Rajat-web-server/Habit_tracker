@@ -7,6 +7,7 @@ import { Navbar } from "./components/navbar/navbar";
 import { Chart } from "./Pages/chart";
 import { HabitUtils } from "./components/Dashboard_analytics/habitutils";
 import { Register } from "./Pages/register";
+import { Login } from "./Pages/Login";
 import "./App.css";
 
 function App() {
@@ -82,6 +83,7 @@ function App() {
             element={<AnalyticsPage habitList={habitList} />}
           />
           <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/chart" element={<Chart />} />
         </Routes>
       </div>
