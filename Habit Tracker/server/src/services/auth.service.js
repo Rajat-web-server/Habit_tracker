@@ -52,5 +52,19 @@ async function registerUser({ name, email, password }) {
     email: user.email,
   };
 }
+async function getCurrentUser(userId) {
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+    },
+  });
 
-module.exports = { registerUser, loginUser };
+  return user;
+}
+
+module.exports = { registerUser, loginUser, getCurrentUser };

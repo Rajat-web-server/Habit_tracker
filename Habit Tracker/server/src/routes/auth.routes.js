@@ -1,5 +1,5 @@
 const express = require("express");
- const {login,register}=require("../controllers/auth.controller");
+ const {login,register, me}=require("../controllers/auth.controller");
  const authMiddleware = require("../middleware/auth.middleware")
 
  const router = express.Router();
@@ -17,5 +17,6 @@ router.get("/test-protected", authMiddleware, (req, res) => {
     userId: req.user.id,
   });
 });
+router.get("/me", authMiddleware, me);
 
  module.exports = router;

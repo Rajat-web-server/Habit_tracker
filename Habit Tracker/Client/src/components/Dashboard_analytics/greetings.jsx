@@ -1,4 +1,31 @@
-export const Greeting = ({ user }) => {
+import { useEffect, useState } from "react";
+
+export const Greeting = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/auth/me",
+          {
+            credentials: "include",
+          }
+        );
+
+        const data = await response.json();
+
+        if (response.ok) {
+          setUser(data.user);
+        }
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
   const today = new Date().toLocaleDateString(undefined, {
     weekday: "long",
     month: "long",

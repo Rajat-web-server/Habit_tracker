@@ -1,5 +1,9 @@
 const { registerSchema, loginSchema } = require("../validators/auth.validator");
-const { registerUser, loginUser } = require("../services/auth.service");
+const {
+  registerUser,
+  loginUser,
+  getCurrentUser,
+} = require("../services/auth.service");
 
 async function login(req, res) {
   try {
@@ -63,4 +67,25 @@ async function register(req, res) {
     });
   }
 }
-module.exports = {login,register};
+const me = async (req, res) => {
+  try {
+    const user = await getCurrentUser(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    return res.status(200).json({
+      user,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      message: "Failed to get user",
+    });
+  }
+};
+module.exports = { login, register, me };
