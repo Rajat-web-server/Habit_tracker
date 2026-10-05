@@ -70,6 +70,7 @@ function App() {
     }
   };
   console.log("newHabit :", habit);
+
   const updateHabit = async (index, newValue) => {
     try {
       const response = await fetch(
@@ -107,32 +108,44 @@ function App() {
       console.error("Failed to update habit:", error);
     }
   };
-  const deleteHabit = async (index) => {
-  const habitToDelete = habitList[index];
-
-  try {
-    const response = await fetch(
-      `http://localhost:5000/api/habits/${habitToDelete.id}`,
-      {
-        method: "DELETE",
-        credentials: "include",
-      }
-    );
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      console.error(data.message);
-      return;
-    }
-
+  const updateHabitCompletions = (index, completions) => {
     sethabitList((prev) =>
-      prev.filter((habit) => habit.id !== habitToDelete.id)
+      prev.map((habit, i) =>
+        i === index
+          ? {
+              ...habit,
+              completions,
+            }
+          : habit,
+      ),
     );
-  } catch (error) {
-    console.error("Failed to delete habit:", error);
-  }
-};
+  };
+  const deleteHabit = async (index) => {
+    const habitToDelete = habitList[index];
+
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/habits/${habitToDelete.id}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        },
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error(data.message);
+        return;
+      }
+
+      sethabitList((prev) =>
+        prev.filter((habit) => habit.id !== habitToDelete.id),
+      );
+    } catch (error) {
+      console.error("Failed to delete habit:", error);
+    }
+  };
 
   return (
     <div>
@@ -162,6 +175,7 @@ function App() {
                   deleteHabit={deleteHabit}
                   now={now}
                   habitList={habitList}
+                  updateHabitCompletions={updateHabitCompletions}
                   habit={habit}
                   Submit={Submit}
                   setHabit={setHabit}

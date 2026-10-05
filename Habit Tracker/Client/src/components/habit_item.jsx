@@ -7,7 +7,14 @@ import { ButtonGroup } from "./ui/button-group";
 import { motion } from "motion/react";
 import { MoreVertical } from "lucide-react";
 
-export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
+export const Habititem = ({
+  habit,
+  index,
+  updateHabit,
+  deleteHabit,
+  now,
+  updateHabitCompletions,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editHabit, setEditHabit] = useState(habit.title);
 
@@ -19,7 +26,7 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
     (completion) => new Date(completion.date).toISOString().split("T")[0],
   );
 
-  const counter = habit.completions.length;
+  const counter = (habit.completions || []).length;
 
   // -------------------------
   // Generate last 7 days
@@ -50,29 +57,74 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
 
   const weekdata = weekFunc();
   const today = weekdata[0].completion;
- const isTodayChecked = completionDates.includes(today);
+  const isTodayChecked = completionDates.includes(today);
   // -------------------------
   // Toggle completion
   // -------------------------
 
-  const checked = (completion) => {
-    let updatedCompletion;
-
-    if (habit.completionDate.includes(completion)) {
-      updatedCompletion = habit.completionDate.filter(
-        (date) => date !== completion,
+  const checked = async (completionDate) => {
+    try {
+      const existingCompletion = habit.completions?.find(
+        (completion) =>
+          new Date(completion.date).toISOString().split("T")[0] ===
+          completionDate,
       );
-    } else {
-      updatedCompletion = [...habit.completionDate, completion];
+
+      // If already completed → delete completion
+      if (existingCompletion) {
+        const response = await fetch(
+          `http://localhost:5000/api/habits/${habit.id}/completions/${existingCompletion.id}`,
+          {
+            method: "DELETE",
+            credentials: "include",
+          },
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          console.error(data.message);
+          return;
+        }
+
+        // Remove completion from React state
+        updateHabitCompletions(
+          index,
+          habit.completions.filter(
+            (completion) => completion.id !== existingCompletion.id,
+          ),
+        );
+
+        return;
+      }
+
+      // If not completed → create completion
+      const response = await fetch(
+        `http://localhost:5000/api/habits/${habit.id}/completions`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            date: completionDate,
+          }),
+        },
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error(data.message);
+        return;
+      }
+
+      // Add new completion to React state
+      updateHabitCompletions(index, [...habit.completions, data.completion]);
+    } catch (error) {
+      console.error("Failed to update completion:", error);
     }
-
-    const updatedHabit = {
-      ...habit,
-      completionDate: updatedCompletion,
-      counter: updatedCompletion.length,
-    };
-
-    updateHabit(index, updatedHabit);
   };
 
   // -------------------------
