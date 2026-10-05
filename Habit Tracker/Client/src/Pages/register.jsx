@@ -1,40 +1,52 @@
-import { div } from "motion/react-client";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 
 export const Register = () => {
+  const navigate = useNavigate();
+     const { checkAuth } = useAuth();
   const [form, setForm] = useState({
     name: "",
     email: "",
-    passowrd: "",
+    password: "",
   });
+
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     setLoading(true);
     setMessage("");
+
     try {
       const response = await fetch("http://localhost:5000/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(form),
       });
+
       const data = await response.json();
+
       if (!response.ok) {
         setMessage(data.message || "Registration failed");
         return;
       }
 
       setMessage("Registration successful");
-
+      await checkAuth();
+      navigate("/");
       setForm({
         name: "",
         email: "",
@@ -47,13 +59,14 @@ export const Register = () => {
       setLoading(false);
     }
   };
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-black text-white">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md space-y-4 rounded-xl border border-gray-700 p-6"
       >
-        <h1 className="text-2xl font-bold text-center">Create Account</h1>
+        <h1 className="text-center text-2xl font-bold">Create Account</h1>
 
         <input
           type="text"
@@ -90,7 +103,18 @@ export const Register = () => {
           {loading ? "Creating..." : "Register"}
         </button>
 
-        {message && <p className="text-sm text-center">{message}</p>}
+        <p className="text-center text-sm text-gray-400">
+          Already have an account?{" "}
+          <button
+            type="button"
+            onClick={() => navigate("/login")}
+            className="text-green-500 hover:text-green-400"
+          >
+            Login
+          </button>
+        </p>
+
+        {message && <p className="text-center text-sm">{message}</p>}
       </form>
     </div>
   );

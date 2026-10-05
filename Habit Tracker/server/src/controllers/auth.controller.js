@@ -42,17 +42,26 @@ async function login(req, res) {
 async function register(req, res) {
   try {
     const result = registerSchema.safeParse(req.body);
+
     if (!result.success) {
       return res.status(400).json({
         message: "Invalid input",
         errors: result.error.flatten(),
       });
     }
-    const user = await registerUser(result.data);
 
-    res.status(201).json({
-      message: "user registered successfully",
-      user,
+    const resultData = await registerUser(result.data);
+
+    res.cookie("token", resultData.token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
+    return res.status(201).json({
+      message: "User registered successfully",
+      user: resultData.user,
     });
   } catch (error) {
     console.log(error);
@@ -62,7 +71,8 @@ async function register(req, res) {
         message: error.message,
       });
     }
-    res.status(500).json({
+
+    return res.status(500).json({
       message: "Something went wrong",
     });
   }

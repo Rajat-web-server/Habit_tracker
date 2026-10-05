@@ -1,9 +1,11 @@
 import { div } from "motion/react-client";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export const Login = () => {
   const navigate = useNavigate();
+    const { checkAuth } = useAuth();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -36,7 +38,7 @@ export const Login = () => {
         return;
       }
       setMessage("Login successful");
-
+      await checkAuth();
       navigate("/");
     } catch (error) {
       console.error(error);
@@ -78,7 +80,16 @@ export const Login = () => {
         >
           {loading ? "Logging in..." : "Login"}
         </button>
-
+        <p className="text-center text-sm text-gray-400">
+          Don't have an account?{" "}
+          <button
+            type="button"
+            onClick={() => navigate("/register")}
+            className="text-green-500 hover:text-green-400"
+          >
+            Register
+          </button>
+        </p>
         {message && <p className="text-sm">{message}</p>}
       </form>
     </div>

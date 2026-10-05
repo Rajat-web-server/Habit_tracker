@@ -33,7 +33,7 @@ export const AnalyticsPage = ({ habitList }) => {
                     key={habit.id}
                     className="w-full rounded-2xl border border-white/10 bg-[#111313] p-6 text-white shadow-none transition-colors hover:border-green-500/30"
                   >
-                    <CardTitle className="mb-6 text-center text-3xl font-bold text-white">
+                    <CardTitle className="mb-3 text-center text-3xl font-bold text-white">
                       {habit.title}
                     </CardTitle>
 
