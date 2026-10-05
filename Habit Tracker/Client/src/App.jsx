@@ -9,7 +9,7 @@ import { HabitUtils } from "./components/Dashboard_analytics/habitutils";
 import { Register } from "./Pages/register";
 import { Login } from "./Pages/Login";
 import "./App.css";
-
+import { ProtectedRoute } from "./components/ProtectedRoute";
 function App() {
   const keyName = "habits";
   const now = new Date();
@@ -55,32 +55,40 @@ function App() {
           <Route
             path="/"
             element={
-              <Dashboard
-                now={now}
-                habitList={habitList}
-                habit={habit}
-                updateHabit={updateHabit}
-              />
+              <ProtectedRoute>
+                <Dashboard
+                  now={now}
+                  habitList={habitList}
+                  habit={habit}
+                  updateHabit={updateHabit}
+                />
+              </ProtectedRoute>
             }
           />
 
           <Route
             path="/habits"
             element={
-              <HabitPage
-                updateHabit={updateHabit}
-                deleteHabit={deleteHabit}
-                now={now}
-                habitList={habitList}
-                habit={habit}
-                Submit={Submit}
-                setHabit={setHabit}
-              />
+              <ProtectedRoute>
+                <HabitPage
+                  updateHabit={updateHabit}
+                  deleteHabit={deleteHabit}
+                  now={now}
+                  habitList={habitList}
+                  habit={habit}
+                  Submit={Submit}
+                  setHabit={setHabit}
+                />
+              </ProtectedRoute>
             }
           />
           <Route
             path="/Analytics"
-            element={<AnalyticsPage habitList={habitList} />}
+            element={
+              <ProtectedRoute>
+                <AnalyticsPage habitList={habitList} />
+              </ProtectedRoute>
+            }
           />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
