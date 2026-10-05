@@ -162,6 +162,24 @@ async function deleteHabitCompletion(completionId, habitId, userId) {
 
   return completion;
 }
+async function resetHabitCompletions(habitId, userId) {
+  const habit = await prisma.habit.findFirst({
+    where: {
+      id: habitId,
+      userId,
+    },
+  });
+
+  if (!habit) return null;
+
+  const result = await prisma.habitCompletion.deleteMany({
+    where: {
+      habitId,
+    },
+  });
+
+  return result;
+}
 
 module.exports = {
   createHabit,
@@ -172,4 +190,5 @@ module.exports = {
   completeHabit,
   getHabitCompletions,
   deleteHabitCompletion,
+  resetHabitCompletions,
 };

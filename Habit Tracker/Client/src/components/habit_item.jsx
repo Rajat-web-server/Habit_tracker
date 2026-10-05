@@ -131,15 +131,28 @@ export const Habititem = ({
   // Reset
   // -------------------------
 
-  const reset = () => {
-    const updatedHabit = {
-      ...habit,
-      counter: 0,
-      completionDate: [],
-    };
+ const reset = async () => {
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/habits/${habit.id}/completions`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      }
+    );
 
-    updateHabit(index, updatedHabit);
-  };
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error(data.message);
+      return;
+    }
+
+    updateHabitCompletions(index, []);
+  } catch (error) {
+    console.error("Failed to reset habit:", error);
+  }
+};
 
   // -------------------------
   // Edit

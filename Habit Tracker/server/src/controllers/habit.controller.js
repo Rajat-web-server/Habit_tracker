@@ -12,6 +12,7 @@ const {
   completeHabit,
   getHabitCompletions,
   deleteHabitCompletion,
+  resetHabitCompletions,
 } = require("../services/habit.service");
 
 async function create(req, res) {
@@ -219,6 +220,31 @@ async function removeCompletion(req, res) {
     });
   }
 }
+const reset = async (req, res) => {
+  try {
+    const habitId = req.params.id;
+    const userId = req.user.id;
+
+    const result = await resetHabitCompletions(habitId, userId);
+
+    if (!result) {
+      return res.status(404).json({
+        message: "Habit not found",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Habit reset successfully",
+      deletedCount: result.count,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      message: "Failed to reset habit",
+    });
+  }
+};
 module.exports = {
   create,
   getAll,
@@ -228,4 +254,5 @@ module.exports = {
   complete,
   getCompletions,
   removeCompletion,
+  reset
 };
