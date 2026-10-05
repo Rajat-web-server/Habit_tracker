@@ -3,9 +3,16 @@ const prisma = require("./config/prisma.js")
 const authRoutes = require("./routes/auth.routes.js")
 const cookieParser = require("cookie-parser");
 const habitRoutes = require("./routes/habit.routes.js");
+const cors = require("cors");
 const app = express();
 const PORT = 5000;
 app.use(cookieParser());
+app.use(
+  cors({
+    origin:"http://localhost:5173",
+    credentials: true,
+  })
+)
 
 app.use(express.json());
 app.use("/api/auth", authRoutes);
