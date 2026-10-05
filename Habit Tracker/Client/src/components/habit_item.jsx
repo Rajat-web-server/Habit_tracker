@@ -15,6 +15,12 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
     setEditHabit(habit.title);
   }, [habit]);
 
+  const completionDates = habit.completions.map(
+    (completion) => new Date(completion.date).toISOString().split("T")[0],
+  );
+
+  const counter = habit.completions.length;
+
   // -------------------------
   // Generate last 7 days
   // -------------------------
@@ -44,8 +50,7 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
 
   const weekdata = weekFunc();
   const today = weekdata[0].completion;
-  const isTodayChecked = habit.completionDate.includes(today);
-
+ const isTodayChecked = completionDates.includes(today);
   // -------------------------
   // Toggle completion
   // -------------------------
@@ -215,7 +220,7 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
       ====================== */}
             <div className="flex items-center justify-center gap-1 sm:gap-2">
               {weekdata.map((day) => {
-                const isChecked = habit.completionDate.includes(day.completion);
+                const isChecked = completionDates.includes(day.completion);
 
                 return (
                   <div
@@ -283,7 +288,7 @@ export const Habititem = ({ habit, index, updateHabit, deleteHabit, now }) => {
                     : "border-white/10 bg-[#0d0d0e] text-gray-400"
                 }`}
               >
-                {habit.counter}
+                {counter}
               </div>
             </div>
           </div>

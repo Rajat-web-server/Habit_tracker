@@ -6,6 +6,9 @@ async function createHabit({ title, userId }) {
       title,
       userId,
     },
+    include: {
+      completions: true,
+    },
   });
 
   return habit;
@@ -13,8 +16,9 @@ async function createHabit({ title, userId }) {
 
 async function getUserHabits(userId) {
   const habits = await prisma.habit.findMany({
-    where: {
-      userId,
+    where: { userId },
+    include: {
+      completions: true,
     },
     orderBy: {
       createdAt: "desc",

@@ -38,15 +38,13 @@ function App() {
     }
   };
   useEffect(() => {
-  fetchHabits();
-}, []);
+    fetchHabits();
+  }, []);
   const Submit = async () => {
-  if (!habit.trim()) return;
+    if (!habit.trim()) return;
 
-  try {
-    const response = await fetch(
-      "http://localhost:5000/api/habits",
-      {
+    try {
+      const response = await fetch("http://localhost:5000/api/habits", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -55,6 +53,69 @@ function App() {
         body: JSON.stringify({
           title: habit,
         }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error(data.message);
+        return;
+      }
+
+      sethabitList((prev) => [...prev, data.habit]);
+
+      setHabit("");
+    } catch (error) {
+      console.error("Failed to create habit:", error);
+    }
+  };
+  console.log("newHabit :", habit);
+  const updateHabit = async (index, newValue) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/habits/${newValue.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            title: newValue.title,
+          }),
+        },
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error(data.message);
+        return;
+      }
+
+      sethabitList((prev) =>
+        prev.map((habit, i) =>
+          i === index
+            ? {
+                ...habit,
+                title: data.habit.title,
+              }
+            : habit,
+        ),
+      );
+    } catch (error) {
+      console.error("Failed to update habit:", error);
+    }
+  };
+  const deleteHabit = async (index) => {
+  const habitToDelete = habitList[index];
+
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/habits/${habitToDelete.id}`,
+      {
+        method: "DELETE",
+        credentials: "include",
       }
     );
 
@@ -65,25 +126,13 @@ function App() {
       return;
     }
 
-    sethabitList((prev) => [...prev, data.habit]);
-
-    setHabit("");
+    sethabitList((prev) =>
+      prev.filter((habit) => habit.id !== habitToDelete.id)
+    );
   } catch (error) {
-    console.error("Failed to create habit:", error);
+    console.error("Failed to delete habit:", error);
   }
 };
-  console.log("newHabit :", habit);
-  const updateHabit = (index, newValue) => {
-    const updatedhabits = [...habitList];
-    updatedhabits[index] = newValue;
-    sethabitList(updatedhabits);
-  };
-  const deleteHabit = (index) => {
-    const updatedList = habitList.filter((_, i) => i !== index);
-    sethabitList(updatedList);
-  };
-
-
 
   return (
     <div>
