@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { Dashboard } from "./Pages/Dashboard";
 import { AnalyticsPage } from "./Pages/AnalyticsPage";
 import { HabitPage } from "./Pages/HabitPage";
@@ -11,6 +11,10 @@ import { Login } from "./Pages/Login";
 import "./App.css";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 function App() {
+  const location = useLocation();
+
+  const hideNavbar =
+    location.pathname === "/login" || location.pathname === "/register";
   const keyName = "habits";
   const now = new Date();
 
@@ -149,7 +153,7 @@ function App() {
 
   return (
     <div>
-      <Navbar />
+        {!hideNavbar && <Navbar />}
       <div>
         <Routes>
           <Route
