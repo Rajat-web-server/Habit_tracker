@@ -6,7 +6,7 @@ export const HabitPreviewList = ({ habitList, updateHabitCompletions }) => {
   // Get completion dates from backend data
   const getCompletionDates = (habit) => {
     return (habit.completions || []).map((completion) =>
-      new Date(completion.date).toISOString().slice(0, 10)
+      new Date(completion.date).toISOString().slice(0, 10),
     );
   };
 
@@ -15,17 +15,17 @@ export const HabitPreviewList = ({ habitList, updateHabitCompletions }) => {
     try {
       const existingCompletion = habit.completions?.find(
         (completion) =>
-          new Date(completion.date).toISOString().slice(0, 10) === today
+          new Date(completion.date).toISOString().slice(0, 10) === today,
       );
 
       // If already completed -> remove completion
       if (existingCompletion) {
         const response = await fetch(
-          `http://localhost:5000/api/habits/${habit.id}/completions/${existingCompletion.id}`,
+          `${import.meta.env.VITE_API_URL}/api/habits/${habit.id}/completions/${existingCompletion.id}`,
           {
             method: "DELETE",
             credentials: "include",
-          }
+          },
         );
 
         const data = await response.json();
@@ -38,8 +38,8 @@ export const HabitPreviewList = ({ habitList, updateHabitCompletions }) => {
         updateHabitCompletions(
           index,
           habit.completions.filter(
-            (completion) => completion.id !== existingCompletion.id
-          )
+            (completion) => completion.id !== existingCompletion.id,
+          ),
         );
 
         return;
@@ -47,7 +47,7 @@ export const HabitPreviewList = ({ habitList, updateHabitCompletions }) => {
 
       // If not completed -> create completion
       const response = await fetch(
-        `http://localhost:5000/api/habits/${habit.id}/completions`,
+        `${import.meta.env.VITE_API_URL}/api/habits/${habit.id}/completions`,
         {
           method: "POST",
           headers: {
@@ -57,7 +57,7 @@ export const HabitPreviewList = ({ habitList, updateHabitCompletions }) => {
           body: JSON.stringify({
             date: today,
           }),
-        }
+        },
       );
 
       const data = await response.json();
@@ -101,13 +101,10 @@ export const HabitPreviewList = ({ habitList, updateHabitCompletions }) => {
     <Card className="h-full border border-white/10 bg-[#111313] p-4 text-white">
       {/* Header */}
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="font-semibold text-white">
-          Today's Habits
-        </h2>
+        <h2 className="font-semibold text-white">Today's Habits</h2>
 
         <span className="text-xs text-gray-400">
-          {habitList.length}{" "}
-          {habitList.length === 1 ? "habit" : "habits"}
+          {habitList.length} {habitList.length === 1 ? "habit" : "habits"}
         </span>
       </div>
 
@@ -115,9 +112,7 @@ export const HabitPreviewList = ({ habitList, updateHabitCompletions }) => {
       <div className="space-y-3">
         {habitList.length === 0 ? (
           <div className="flex min-h-32 items-center justify-center rounded-xl border border-dashed border-white/10">
-            <p className="text-sm text-gray-500">
-              No habits till now
-            </p>
+            <p className="text-sm text-gray-500">No habits till now</p>
           </div>
         ) : (
           habitList.map((habit, index) => {
@@ -140,7 +135,6 @@ export const HabitPreviewList = ({ habitList, updateHabitCompletions }) => {
               >
                 {/* Habit information */}
                 <div className="flex min-w-0 items-center gap-3">
-
                   {/* Checkbox */}
                   <input
                     type="checkbox"
@@ -153,9 +147,7 @@ export const HabitPreviewList = ({ habitList, updateHabitCompletions }) => {
                   <div className="min-w-0">
                     <p
                       className={`truncate font-medium ${
-                        done
-                          ? "text-green-400 line-through"
-                          : "text-white"
+                        done ? "text-green-400 line-through" : "text-white"
                       }`}
                     >
                       {habit.title}
@@ -170,9 +162,7 @@ export const HabitPreviewList = ({ habitList, updateHabitCompletions }) => {
                 {/* Streak */}
                 <div
                   className={`ml-3 flex shrink-0 items-center gap-1 text-sm font-semibold ${
-                    streak > 0
-                      ? "text-green-400"
-                      : "text-gray-500"
+                    streak > 0 ? "text-green-400" : "text-gray-500"
                   }`}
                 >
                   🔥

@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 
 export const Login = () => {
   const navigate = useNavigate();
-    const { checkAuth } = useAuth();
+  const { checkAuth } = useAuth();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -24,14 +24,17 @@ export const Login = () => {
     setLoading(true);
     setMessage("");
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/login`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(form),
         },
-        credentials: "include",
-        body: JSON.stringify(form),
-      });
+      );
       const data = await response.json();
       if (!response.ok) {
         setMessage(data.message || "Login Failed");

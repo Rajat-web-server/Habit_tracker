@@ -73,7 +73,7 @@ export const Habititem = ({
       // If already completed → delete completion
       if (existingCompletion) {
         const response = await fetch(
-          `http://localhost:5000/api/habits/${habit.id}/completions/${existingCompletion.id}`,
+          `${import.meta.env.VITE_API_URL}/api/habits/${habit.id}/completions/${existingCompletion.id}`,
           {
             method: "DELETE",
             credentials: "include",
@@ -100,7 +100,7 @@ export const Habititem = ({
 
       // If not completed → create completion
       const response = await fetch(
-        `http://localhost:5000/api/habits/${habit.id}/completions`,
+        `${import.meta.env.VITE_API_URL}/api/habits/${habit.id}/completions`,
         {
           method: "POST",
           headers: {
@@ -131,28 +131,28 @@ export const Habititem = ({
   // Reset
   // -------------------------
 
- const reset = async () => {
-  try {
-    const response = await fetch(
-      `http://localhost:5000/api/habits/${habit.id}/completions`,
-      {
-        method: "DELETE",
-        credentials: "include",
+  const reset = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/habits/${habit.id}/completions`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        },
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error(data.message);
+        return;
       }
-    );
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      console.error(data.message);
-      return;
+      updateHabitCompletions(index, []);
+    } catch (error) {
+      console.error("Failed to reset habit:", error);
     }
-
-    updateHabitCompletions(index, []);
-  } catch (error) {
-    console.error("Failed to reset habit:", error);
-  }
-};
+  };
 
   // -------------------------
   // Edit

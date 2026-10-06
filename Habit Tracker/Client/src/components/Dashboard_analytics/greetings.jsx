@@ -4,13 +4,13 @@ export const Greeting = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const fetchUser = async () => {
+    User = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/auth/me",
+          `${import.meta.env.VITE_API_URL}/api/auth/me`,
           {
             credentials: "include",
-          }
+          },
         );
 
         const data = await response.json();
@@ -36,9 +36,7 @@ export const Greeting = () => {
     <div className="space-y-1">
       <h1 className="flex items-center justify-center bg-bgcolor2 text-2xl font-semibold tracking-tight text-white">
         Hello,
-        <span className="ml-2 text-green-600">
-          {user?.name || "User"}
-        </span>
+        <span className="ml-2 text-green-600">{user?.name || "User"}</span>
       </h1>
 
       <p className="flex items-center justify-center bg-bgcolor2 text-sm text-blue-50">

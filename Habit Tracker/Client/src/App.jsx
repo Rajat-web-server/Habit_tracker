@@ -23,9 +23,12 @@ function App() {
   const [loading, setLoading] = useState(true);
   const fetchHabits = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/habits", {
-        credentials: "include",
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/habits`,
+        {
+          credentials: "include",
+        },
+      );
 
       const data = await response.json();
 
@@ -48,16 +51,19 @@ function App() {
     if (!habit.trim()) return;
 
     try {
-      const response = await fetch("http://localhost:5000/api/habits", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/habits`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            title: habit,
+          }),
         },
-        credentials: "include",
-        body: JSON.stringify({
-          title: habit,
-        }),
-      });
+      );
 
       const data = await response.json();
 
@@ -78,7 +84,7 @@ function App() {
   const updateHabit = async (index, newValue) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/habits/${newValue.id}`,
+        `${import.meta.env.VITE_API_URL}/api/habits/${newValue.id}`,
         {
           method: "PATCH",
           headers: {
@@ -129,7 +135,7 @@ function App() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/habits/${habitToDelete.id}`,
+        `${import.meta.env.VITE_API_URL}/api/habits/${habitToDelete.id}`,
         {
           method: "DELETE",
           credentials: "include",
@@ -153,7 +159,7 @@ function App() {
 
   return (
     <div>
-        {!hideNavbar && <Navbar />}
+      {!hideNavbar && <Navbar />}
       <div>
         <Routes>
           <Route

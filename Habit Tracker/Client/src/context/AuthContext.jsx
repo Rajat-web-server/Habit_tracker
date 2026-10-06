@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -10,10 +9,10 @@ export const AuthProvider = ({ children }) => {
   const checkAuth = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/auth/test-protected",
+        `${import.meta.env.VITE_API_URL}/api/auth/test-protected`,
         {
           credentials: "include",
-        }
+        },
       );
 
       if (!response.ok) {
