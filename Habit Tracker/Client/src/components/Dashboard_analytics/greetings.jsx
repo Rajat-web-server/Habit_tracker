@@ -4,7 +4,7 @@ export const Greeting = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    User = async () => {
+   const fetchUser = async () => {
       try {
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/api/auth/me`,
