@@ -202,7 +202,7 @@ export const Habititem = ({
       }}
     >
       <Card className="w-full overflow-hidden rounded-2xl border border-white/10 bg-[#111313] text-white shadow-none">
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto overscroll-x-contain">
           <div
             className="
         grid min-w-[620px]
