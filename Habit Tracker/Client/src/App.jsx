@@ -79,7 +79,7 @@ function App() {
       console.error("Failed to create habit:", error);
     }
   };
-  console.log("newHabit :", habit);
+  // console.log("newHabit :", habit);
 
   const updateHabit = async (index, newValue) => {
     try {

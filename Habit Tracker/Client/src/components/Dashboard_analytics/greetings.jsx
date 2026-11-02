@@ -4,7 +4,7 @@ export const Greeting = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-   const fetchUser = async () => {
+    const fetchUser = async () => {
       try {
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/api/auth/me`,
@@ -19,7 +19,7 @@ export const Greeting = () => {
           setUser(data.user);
         }
       } catch (error) {
-        console.error("Failed to fetch user:", error);
+        console.error("Failed to  user:", error);
       }
     };
 
