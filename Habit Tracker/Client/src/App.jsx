@@ -12,15 +12,16 @@ import "./App.css";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 function App() {
   const location = useLocation();
-
+  
+  const [loading, setLoading] = useState(true);
   const hideNavbar =
+  loading ||
     location.pathname === "/login" || location.pathname === "/register";
   const keyName = "habits";
   const now = new Date();
 
   const [habit, setHabit] = useState("");
   const [habitList, sethabitList] = useState([]);
-  const [loading, setLoading] = useState(true);
   const fetchHabits = async () => {
     try {
       const response = await fetch(

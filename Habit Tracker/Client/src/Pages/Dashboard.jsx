@@ -6,6 +6,7 @@ import { MotivationalQuote } from "@/components/Dashboard_analytics/Motivation_Q
 import { Greeting } from "@/components/Dashboard_analytics/greetings";
 import { WeeklyConsistencyChart } from "@/components/Dashboard_analytics/weeklyConsistenyChart";
 import { motion } from "motion/react";
+import "../index.css";
 export const Dashboard = ({
   habitList,
   habit,
@@ -20,7 +21,7 @@ export const Dashboard = ({
     });
 
   return (
-    <div className="min-h-screen w-full bg-black text-white">
+    <div className="min-h-screen w-full bg-black text-white overscroll-y-none">
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}

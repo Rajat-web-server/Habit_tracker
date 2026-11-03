@@ -25,10 +25,10 @@ export function HabitHeatMap({ completions = [] }) {
         width={1100}
         rectSize={17}
         space={2}
-        style={{ color: "#F5F5F5" }}
+        style={{ color: "#FFFFFF" }}
         panelColors={{
           0: "#171717",
-          1: "#14532d",
+          1: "#22c55e",
           2: "#166534",
           3: "#16a34a",
           4: "#22c55e",

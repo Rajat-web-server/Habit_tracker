@@ -54,41 +54,43 @@ export const HabitPage = ({
           </CardHeader>
 
           {/* Habits */}
-          <CardContent className="flex-1 min-h-0 p-6">
-            <ScrollArea className="h-full">
-              <div className="space-y-4">
-                {habitList.length === 0 ? (
-                  <p className="py-10 text-center text-gray-400">
-                    No habits added yet.
-                  </p>
-                ) : (
-                  <AnimatePresence initial={false}>
-                    {habitList.map((h, index) => (
-                      <motion.div
-                        key={h.id}
-                        layout
-                        initial={{ opacity: 0, height: 0, y: -10 }}
-                        animate={{ opacity: 1, height: "auto", y: 0 }}
-                        exit={{ opacity: 0, height: 0, y: -10 }}
-                        transition={{ duration: 0.25 }}
-                        className="overflow-hidden"
-                      >
-                        <Habititem
-                          habit={h}
-                          index={index}
-                          updateHabit={updateHabit}
-                          updateHabitCompletions={updateHabitCompletions}
-                          deleteHabit={deleteHabit}
-                          now={now}
-                          habitList={habitList}
-                        />
-                      </motion.div>
-                    ))}
-                  </AnimatePresence>
-                )}
-              </div>
-            </ScrollArea>
-          </CardContent>
+         <CardContent className="flex-1 min-h-0 min-w-0 p-6">
+  <div className="w-full min-w-0 overflow-x-auto overscroll-x-contain touch-pan-x ">
+    <div className="flex w-max min-w-full flex-col gap-4 pb-4">
+
+      {habitList.length === 0 ? (
+        <p className="py-10 text-center text-gray-400">
+          No habits added yet.
+        </p>
+      ) : (
+        <AnimatePresence initial={false}>
+          {habitList.map((h, index) => (
+            <motion.div
+              key={h.id}
+              layout
+              initial={{ opacity: 0, height: 0, y: -10 }}
+              animate={{ opacity: 1, height: "auto", y: 0 }}
+              exit={{ opacity: 0, height: 0, y: -10 }}
+              transition={{ duration: 0.25 }}
+              className="w-max min-w-full"
+            >
+              <Habititem
+                habit={h}
+                index={index}
+                updateHabit={updateHabit}
+                updateHabitCompletions={updateHabitCompletions}
+                deleteHabit={deleteHabit}
+                now={now}
+                habitList={habitList}
+              />
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      )}
+
+    </div>
+  </div>
+</CardContent>
         </motion.div>
       </div>
     </div>
