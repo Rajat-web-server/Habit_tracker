@@ -79,6 +79,7 @@ async function register(req, res) {
   }
 }
 const me = async (req, res) => {
+   res.set("Cache-Control", "no-store");
   try {
     const user = await getCurrentUser(req.user.id);
 

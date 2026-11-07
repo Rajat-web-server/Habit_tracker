@@ -12,6 +12,7 @@ const express = require("express");
     res.json("this is the register page");
  })
 router.get("/test-protected", authMiddleware, (req, res) => {
+   res.set("Cache-Control", "no-store");
   res.json({
     message: "You are authenticated",
     userId: req.user.id,
