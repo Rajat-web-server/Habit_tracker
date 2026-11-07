@@ -194,11 +194,14 @@ export const Habititem = ({
       }}
       transition={{
         type: "spring",
-        stiffness: 400,
+        stiffness: 200,
         damping: 25,
+        mass: 2,
+        duration:0.1,
       }}
       whileHover={{
         y: -2,
+        transition: { duration: 0.1 },
       }}
     >
       <Card className="w-full overflow-hidden rounded-2xl border border-white/10 bg-[#111313] text-white shadow-none">
@@ -308,12 +311,14 @@ export const Habititem = ({
                       {day.dayName}
                     </p>
                     <motion.div
-                      whileTap={{ scale: 1.5 }}
-                      whileHover={{ scale: 1.2 }}
+                      whileTap={{ scale: 2 }}
+                      whileHover={{ scale: 2 }}
                       transition={{
                         type: "spring",
-                        stiffness: 600,
-                        damping: 15,
+                        stiffness: 500,
+                        damping: 700,
+                        mass: 0.4,
+                        duration:0.3,
                       }}
                     >
                       <Button
@@ -323,17 +328,17 @@ export const Habititem = ({
                       >
                         <motion.span
                           animate={{
-                            scale: isChecked ? 1.3 : 1,
+                            scale: isChecked ? 1.4 : 1,
                             opacity: isChecked ? 1 : 0.6,
                           }}
                           transition={{
-                            type: "spring",
-                            stiffness: 500,
-                            damping: 20,
+                            duration: 0.3,
+                            ease: "easeOut",
                           }}
                           className="text-[9px] sm:text-xs lg:text-sm"
                         >
                           {isChecked ? "✓" : "○"}
+                         { console.log("button clicked")}
                         </motion.span>
                       </Button>
                     </motion.div>
