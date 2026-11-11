@@ -6,6 +6,8 @@ import { MotivationalQuote } from "@/components/Dashboard_analytics/Motivation_Q
 import { Greeting } from "@/components/Dashboard_analytics/greetings";
 import { WeeklyConsistencyChart } from "@/components/Dashboard_analytics/weeklyConsistenyChart";
 import { motion } from "motion/react";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 import "../index.css";
 export const Dashboard = ({
   habitList,
@@ -14,6 +16,16 @@ export const Dashboard = ({
   updateHabitCompletions,
   now,
 }) => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    const success = await logout();
+
+    if (success) {
+      navigate("/login", { replace: true });
+    }
+  };
   const { trend, bestStreak, bestHabit, consistency, Remaining, radarData } =
     HabitUtils({
       habitList,
@@ -29,7 +41,17 @@ export const Dashboard = ({
       >
         <div className="mx-auto w-full max-w-[1600px] space-y-6 px-4 py-6 pt-2 mb-7">
           {/* Greeting */}
-          <Greeting />
+         
+          <div className="relative flex items-center justify-center px-4 pt-4">
+            <Greeting />
+
+            <button
+              onClick={handleLogout}
+              className="absolute right-2 rounded-lg border border-white/10 bg-[#1c1c1e] font-bold px-2 py-2 text-sm text-white transition hover:bg-red-500"
+            >
+              Logout
+            </button>
+          </div>
 
           {/* Statistics */}
           <StatsCards

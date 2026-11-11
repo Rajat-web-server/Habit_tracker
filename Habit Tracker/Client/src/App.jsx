@@ -181,14 +181,14 @@ useEffect(() => {
   return (
     <div>
       {!hideNavbar && <Navbar />}
-      {user && !hideNavbar && (
+      {/* {user && !hideNavbar && (
     <button
       onClick={handleLogout}
       className="fixed right-5 top-5 z-50 rounded-lg border border-white/10 bg-[#1c1c1e] px-4 py-2 text-sm text-white transition hover:bg-red-500"
     > {console.log("Logout")}
       Logout
     </button>
-  )}
+  )} */}
       <div>
         <Routes>
           <Route
