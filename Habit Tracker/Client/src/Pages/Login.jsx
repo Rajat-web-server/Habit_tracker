@@ -93,7 +93,7 @@ export const Login = () => {
             Register
           </button>
         </p>
-        {message && <p className="text-sm">{message}</p>}
+        {message && <p className="text-sm text-center">{message}</p>}
       </form>
     </div>
   );

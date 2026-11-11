@@ -19,5 +19,6 @@ router.get("/test-protected", authMiddleware, (req, res) => {
   });
 });
 router.get("/me", authMiddleware, me);
+router.post("/logout", logout);
 
  module.exports = router;

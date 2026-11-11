@@ -27,7 +27,7 @@ export const Dashboard = ({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
       >
-        <div className="mx-auto w-full max-w-[1600px] space-y-6 px-4 py-6 pt-2">
+        <div className="mx-auto w-full max-w-[1600px] space-y-6 px-4 py-6 pt-2 mb-7">
           {/* Greeting */}
           <Greeting />
 

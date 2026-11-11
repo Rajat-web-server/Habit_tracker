@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { Dashboard } from "./Pages/Dashboard";
 import { AnalyticsPage } from "./Pages/AnalyticsPage";
 import { HabitPage } from "./Pages/HabitPage";
@@ -9,45 +9,65 @@ import { HabitUtils } from "./components/Dashboard_analytics/habitutils";
 import { Register } from "./Pages/register";
 import { Login } from "./Pages/Login";
 import "./App.css";
+import { useAuth } from "./context/AuthContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 function App() {
+  const { user1, logout } = useAuth();
+const navigate = useNavigate();
+
+const handleLogout = async () => {
+  await logout();
+  navigate("/login", { replace: true });
+};
+
+  const { user, loading: authLoading } = useAuth();
   const location = useLocation();
   
-  const [loading, setLoading] = useState(true);
-  const hideNavbar =
-  loading ||
-    location.pathname === "/login" || location.pathname === "/register";
+  // const [loading, setLoading] = useState(true);
+const hideNavbar =
+  authLoading ||
+  location.pathname === "/login" ||
+  location.pathname === "/register";
   const keyName = "habits";
   const now = new Date();
 
   const [habit, setHabit] = useState("");
   const [habitList, sethabitList] = useState([]);
-  const fetchHabits = async () => {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/habits`,
-        {
-          credentials: "include",
-        },
-      );
+ const fetchHabits = useCallback(async () => {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/habits`,
+      {
+        credentials: "include",
+      },
+    );
 
-      const data = await response.json();
+    const data = await response.json();
 
-      if (!response.ok) {
-        console.error(data.message);
-        return;
-      }
-
-      sethabitList(data.habits);
-    } catch (error) {
-      console.error("Failed to fetch habits:", error);
-    } finally {
-      setLoading(false);
+    if (!response.ok) {
+      console.error(data.message);
+      return;
     }
-  };
-  useEffect(() => {
-    fetchHabits();
-  }, []);
+
+    sethabitList(data.habits);
+  } catch (error) {
+    console.error("Failed to fetch habits:", error);
+  }
+}, []);
+
+useEffect(() => {
+  // Wait until authentication is checked
+  if (authLoading) return;
+
+  // Don't fetch habits for logged-out visitors
+  if (!user) {
+    sethabitList([]);
+    return;
+  }
+
+  // Fetch habits only for authenticated users
+  fetchHabits();
+}, [user, authLoading, fetchHabits]);
   const Submit = async () => {
     if (!habit.trim()) return;
 
@@ -161,6 +181,14 @@ function App() {
   return (
     <div>
       {!hideNavbar && <Navbar />}
+      {user && !hideNavbar && (
+    <button
+      onClick={handleLogout}
+      className="fixed right-5 top-5 z-50 rounded-lg border border-white/10 bg-[#1c1c1e] px-4 py-2 text-sm text-white transition hover:bg-red-500"
+    > {console.log("Logout")}
+      Logout
+    </button>
+  )}
       <div>
         <Routes>
           <Route

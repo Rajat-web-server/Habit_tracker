@@ -6,6 +6,27 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+
+ const logout = async () => {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/auth/logout`,
+      {
+        method: "POST",
+        credentials: "include",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Logout failed");
+    }
+
+    setUser(null);
+  } catch (error) {
+    console.error("Logout failed:", error);
+  }
+};
+
   const checkAuth = async () => {
     try {
       const response = await fetch(
@@ -44,6 +65,7 @@ export const AuthProvider = ({ children }) => {
         loading,
         setUser,
         checkAuth,
+        logout
       }}
     >
       {children}
@@ -54,3 +76,5 @@ export const AuthProvider = ({ children }) => {
 export const useAuth = () => {
   return useContext(AuthContext);
 };
+
+
